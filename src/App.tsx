@@ -1,13 +1,19 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, BrowserRouter } from 'react-router-dom';
 import Signup from './pages/Signup';
+import GlobalStyle from './style/GlobalStyle';
 function App() {
   return (
-    <Routes>
-      <Route path='/signup' element={<Signup />} />
-    </Routes>
+    <>
+      <GlobalStyle />
+      <BrowserRouter>
+        <Routes>
+          <Route path='/signup' element={<Signup />} />
+        </Routes>
+      </BrowserRouter>
+    </>
   );
 }
 
