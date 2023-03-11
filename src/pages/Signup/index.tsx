@@ -10,6 +10,14 @@ const Signup = () => {
           <p>선택과 고민을 한 번에</p>
         </S.LogoWrap>
       </S.LogoLayout>
+      <S.SignupFrom>
+        <S.PlaceholderWrap>
+          <S.Placeholder>닉네임</S.Placeholder>
+          <S.Placeholder>이메일</S.Placeholder>
+          <S.Placeholder>비밀번호</S.Placeholder>
+          <S.Placeholder>비밀번호 확인</S.Placeholder>
+        </S.PlaceholderWrap>
+      </S.SignupFrom>
     </S.Layout>
   );
 };

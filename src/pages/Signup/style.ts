@@ -29,11 +29,30 @@ export const LogoLayout = styled.div`
 export const LogoWrap = styled.div`
   text-align: right;
   svg {
-    animation: ${fadeIn} 0.5s;
+    animation: ${fadeIn} 0.8s;
   }
   p {
     margin: 0;
     color: #6d6d6d;
-    animation: ${fadeIn} 1.5s;
+    animation: ${fadeIn} 1s;
+    font-size: 20px;
   }
+`;
+
+export const SignupFrom = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  height: 100vh;
+`;
+
+export const PlaceholderWrap = styled.div`
+  height: 601px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+`;
+
+export const Placeholder = styled.p`
+  font-size: 18px;
 `;
