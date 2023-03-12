@@ -7,7 +7,7 @@ const Signup = () => {
       <S.LogoLayout>
         <S.LogoWrap>
           <I.Logo />
-          <p>선택과 고민을 한 번에</p>
+          <p>선택의 고민을 한 번에</p>
         </S.LogoWrap>
       </S.LogoLayout>
       <S.SignupFrom>
