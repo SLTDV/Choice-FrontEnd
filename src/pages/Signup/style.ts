@@ -36,6 +36,11 @@ export const LogoWrap = styled.div`
     color: #6d6d6d;
     animation: ${fadeIn} 1s;
     font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+
+    color: #6d6d6d;
   }
 `;
 

@@ -5,8 +5,13 @@ const GlobalStyle = () => {
   return (
     <Global
       styles={css`
-        body {
-          font-family: ' AppleSDGothicNeo ', ' Noto Sans KR', sans-serif;
+        @font-face {
+          font-family: 'AppleSDGothicNeoM';
+          font-style: normal;
+          src: url('/font/AppleSDGothicNeoM.woff') format('woff');
+        }
+        * {
+          font-family: 'AppleSDGothicNeoM';
         }
       `}
     ></Global>
