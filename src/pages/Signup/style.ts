@@ -23,8 +23,8 @@ const placeholdeFadeIn = keyframes`
 `;
 
 export const Layout = styled.section`
-  width: 100%;
-  height: 100%;
+  width: 100vw;
+  height: 100vh;
   display: flex;
 `;
 
@@ -45,10 +45,9 @@ export const LogoWrap = styled.div`
     margin: 0;
     color: #6d6d6d;
     animation: ${fadeIn} 1s;
-    font-size: 20px;
     font-style: normal;
     font-weight: 400;
-    font-size: 20px;
+    font-size: 2rem;
   }
 `;
 
@@ -64,17 +63,18 @@ export const SignupWrap = styled.div`
 `;
 
 export const PlaceholderWrap = styled.div`
-  height: 480px;
+  height: 48rem;
+  text-align: center;
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
-  margin: 90px 33px 0 0;
+  margin: 7.8rem 3.3rem 0 0;
 `;
 
 export const Placeholder = styled.p<{ aniDuration: number }>`
   font-style: normal;
   font-weight: 400;
-  font-size: 18px;
+  font-size: 1.8rem;
   color: #000000;
   animation: ${placeholdeFadeIn} ${(props) => props.aniDuration}s;
 `;
@@ -85,25 +85,25 @@ export const InputWrap = styled.div`
   flex-direction: column;
   h1 {
     font-weight: 200;
-    font-size: 50px;
+    font-size: 5rem;
     font-family: AppleSDGothicNeoUL;
   }
   p {
     font-weight: 300;
-    font-size: 14px;
+    font-size: 1.4rem;
     line-height: 17px;
-    margin: 0 -10px 50px 0;
+    margin: -1.2rem 0 5rem 0;
   }
 `;
 
 export const Input = styled.input`
-  width: 448px;
-  height: 75px;
+  width: 44.8rem;
+  height: 7.5rem;
   border: 2px solid #737373;
   border-radius: 20px;
-  margin-bottom: 20px;
-  font-size: 18px;
-  padding-left: 20px;
+  margin-bottom: 2rem;
+  font-size: 1.8rem;
+  padding-left: 2rem;
   &:focus {
     background: #f3f3f3;
     border: 2px solid #000000;
@@ -111,24 +111,24 @@ export const Input = styled.input`
 `;
 
 export const Button = styled.button`
-  width: 476px;
-  height: 76px;
+  width: 47.6rem;
+  height: 7.6rem;
   background: #000000;
   border-radius: 20px;
   color: #ffffff;
-  margin-top: 50px;
+  margin-top: 5rem;
   text-align: center;
   & span {
   }
   & span p {
-    margin-top: 25px;
-    font-size: 24px;
+    margin-top: 2.5rem;
+    font-size: 2.4rem;
     backface-visibility: hidden;
     transition: 1s;
   }
   & span .front {
     position: absolute;
-    margin-left: 188px;
+    margin-left: 18.8rem;
   }
   & span .back {
     transform: rotateY(-180deg);

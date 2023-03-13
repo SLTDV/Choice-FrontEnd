@@ -17,6 +17,7 @@ const GlobalStyle = () => {
         }
         * {
           font-family: 'AppleSDGothicNeoM';
+          font-size: 10px;
         }
         h1 {
           margin: 0;
