@@ -28,7 +28,7 @@ export const Layout = styled.section`
   display: flex;
 `;
 
-export const LogoLayout = styled.div`
+export const LogoLayout = styled.section`
   height: 100vh;
   display: flex;
   flex-direction: column;
@@ -52,7 +52,7 @@ export const LogoWrap = styled.div`
   }
 `;
 
-export const SignupFrom = styled.div`
+export const SignupLayout = styled.section`
   display: flex;
   flex-direction: column;
   justify-content: space-around;
@@ -64,11 +64,11 @@ export const SignupWrap = styled.div`
 `;
 
 export const PlaceholderWrap = styled.div`
-  height: 601px;
+  height: 480px;
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
-  margin-right: 33px;
+  margin: 90px 33px 0 0;
 `;
 
 export const Placeholder = styled.p<{ aniDuration: number }>`
@@ -108,4 +108,13 @@ export const Input = styled.input`
     background: #f3f3f3;
     border: 2px solid #000000;
   }
+`;
+
+export const Button = styled.button`
+  width: 468px;
+  height: 75px;
+  background: #000000;
+  border-radius: 20px;
+  color: #ffffff;
+  margin-top: 50px;
 `;

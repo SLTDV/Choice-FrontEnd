@@ -10,7 +10,7 @@ const Signup = () => {
           <p>선택의 고민을 한 번에</p>
         </S.LogoWrap>
       </S.LogoLayout>
-      <S.SignupFrom>
+      <S.SignupLayout>
         <S.SignupWrap>
           <S.PlaceholderWrap>
             <S.Placeholder aniDuration={1.2}>닉네임</S.Placeholder>
@@ -25,9 +25,15 @@ const Signup = () => {
             <S.Input />
             <S.Input />
             <S.Input />
+            <S.Button>
+              <span>
+                <p>회원가입</p>
+                <p>SIGN UP!</p>
+              </span>
+            </S.Button>
           </S.InputWrap>
         </S.SignupWrap>
-      </S.SignupFrom>
+      </S.SignupLayout>
     </S.Layout>
   );
 };
