@@ -118,29 +118,6 @@ export const Button = styled.button`
   color: #ffffff;
   margin-top: 5rem;
   text-align: center;
-  & span {
-  }
-  & span p {
-    margin-top: 2.5rem;
-    font-size: 2.4rem;
-    backface-visibility: hidden;
-    transition: 1s;
-  }
-  & span .front {
-    position: absolute;
-    margin-left: 18.8rem;
-  }
-  & span .back {
-    transform: rotateY(-180deg);
-  }
-  &:hover {
-    span {
-      .front {
-        transform: rotateY(180deg);
-      }
-      .back {
-        transform: rotateY(0deg);
-      }
-    }
-  }
+  font-size: 24px;
+  cursor: pointer;
 `;

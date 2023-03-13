@@ -25,12 +25,7 @@ const Signup = () => {
             <S.Input />
             <S.Input />
             <S.Input />
-            <S.Button>
-              <span>
-                <p className='front'>회원가입</p>
-                <p className='back'>SIGN UP!</p>
-              </span>
-            </S.Button>
+            <S.Button>회원가입</S.Button>
           </S.InputWrap>
         </S.SignupWrap>
       </S.SignupLayout>
