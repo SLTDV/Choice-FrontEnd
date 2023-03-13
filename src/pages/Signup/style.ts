@@ -111,10 +111,36 @@ export const Input = styled.input`
 `;
 
 export const Button = styled.button`
-  width: 468px;
-  height: 75px;
+  width: 476px;
+  height: 76px;
   background: #000000;
   border-radius: 20px;
   color: #ffffff;
   margin-top: 50px;
+  text-align: center;
+  & span {
+  }
+  & span p {
+    margin-top: 25px;
+    font-size: 24px;
+    backface-visibility: hidden;
+    transition: 1s;
+  }
+  & span .front {
+    position: absolute;
+    margin-left: 188px;
+  }
+  & span .back {
+    transform: rotateY(-180deg);
+  }
+  &:hover {
+    span {
+      .front {
+        transform: rotateY(180deg);
+      }
+      .back {
+        transform: rotateY(0deg);
+      }
+    }
+  }
 `;

@@ -27,8 +27,8 @@ const Signup = () => {
             <S.Input />
             <S.Button>
               <span>
-                <p>회원가입</p>
-                <p>SIGN UP!</p>
+                <p className='front'>회원가입</p>
+                <p className='back'>SIGN UP!</p>
               </span>
             </S.Button>
           </S.InputWrap>
