@@ -59,11 +59,16 @@ export const SignupFrom = styled.div`
   height: 100vh;
 `;
 
+export const SignupWrap = styled.div`
+  display: flex;
+`;
+
 export const PlaceholderWrap = styled.div`
   height: 601px;
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
+  margin-right: 33px;
 `;
 
 export const Placeholder = styled.p<{ aniDuration: number }>`
@@ -72,4 +77,35 @@ export const Placeholder = styled.p<{ aniDuration: number }>`
   font-size: 18px;
   color: #000000;
   animation: ${placeholdeFadeIn} ${(props) => props.aniDuration}s;
+`;
+
+export const InputWrap = styled.div`
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  h1 {
+    font-weight: 200;
+    font-size: 50px;
+    font-family: AppleSDGothicNeoUL;
+  }
+  p {
+    font-weight: 300;
+    font-size: 14px;
+    line-height: 17px;
+    margin: 0 -10px 50px 0;
+  }
+`;
+
+export const Input = styled.input`
+  width: 448px;
+  height: 75px;
+  border: 2px solid #737373;
+  border-radius: 20px;
+  margin-bottom: 20px;
+  font-size: 18px;
+  padding-left: 20px;
+  &:focus {
+    background: #f3f3f3;
+    border: 2px solid #000000;
+  }
 `;

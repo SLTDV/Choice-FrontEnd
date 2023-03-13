@@ -11,12 +11,22 @@ const Signup = () => {
         </S.LogoWrap>
       </S.LogoLayout>
       <S.SignupFrom>
-        <S.PlaceholderWrap>
-          <S.Placeholder aniDuration={1.2}>닉네임</S.Placeholder>
-          <S.Placeholder aniDuration={0.9}>이메일</S.Placeholder>
-          <S.Placeholder aniDuration={0.6}>비밀번호</S.Placeholder>
-          <S.Placeholder aniDuration={0.3}>비밀번호 확인</S.Placeholder>
-        </S.PlaceholderWrap>
+        <S.SignupWrap>
+          <S.PlaceholderWrap>
+            <S.Placeholder aniDuration={1.2}>닉네임</S.Placeholder>
+            <S.Placeholder aniDuration={0.9}>이메일</S.Placeholder>
+            <S.Placeholder aniDuration={0.6}>비밀번호</S.Placeholder>
+            <S.Placeholder aniDuration={0.3}>비밀번호 확인</S.Placeholder>
+          </S.PlaceholderWrap>
+          <S.InputWrap>
+            <h1>SIGN UP</h1>
+            <p>Choice 회원가입</p>
+            <S.Input />
+            <S.Input />
+            <S.Input />
+            <S.Input />
+          </S.InputWrap>
+        </S.SignupWrap>
       </S.SignupFrom>
     </S.Layout>
   );
