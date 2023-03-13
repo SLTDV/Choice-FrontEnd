@@ -10,6 +10,11 @@ const GlobalStyle = () => {
           font-style: normal;
           src: url('/font/AppleSDGothicNeoM.woff') format('woff');
         }
+        @font-face {
+          font-family: 'AppleSDGothicNeoUL';
+          font-style: normal;
+          src: url('/font/AppleSDGothicNeoUL.woff') format('woff');
+        }
         * {
           font-family: 'AppleSDGothicNeoM';
         }
