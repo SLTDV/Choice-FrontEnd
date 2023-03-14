@@ -62,7 +62,7 @@ export const SignupWrap = styled.div`
   display: flex;
 `;
 
-export const PlaceholderWrap = styled.div`
+export const LabelWrap = styled.div`
   height: 48rem;
   text-align: center;
   display: flex;
@@ -71,7 +71,7 @@ export const PlaceholderWrap = styled.div`
   margin: 7.8rem 3.3rem 0 0;
 `;
 
-export const Placeholder = styled.p<{ aniDuration: number }>`
+export const Label = styled.label<{ aniDuration: number }>`
   font-style: normal;
   font-weight: 400;
   font-size: 1.8rem;
