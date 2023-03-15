@@ -91,6 +91,11 @@ const Signup = () => {
               <S.Input
                 {...register('password', {
                   required: '비밀번호를 입력해주세요.',
+                  pattern: {
+                    message: '잘못된 비밀번호 형식이에요',
+                    value:
+                      /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,16}$/,
+                  },
                 })}
                 type='password'
                 isError={isError}
