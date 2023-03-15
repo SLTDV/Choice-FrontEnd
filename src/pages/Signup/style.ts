@@ -75,11 +75,10 @@ export const Label = styled.label<{ aniDuration: number }>`
   font-style: normal;
   font-weight: 400;
   font-size: 1.8rem;
-  color: #000000;
   animation: ${placeholdeFadeIn} ${(props) => props.aniDuration}s;
 `;
 
-export const InputWrap = styled.div`
+export const SignupForm = styled.form`
   text-align: center;
   display: flex;
   flex-direction: column;
@@ -88,7 +87,7 @@ export const InputWrap = styled.div`
     font-size: 5rem;
     font-family: AppleSDGothicNeoUL;
   }
-  p {
+  h3 {
     font-weight: 300;
     font-size: 1.4rem;
     line-height: 17px;
@@ -96,17 +95,16 @@ export const InputWrap = styled.div`
   }
 `;
 
-export const Input = styled.input`
+export const Input = styled.input<{ isError?: boolean }>`
   width: 44.8rem;
   height: 7.5rem;
-  border: 2px solid #737373;
+  border: 2px solid ${(props) => (props.isError ? '#e10000' : '#737373')};
   border-radius: 20px;
   margin-bottom: 2rem;
   font-size: 1.8rem;
   padding-left: 2rem;
   &:focus {
-    background: #f3f3f3;
-    border: 2px solid #000000;
+    outline: ${(props) => (props.isError ? '#e10000' : '#000000')};
   }
 `;
 
