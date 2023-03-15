@@ -53,7 +53,7 @@ const Signup = () => {
               </S.ErrorText>
               <S.Input
                 {...register('nickname', {
-                  required: '이름을 입력해주세요.',
+                  required: '닉네임을 입력해주세요.',
                   maxLength: {
                     value: 6,
                     message: '6자 이내로 입력해주세요.',
@@ -64,6 +64,7 @@ const Signup = () => {
                   },
                 })}
                 type='text'
+                placeholder='2~6자'
                 isError={isError}
               />
             </div>
@@ -98,6 +99,7 @@ const Signup = () => {
                   },
                 })}
                 type='password'
+                placeholder='8~16자 영문, 숫자, 특수문자 조합'
                 isError={isError}
               />
             </div>

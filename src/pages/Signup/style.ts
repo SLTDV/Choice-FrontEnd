@@ -110,6 +110,9 @@ export const Input = styled.input<{ isError?: boolean }>`
     outline: none;
     border: ${(props) => (props.isError ? 'none' : '2px solid #000000')};
   }
+  &::placeholder {
+    opacity: ${(props) => (props.isError ? '0' : '0.5')};
+  }
 `;
 
 export const ErrorText = styled.p<{ isError: boolean }>`
