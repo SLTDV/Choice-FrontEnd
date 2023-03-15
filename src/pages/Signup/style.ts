@@ -98,14 +98,25 @@ export const SignupForm = styled.form`
 export const Input = styled.input<{ isError?: boolean }>`
   width: 44.8rem;
   height: 7.5rem;
-  border: 2px solid ${(props) => (props.isError ? '#e10000' : '#737373')};
-  border-radius: 20px;
+  border: ${(props) => (props.isError ? 'none' : '2px solid #737373')};
+  box-shadow: ${(props) => (props.isError ? '0px 2px 10px #e10000' : 'none')};
+  margin-top: ${(props) => (props.isError ? '0.4rem' : 'none')};
+  border-radius: 2rem;
   margin-bottom: 2rem;
   font-size: 1.8rem;
   padding-left: 2rem;
   &:focus {
-    outline: ${(props) => (props.isError ? '#e10000' : '#000000')};
+    background: #f3f3f3;
+    outline: none;
+    border: ${(props) => (props.isError ? 'none' : '2px solid #000000')};
   }
+`;
+
+export const ErrorText = styled.p<{ isError: boolean }>`
+  position: absolute;
+  color: #e10000;
+  font-size: 1.2rem;
+  margin: 1.6rem 0 0 2.3rem;
 `;
 
 export const Button = styled.button`

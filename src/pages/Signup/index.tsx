@@ -47,42 +47,62 @@ const Signup = () => {
           <S.SignupForm onSubmit={handleSubmit(onValid, inValid)}>
             <h1>SIGN UP</h1>
             <h3>Choice 회원가입</h3>
-            <S.Input
-              {...register('nickname', {
-                required: '이름을 입력해주세요.',
-                maxLength: {
-                  value: 6,
-                  message: '6자 이내로 입력해주세요.',
-                },
-                minLength: {
-                  value: 2,
-                  message: '2자 이상 입력해주세요.',
-                },
-              })}
-              type='text'
-              isError={isError}
-            />
-            <S.Input
-              {...register('email', {
-                required: '이메일을 입력해주세요.',
-              })}
-              type='text'
-              isError={isError}
-            />
-            <S.Input
-              {...register('password', {
-                required: '비밀번호를 입력해주세요.',
-              })}
-              type='password'
-              isError={isError}
-            />
-            <S.Input
-              {...register('passwordCheck', {
-                required: '비밀번호를 다시 입력해주세요.',
-              })}
-              type='password'
-              isError={isError}
-            />
+            <div>
+              <S.ErrorText isError={isError}>
+                {isError && errors.nickname?.message}
+              </S.ErrorText>
+              <S.Input
+                {...register('nickname', {
+                  required: '이름을 입력해주세요.',
+                  maxLength: {
+                    value: 6,
+                    message: '6자 이내로 입력해주세요.',
+                  },
+                  minLength: {
+                    value: 2,
+                    message: '2자 이상 입력해주세요.',
+                  },
+                })}
+                type='text'
+                isError={isError}
+              />
+            </div>
+            <div>
+              <S.ErrorText isError={isError}>
+                {isError && errors.email?.message}
+              </S.ErrorText>
+              <S.Input
+                {...register('email', {
+                  required: '이메일을 입력해주세요.',
+                })}
+                type='text'
+                isError={isError}
+              />
+            </div>
+            <div>
+              <S.ErrorText isError={isError}>
+                {isError && errors.password?.message}
+              </S.ErrorText>
+              <S.Input
+                {...register('password', {
+                  required: '비밀번호를 입력해주세요.',
+                })}
+                type='password'
+                isError={isError}
+              />
+            </div>
+            <div>
+              <S.ErrorText isError={isError}>
+                {isError && errors.passwordCheck?.message}
+              </S.ErrorText>
+              <S.Input
+                {...register('passwordCheck', {
+                  required: '비밀번호를 다시 입력해주세요.',
+                })}
+                type='password'
+                isError={isError}
+              />
+            </div>
             <S.Button>회원가입</S.Button>
           </S.SignupForm>
         </S.SignupWrap>
