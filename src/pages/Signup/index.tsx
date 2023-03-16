@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import * as S from './style';
 import * as I from '../../asset/svg';
 import { useForm } from 'react-hook-form';
 import { SignupInterface } from '../../types/auth.types';
 import Auth from '../../services/Auth';
-import { REACT_APP_BASE_URL } from '../../shared/config';
+import { toast } from 'react-toastify';
 
 const Signup = () => {
   const [isError, setIsError] = useState(false);
@@ -20,8 +20,17 @@ const Signup = () => {
       try {
         setIsError(false);
         await Auth.signup(data);
+        toast.success('회원가입이 완료되었습니다!', {
+          autoClose: 2000,
+          theme: 'dark',
+          className: 'toast',
+        });
       } catch (error: any) {
-        console.log(REACT_APP_BASE_URL);
+        toast.error('중복된 닉네임 혹은 이메일입니다.', {
+          autoClose: 2000,
+          theme: 'dark',
+          className: 'toast',
+        });
         console.log(error);
       }
     } else {
