@@ -1,8 +1,9 @@
 import axios from 'axios';
+import { REACT_APP_BASE_URL } from '../shared/config';
 import TokenService from '../utils/TokenService';
 
 export const instance = axios.create({
-  baseURL: process.env.BASE_URL,
+  baseURL: REACT_APP_BASE_URL,
   headers: {
     'Access-Control-Allow-Origin': '*',
     'Access-Control-Allow-Headers': 'Content-Type,Authorization',

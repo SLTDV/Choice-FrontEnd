@@ -3,6 +3,9 @@ import * as S from './style';
 import * as I from '../../asset/svg';
 import { useForm } from 'react-hook-form';
 import { SignupInterface } from '../../types/auth';
+import Auth from '../../services/Auth';
+import { REACT_APP_BASE_URL } from '../../shared/config';
+
 const Signup = () => {
   const [isError, setIsError] = useState(false);
   const {
@@ -16,7 +19,9 @@ const Signup = () => {
     if (data.password === data.passwordCheck) {
       try {
         setIsError(false);
+        await Auth.signup(data);
       } catch (error: any) {
+        console.log(REACT_APP_BASE_URL);
         console.log(error);
       }
     } else {
