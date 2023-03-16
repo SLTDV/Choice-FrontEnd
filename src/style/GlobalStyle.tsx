@@ -25,6 +25,11 @@ const GlobalStyle = () => {
         p {
           margin: 0;
         }
+        .toast {
+          * {
+            font-size: 1.5rem !important;
+          }
+        }
       `}
     ></Global>
   );

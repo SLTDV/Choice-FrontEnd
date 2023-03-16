@@ -62,7 +62,7 @@ export const SignupWrap = styled.div`
   display: flex;
 `;
 
-export const PlaceholderWrap = styled.div`
+export const LabelWrap = styled.div`
   height: 48rem;
   text-align: center;
   display: flex;
@@ -71,15 +71,14 @@ export const PlaceholderWrap = styled.div`
   margin: 7.8rem 3.3rem 0 0;
 `;
 
-export const Placeholder = styled.p<{ aniDuration: number }>`
+export const Label = styled.label<{ aniDuration: number }>`
   font-style: normal;
   font-weight: 400;
   font-size: 1.8rem;
-  color: #000000;
   animation: ${placeholdeFadeIn} ${(props) => props.aniDuration}s;
 `;
 
-export const InputWrap = styled.div`
+export const SignupForm = styled.form`
   text-align: center;
   display: flex;
   flex-direction: column;
@@ -88,7 +87,7 @@ export const InputWrap = styled.div`
     font-size: 5rem;
     font-family: AppleSDGothicNeoUL;
   }
-  p {
+  h3 {
     font-weight: 300;
     font-size: 1.4rem;
     line-height: 17px;
@@ -96,18 +95,31 @@ export const InputWrap = styled.div`
   }
 `;
 
-export const Input = styled.input`
+export const Input = styled.input<{ isError?: boolean }>`
   width: 44.8rem;
   height: 7.5rem;
-  border: 2px solid #737373;
-  border-radius: 20px;
+  border: ${(props) => (props.isError ? 'none' : '2px solid #737373')};
+  box-shadow: ${(props) => (props.isError ? '0px 2px 10px #e10000' : 'none')};
+  margin-top: ${(props) => (props.isError ? '0.4rem' : 'none')};
+  border-radius: 2rem;
   margin-bottom: 2rem;
   font-size: 1.8rem;
   padding-left: 2rem;
   &:focus {
     background: #f3f3f3;
-    border: 2px solid #000000;
+    outline: none;
+    border: ${(props) => (props.isError ? 'none' : '2px solid #000000')};
   }
+  &::placeholder {
+    opacity: ${(props) => (props.isError ? '0' : '0.5')};
+  }
+`;
+
+export const ErrorText = styled.p<{ isError: boolean }>`
+  position: absolute;
+  color: #e10000;
+  font-size: 1.2rem;
+  margin: 1.6rem 0 0 2.3rem;
 `;
 
 export const Button = styled.button`
