@@ -1,6 +1,6 @@
 import { instance } from '../libs/instance';
 import { REACT_APP_BASE_URL } from '../shared/config';
-import { SignupInterface } from '../types/auth';
+import { SignupInterface } from '../types/auth.types';
 
 class Auth {
   signup(data: SignupInterface) {

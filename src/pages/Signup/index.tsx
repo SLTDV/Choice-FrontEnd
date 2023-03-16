@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import * as S from './style';
 import * as I from '../../asset/svg';
 import { useForm } from 'react-hook-form';
-import { SignupInterface } from '../../types/auth';
+import { SignupInterface } from '../../types/auth.types';
 import Auth from '../../services/Auth';
 import { REACT_APP_BASE_URL } from '../../shared/config';
 
