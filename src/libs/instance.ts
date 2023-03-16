@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { REACT_APP_BASE_URL } from '../shared/config';
-import TokenService from '../utils/TokenService';
+import TokenService from '../utils/tokenService';
 
 export const instance = axios.create({
   baseURL: REACT_APP_BASE_URL,
