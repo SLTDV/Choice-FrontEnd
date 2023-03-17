@@ -5,9 +5,11 @@ import { useForm } from 'react-hook-form';
 import { SignupInterface } from '../../types/auth.types';
 import Auth from '../../services/Auth';
 import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
 
 const Signup = () => {
   const [isError, setIsError] = useState(false);
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -20,6 +22,7 @@ const Signup = () => {
       try {
         setIsError(false);
         await Auth.signup(data);
+        navigate('/signin');
         toast.success('회원가입이 완료되었습니다!', {
           autoClose: 2000,
           theme: 'dark',
