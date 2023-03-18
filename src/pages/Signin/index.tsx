@@ -18,10 +18,10 @@ const Signin = () => {
           <h3>Choice 회원로그인</h3>
           <S.LoginInput>
             <input required type='text' />
-            <div className='label'>아이디</div>
+            <div className='label'>이메일</div>
           </S.LoginInput>
           <S.LoginInput>
-            <input required type='text' />
+            <input required type='password' />
             <div className='label'>비밀번호</div>
           </S.LoginInput>
           <S.Button>로그인</S.Button>

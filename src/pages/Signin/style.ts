@@ -82,22 +82,23 @@ export const LoginInput = styled.div`
     transition: 0.1s ease;
     left: 0;
   }
-  .label {
+  & .label {
     position: absolute;
     font-size: 1.8rem;
     transition: 0.3s ease;
     margin: 3rem 0 0 2.3rem;
+    color: #737373;
   }
-  input:focus,
-  input:valid {
+  & input:focus {
     outline: none;
     border: 2px solid #000000;
   }
 
-  input:focus + .label,
-  input:valid + .label {
+  & input:focus + .label,
+  & input:valid + .label {
+    color: #000000;
     font-weight: bold;
-    transform: translate(1rem, -3.8rem) scale(0.88);
+    transform: translate(1.5rem, -3.8rem) scale(0.88);
     background-color: white;
     padding: 0 1rem;
   }
