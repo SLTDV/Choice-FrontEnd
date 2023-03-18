@@ -66,18 +66,40 @@ export const SigninForm = styled.form`
   }
 `;
 
-export const Input = styled.input`
-  width: 57rem;
+export const LoginInput = styled.div`
+  position: relative;
+  width: 100%;
   height: 7.5rem;
-  border: 2px solid #737373;
-  border-radius: 2rem;
-  margin-bottom: 2rem;
-  font-size: 1.8rem;
-  padding-left: 2rem;
-  &:focus {
-    background: #f3f3f3;
+  margin-bottom: 3.2rem;
+  & input {
+    position: absolute;
+    width: 57rem;
+    height: 7.5rem;
+    border: 2px solid #737373;
+    border-radius: 2rem;
+    font-size: 1.8rem;
+    padding-left: 2rem;
+    transition: 0.1s ease;
+    left: 0;
+  }
+  .label {
+    position: absolute;
+    font-size: 1.8rem;
+    transition: 0.3s ease;
+    margin: 3rem 0 0 2.3rem;
+  }
+  input:focus,
+  input:valid {
     outline: none;
     border: 2px solid #000000;
+  }
+
+  input:focus + .label,
+  input:valid + .label {
+    font-weight: bold;
+    transform: translate(1rem, -3.8rem) scale(0.88);
+    background-color: white;
+    padding: 0 1rem;
   }
 `;
 
