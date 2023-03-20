@@ -17,11 +17,11 @@ const Signin = () => {
           <h1>LOG IN</h1>
           <h3>Choice 회원로그인</h3>
           <S.LoginInput>
-            <input required type='text' />
+            <input required type='text' autoComplete='new-password' />
             <div className='label'>이메일</div>
           </S.LoginInput>
           <S.LoginInput>
-            <input required type='password' />
+            <input required type='password' autoComplete='new-password' />
             <div className='label'>비밀번호</div>
           </S.LoginInput>
           <S.Button>로그인</S.Button>
