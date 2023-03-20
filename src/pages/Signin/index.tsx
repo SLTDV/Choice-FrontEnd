@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import Auth from '../../services/Auth';
 import { SigninInterface } from '../../types/auth.types';
+import { toast } from 'react-toastify';
 
 const Signin = () => {
   const { register, handleSubmit } = useForm<SigninInterface>();
@@ -17,6 +18,10 @@ const Signin = () => {
     } catch (error: any) {
       console.log(error);
       setIsError(true);
+      toast.error('사용자 정보를 다시 확인해주세요.', {
+        autoClose: 2000,
+        theme: 'dark',
+      });
     }
   };
 
