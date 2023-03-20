@@ -4,10 +4,12 @@ import * as I from '../../asset/svg';
 import { Link } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import Auth from '../../services/Auth';
+import { SigninInterface } from '../../types/auth.types';
 
 const Signin = () => {
-  const { handleSubmit } = useForm();
+  const { register, handleSubmit } = useForm<SigninInterface>();
   const [isError, setIsError] = useState(false);
+
   const onValid = async (data: any) => {
     try {
       setIsError(false);
@@ -34,11 +36,21 @@ const Signin = () => {
           <h1>LOG IN</h1>
           <h3>Choice 회원로그인</h3>
           <S.LoginInput>
-            <input required type='text' autoComplete='new-password' />
+            <input
+              required
+              type='text'
+              autoComplete='new-password'
+              {...register('email')}
+            />
             <div className='label'>이메일</div>
           </S.LoginInput>
           <S.LoginInput>
-            <input required type='password' autoComplete='new-password' />
+            <input
+              required
+              type='password'
+              autoComplete='new-password'
+              {...register('password')}
+            />
             <div className='label'>비밀번호</div>
           </S.LoginInput>
           <S.Button>로그인</S.Button>
