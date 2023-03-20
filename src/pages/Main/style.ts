@@ -31,3 +31,12 @@ export const MakeChoiceBtn = styled.button`
     color: #ffffff;
   }
 `;
+
+export const Category = styled.div`
+  margin: auto 0;
+  display: flex;
+  & p {
+    font-size: 2rem;
+    margin-left: 0.2rem;
+  }
+`;
