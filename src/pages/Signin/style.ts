@@ -66,7 +66,7 @@ export const SigninForm = styled.form`
   }
 `;
 
-export const LoginInput = styled.div`
+export const LoginInput = styled.div<{ isError: boolean }>`
   position: relative;
   width: 100%;
   height: 7.5rem;
@@ -75,7 +75,8 @@ export const LoginInput = styled.div`
     position: absolute;
     width: 57rem;
     height: 7.5rem;
-    border: 2px solid #737373;
+    border: ${(props) =>
+      props.isError ? '2px solid #F04949' : '2px solid #737373'};
     border-radius: 2rem;
     font-size: 1.8rem;
     padding-left: 2rem;
@@ -91,12 +92,13 @@ export const LoginInput = styled.div`
   }
   & input:focus {
     outline: none;
-    border: 2px solid #000000;
+    border: ${(props) =>
+      props.isError ? '2px solid #E10000' : '2px solid #000000'};
   }
 
   & input:focus + .label,
   & input:valid + .label {
-    color: #000000;
+    color: ${(props) => (props.isError ? '#E10000' : '#000000')};
     font-weight: bold;
     transform: translate(1.5rem, -3.8rem) scale(0.88);
     background-color: white;

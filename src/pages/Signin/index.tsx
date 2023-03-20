@@ -35,7 +35,7 @@ const Signin = () => {
         <S.SigninForm onSubmit={handleSubmit(onValid, inValid)}>
           <h1>LOG IN</h1>
           <h3>Choice 회원로그인</h3>
-          <S.LoginInput>
+          <S.LoginInput isError={isError}>
             <input
               required
               type='text'
@@ -44,7 +44,7 @@ const Signin = () => {
             />
             <div className='label'>이메일</div>
           </S.LoginInput>
-          <S.LoginInput>
+          <S.LoginInput isError={isError}>
             <input
               required
               type='password'
