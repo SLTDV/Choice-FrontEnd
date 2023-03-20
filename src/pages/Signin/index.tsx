@@ -3,6 +3,7 @@ import * as S from './style';
 import * as I from '../../asset/svg';
 import { Link } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
+import Auth from '../../services/Auth';
 
 const Signin = () => {
   const { handleSubmit } = useForm();
@@ -10,6 +11,7 @@ const Signin = () => {
   const onValid = async (data: any) => {
     try {
       setIsError(false);
+      await Auth.signin(data);
     } catch (error: any) {
       console.log(error);
       setIsError(true);
