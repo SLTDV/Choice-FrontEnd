@@ -25,4 +25,9 @@ export const MakeChoiceBtn = styled.button`
   width: 22.8rem;
   height: 5.8rem;
   cursor: pointer;
+  transition: 0.2s ease;
+  &:hover {
+    background-color: #000000;
+    color: #ffffff;
+  }
 `;
