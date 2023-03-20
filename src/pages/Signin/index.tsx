@@ -6,16 +6,18 @@ import { useForm } from 'react-hook-form';
 import Auth from '../../services/Auth';
 import { SigninInterface } from '../../types/auth.types';
 import { toast } from 'react-toastify';
+import tokenService from '../../utils/tokenService';
 
 const Signin = () => {
   const { register, handleSubmit } = useForm<SigninInterface>();
   const [isError, setIsError] = useState(false);
   const navigate = useNavigate();
 
-  const onValid = async (data: any) => {
+  const onValid = async (data: SigninInterface) => {
     try {
       setIsError(false);
-      await Auth.signin(data);
+      const res: any = await Auth.signin(data);
+      tokenService.setUser(res.data);
       navigate('/');
     } catch (error: any) {
       console.log(error);
