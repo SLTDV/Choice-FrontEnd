@@ -102,6 +102,9 @@ export const LoginInput = styled.div`
     background-color: white;
     padding: 0 1rem;
   }
+  & input:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0 1000px #ffffff inset;
+  }
 `;
 
 export const Button = styled.button`
