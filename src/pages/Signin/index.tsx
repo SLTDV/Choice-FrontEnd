@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import * as S from './style';
 import * as I from '../../asset/svg';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import Auth from '../../services/Auth';
 import { SigninInterface } from '../../types/auth.types';
@@ -10,11 +10,13 @@ import { toast } from 'react-toastify';
 const Signin = () => {
   const { register, handleSubmit } = useForm<SigninInterface>();
   const [isError, setIsError] = useState(false);
+  const navigate = useNavigate();
 
   const onValid = async (data: any) => {
     try {
       setIsError(false);
       await Auth.signin(data);
+      navigate('/');
     } catch (error: any) {
       console.log(error);
       setIsError(true);
