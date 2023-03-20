@@ -3,19 +3,18 @@ import styled from '@emotion/styled';
 export const Layout = styled.section`
   width: 100vw;
   margin-top: 13rem;
-`;
-
-export const Nav = styled.nav`
   width: 100vw;
   display: flex;
   justify-content: space-around;
 `;
 
-export const NavLayout = styled.div`
+export const Nav = styled.nav`
   display: flex;
   justify-content: space-between;
   width: 102rem;
 `;
+
+export const NavLayout = styled.div``;
 
 export const MakeChoiceBtn = styled.button`
   font-size: 1.8rem;

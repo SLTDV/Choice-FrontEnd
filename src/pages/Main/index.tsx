@@ -7,13 +7,11 @@ const Main = () => {
     <S.Layout>
       <Header />
       <S.Nav>
-        <S.NavLayout>
-          <S.MakeChoiceBtn>Choice만들기</S.MakeChoiceBtn>
-          <S.Category>
-            <I.Category />
-            <p>최신순</p>
-          </S.Category>
-        </S.NavLayout>
+        <S.MakeChoiceBtn>Choice만들기</S.MakeChoiceBtn>
+        <S.Category>
+          <I.Category />
+          <p>최신순</p>
+        </S.Category>
       </S.Nav>
     </S.Layout>
   );
