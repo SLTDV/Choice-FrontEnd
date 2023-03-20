@@ -4,7 +4,9 @@ export const Header = styled.header`
   height: 10rem;
   width: 100vw;
   text-align: center;
-  position: relative;
+  position: fixed;
+  top: 0;
+  left: 0;
   & svg {
     position: absolute;
     bottom: 0;

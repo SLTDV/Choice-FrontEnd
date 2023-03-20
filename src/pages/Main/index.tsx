@@ -6,15 +6,19 @@ import Post from '../../components/common/Post';
 const Main = () => {
   return (
     <S.Layout>
-      <Header />
-      <S.Nav>
-        <S.MakeChoiceBtn>Choice만들기</S.MakeChoiceBtn>
-        <S.Category>
-          <I.Category />
-          <p>최신순</p>
-        </S.Category>
-      </S.Nav>
-      <Post />
+      <div>
+        <Header />
+        <S.Nav>
+          <S.MakeChoiceBtn>Choice만들기</S.MakeChoiceBtn>
+          <S.Category>
+            <I.Category />
+            <p>최신순</p>
+          </S.Category>
+        </S.Nav>
+        <S.PostLayout>
+          <Post />
+        </S.PostLayout>
+      </div>
     </S.Layout>
   );
 };
