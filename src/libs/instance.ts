@@ -1,24 +1,15 @@
 import axios from 'axios';
-import { REACT_APP_BASE_URL } from '../shared/config';
 import TokenService from '../utils/tokenService';
 
 export const instance = axios.create({
-  baseURL: REACT_APP_BASE_URL,
-  headers: {
-    'Access-Control-Allow-Origin': '*',
-    'Access-Control-Allow-Headers': 'Content-Type,Authorization',
-    'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,OPTIONS,PATCH',
-    'Access-Control-Allow-Credentials': true,
-    'Content-Type': 'application/json',
-    'Cache-Control': 'no-store',
-  },
+  baseURL: process.env.REACT_APP_BASE_URL,
 });
 
 instance.interceptors.request.use(
   (config: any) => {
     const token = TokenService.getLocalAccessToken();
     if (token) {
-      config.headers['Authorization'] = 'Bearer' + token;
+      config.headers['Authorization'] = 'Bearer ' + token;
     }
     return config;
   },
@@ -66,7 +57,7 @@ function makeActualAuthenticationRequest() {
     headers: {
       RefreshToken: TokenService.getLocalRefreshToken(),
     },
-    baseURL: process.env.BASE_URL,
+    baseURL: process.env.REACT_APP_BASE_URL,
   });
 }
 

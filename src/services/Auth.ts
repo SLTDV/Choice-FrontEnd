@@ -1,5 +1,4 @@
 import { instance } from '../libs/instance';
-import { REACT_APP_BASE_URL } from '../shared/config';
 import { SigninInterface, SignupInterface } from '../types/auth.types';
 
 class Auth {
@@ -7,7 +6,7 @@ class Auth {
     try {
       return instance({
         method: 'POST',
-        url: REACT_APP_BASE_URL + '/auth/signup',
+        url: process.env.REACT_APP_BASE_URL + '/auth/signup',
         data: {
           nickname: data.nickname,
           email: data.email,
@@ -22,7 +21,7 @@ class Auth {
     try {
       return instance({
         method: 'POST',
-        url: REACT_APP_BASE_URL + '/auth/signin',
+        url: process.env.REACT_APP_BASE_URL + '/auth/signin',
         data: {
           email: data.email,
           password: data.password,
