@@ -38,8 +38,8 @@ export const LogoLayout = styled.section`
 
 export const LogoWrap = styled.div`
   text-align: right;
-  svg {
-    animation: ${fadeIn} 0.8s;
+  img {
+    animation: ${fadeIn} 1s;
   }
   p {
     margin: 0;

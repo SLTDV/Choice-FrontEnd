@@ -7,7 +7,7 @@ export const Header = styled.header`
   position: fixed;
   top: 0;
   left: 0;
-  & svg {
+  & .logo {
     position: absolute;
     bottom: 0;
     margin-left: -6.6rem;
