@@ -40,5 +40,9 @@ export const Category = styled.div`
 `;
 
 export const PostLayout = styled.section`
-  display: block;
+  display: grid;
+  grid-template-columns: 30rem 30rem 30rem;
+  width: 100%;
+  justify-content: space-between;
+  flex-flow: row wrap;
 `;

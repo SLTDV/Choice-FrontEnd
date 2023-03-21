@@ -17,6 +17,9 @@ const Main = () => {
         </S.Nav>
         <S.PostLayout>
           <Post />
+          <Post />
+          <Post />
+          <Post />
         </S.PostLayout>
       </div>
     </S.Layout>
