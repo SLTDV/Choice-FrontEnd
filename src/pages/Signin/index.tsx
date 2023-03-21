@@ -1,6 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
 import * as S from './style';
-import * as I from '../../asset/svg';
 import { Link, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import Auth from '../../services/Auth';

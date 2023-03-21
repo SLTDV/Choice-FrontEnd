@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import * as S from './style';
-import * as I from '../../asset/svg';
 import { useForm } from 'react-hook-form';
 import { SignupInterface } from '../../types/auth.types';
 import Auth from '../../services/Auth';
