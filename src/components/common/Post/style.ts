@@ -10,6 +10,11 @@ export const Post = styled.div`
   background-size: cover;
   background-position: center;
   position: relative;
+  transition: 0.3s ease;
+  box-shadow: 0.12rem 0.22rem 2.2rem rgba(109, 109, 109, 0.25);
+  &:hover {
+    transform: scale(1.1);
+  }
 `;
 
 export const InfoBox = styled.section`
