@@ -3,6 +3,10 @@ import TokenService from '../utils/tokenService';
 
 export const instance = axios.create({
   baseURL: process.env.REACT_APP_BASE_URL,
+  headers: {
+    'Access-Control-Allow-Credentials': true,
+    'Cache-Control': 'no-store',
+  },
 });
 
 instance.interceptors.request.use(
