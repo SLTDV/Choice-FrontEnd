@@ -30,6 +30,10 @@ const GlobalStyle = () => {
             font-size: 1.5rem !important;
           }
         }
+        a {
+          text-decoration: none;
+          color: #000000;
+        }
       `}
     ></Global>
   );
