@@ -17,15 +17,19 @@ const PostDetail = () => {
             <S.VoteBox>
               <S.OptionBox>
                 <S.Option className='first'>
-                  <S.OptionName>
-                    <p>스테이크</p>
-                  </S.OptionName>
+                  <S.HoverBox>
+                    <S.OptionName>
+                      <p>스테이크</p>
+                    </S.OptionName>
+                  </S.HoverBox>
                 </S.Option>
                 <p>VS</p>
                 <S.Option className='second'>
-                  <S.OptionName>
-                    <p>스테이크</p>
-                  </S.OptionName>
+                  <S.HoverBox>
+                    <S.OptionName>
+                      <p>스테이크</p>
+                    </S.OptionName>
+                  </S.HoverBox>
                 </S.Option>
               </S.OptionBox>
               <S.ButtonWrap>

@@ -60,21 +60,44 @@ export const Option = styled.div`
   position: relative;
   margin-bottom: 2.8rem;
   box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.15);
+  &:hover {
+    & div {
+      opacity: 1;
+      bottom: 0;
+    }
+  }
+`;
+
+export const HoverBox = styled.span`
+  width: 100%;
+  height: 100%;
+  &:hover {
+    & div {
+      opacity: 1;
+      bottom: 0;
+    }
+  }
+  & div {
+    pointer-events: none;
+  }
 `;
 
 export const OptionName = styled.div`
   border-radius: 0 0 2rem 2rem;
   width: 26rem;
-  height: 5rem;
+  height: 6rem;
   background-color: #ffffff;
-  opacity: 0.9;
   position: absolute;
-  bottom: 0;
+  bottom: -8rem;
+  opacity: 0;
   padding: 1rem 2rem;
+  transition: 0.3s ease;
   & p {
     color: #000000 !important;
     font-size: 2.2rem;
-    line-height: 5rem;
+    line-height: 6rem;
+  }
+  &:hover {
   }
 `;
 export const ButtonWrap = styled.div`
