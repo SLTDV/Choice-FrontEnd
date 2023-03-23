@@ -7,6 +7,7 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Signin from './pages/Signin';
 import Main from './pages/Main';
+import PostDetail from './pages/PostDetail';
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
           <Route path='/' element={<Main />} />
           <Route path='/signin' element={<Signin />} />
           <Route path='/signup' element={<Signup />} />
+          <Route path='/post' element={<PostDetail />} />
         </Routes>
       </BrowserRouter>
     </>
