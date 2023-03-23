@@ -8,6 +8,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import Signin from './pages/Signin';
 import Main from './pages/Main';
 import PostDetail from './pages/PostDetail';
+import MyPage from './pages/MyPage';
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
           <Route path='/signin' element={<Signin />} />
           <Route path='/signup' element={<Signup />} />
           <Route path='/post' element={<PostDetail />} />
+          <Route path='/my' element={<MyPage />} />
         </Routes>
       </BrowserRouter>
     </>
