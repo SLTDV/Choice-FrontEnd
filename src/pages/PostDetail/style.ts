@@ -132,3 +132,72 @@ export const Todays = styled.h1`
   margin: 3.4rem 0;
   border-bottom: 1px solid #000;
 `;
+
+export const CommentSection = styled.section`
+  text-align: left;
+  padding-top: 7rem;
+  padding-left: 6rem;
+  & h1 {
+    font-size: 2.5rem;
+    margin-bottom: 4rem;
+  }
+`;
+
+export const InputWrap = styled.div`
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 4rem;
+  & textarea {
+    width: 65rem;
+    height: 8rem;
+    font-size: 1.5rem;
+    padding: 5.2rem 5.8rem 1rem 5.8rem;
+    border-radius: 20px;
+    border: 1px solid #efefef;
+    resize: none;
+    &:focus {
+      outline: 1px solid #737373;
+    }
+  }
+  & button {
+    width: 10rem;
+    height: 3rem;
+    background: #f3f3f3;
+    box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.25);
+    border-radius: 10px;
+    border: none;
+    color: #898989;
+    font-size: 1.5rem;
+    margin-top: 1.5rem;
+    margin-right: 1.5rem;
+    align-self: flex-end;
+    cursor: pointer;
+  }
+  & div {
+    position: absolute;
+    top: 1.8rem;
+    left: 1.8rem;
+  }
+`;
+
+export const Profile = styled.div`
+  display: flex;
+  & img {
+    width: 3rem;
+    height: 3rem;
+    border-radius: 3rem;
+    background-color: pink;
+  }
+`;
+
+export const Name = styled.p`
+  font-size: 1.5rem;
+  margin: auto 0.9rem;
+  color: #737373;
+`;
+
+export const Comments = styled.section`
+  display: flex;
+  flex-direction: column;
+`;

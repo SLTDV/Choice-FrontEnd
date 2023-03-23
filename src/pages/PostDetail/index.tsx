@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
+import TextareaAutosize from 'react-textarea-autosize';
 import Header from '../../components/common/Header';
 import Post from '../../components/common/Post';
 import * as S from './style';
 const PostDetail = () => {
+  const [inputFocus, setInputFocus] = useState(false);
   return (
     <>
       <Header />
@@ -42,6 +44,18 @@ const PostDetail = () => {
               </S.ButtonWrap>
             </S.VoteBox>
           </S.Detail>
+          <S.CommentSection>
+            <h1>댓글</h1>
+            <S.InputWrap>
+              <TextareaAutosize />
+              <S.Profile>
+                <img src='svg/Vote.svg' alt='' />
+                <S.Name>강민제</S.Name>
+              </S.Profile>
+              <button>등록</button>
+            </S.InputWrap>
+            <S.Comments></S.Comments>
+          </S.CommentSection>
         </S.PostDetailSection>
         <S.AnotherPosts>
           <S.Todays>오늘의 Choice</S.Todays>
