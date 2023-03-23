@@ -46,7 +46,7 @@ const PostDetail = () => {
           <S.CommentSection>
             <h1>댓글</h1>
             <S.InputWrap>
-              <TextareaAutosize />
+              <TextareaAutosize placeholder='댓글을 작성해주세요.' />
               <S.Profile>
                 <img src='svg/Vote.svg' alt='' />
                 <S.Name>강민제</S.Name>

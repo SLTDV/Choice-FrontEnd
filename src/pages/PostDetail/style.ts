@@ -152,7 +152,7 @@ export const InputWrap = styled.div`
     width: 65rem;
     height: 8rem;
     font-size: 1.5rem;
-    padding: 5.2rem 5.8rem 1rem 5.8rem;
+    padding: 6rem 5.8rem 1.5rem 5.8rem;
     border-radius: 20px;
     border: 1px solid #efefef;
     resize: none;
