@@ -39,6 +39,14 @@ const PostDetail = () => {
             </S.VoteBox>
           </S.Detail>
         </S.PostDetailSection>
+        <S.AnotherPosts>
+          <S.Todays>오늘의 Choice</S.Todays>
+          <Post />
+          <Post />
+          <Post />
+          <Post />
+          <Post />
+        </S.AnotherPosts>
       </S.Layout>
     </>
   );

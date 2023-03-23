@@ -2,13 +2,13 @@ import styled from '@emotion/styled';
 
 export const Layout = styled.section`
   padding-top: 17rem;
-  width: 76vw;
-  margin: 0 auto;
+  width: 66vw;
   display: flex;
+  margin: auto;
 `;
 
 export const PostDetailSection = styled.section`
-  width: 100rem;
+  width: 85rem;
   text-align: center;
   & h1 {
     font-size: 3rem;
@@ -65,7 +65,7 @@ export const Option = styled.div`
 export const OptionName = styled.div`
   border-radius: 0 0 2rem 2rem;
   width: 26rem;
-  height: 8rem;
+  height: 5rem;
   background-color: #ffffff;
   opacity: 0.9;
   position: absolute;
@@ -73,8 +73,8 @@ export const OptionName = styled.div`
   padding: 1rem 2rem;
   & p {
     color: #000000 !important;
-    font-size: 2.4rem;
-    line-height: 8rem;
+    font-size: 2.2rem;
+    line-height: 5rem;
   }
 `;
 export const ButtonWrap = styled.div`
@@ -96,4 +96,16 @@ export const VoteButton = styled.button`
   &:hover {
     box-shadow: 1px 2px 10px #9f9f9f;
   }
+`;
+
+export const AnotherPosts = styled.section`
+  margin-left: 10%;
+`;
+
+export const Todays = styled.h1`
+  width: 13rem;
+  font-size: 2.2rem;
+  line-height: 4rem;
+  margin: 3.4rem 0;
+  border-bottom: 1px solid #000;
 `;
