@@ -3,9 +3,9 @@ import styled from '@emotion/styled';
 export const Header = styled.header`
   background-color: #ffffff;
   height: 10rem;
-  width: 100vw;
+  width: 100%;
   text-align: center;
-  position: fixed;
+  position: absolute;
   top: 0;
   left: 0;
   z-index: 9999;
