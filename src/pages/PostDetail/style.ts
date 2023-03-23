@@ -201,3 +201,19 @@ export const Comments = styled.section`
   display: flex;
   flex-direction: column;
 `;
+
+export const CommentBox = styled.div`
+  width: 100%;
+  border-bottom: 1px solid #efefef;
+  position: relative;
+  padding: 3rem 0;
+  & div {
+    background-color: #ffffff;
+    margin-left: 2rem;
+  }
+`;
+
+export const Comment = styled.p`
+  font-size: 1.5rem;
+  margin-left: 6rem;
+`;

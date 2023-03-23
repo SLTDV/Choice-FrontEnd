@@ -54,7 +54,15 @@ const PostDetail = () => {
               </S.Profile>
               <button>등록</button>
             </S.InputWrap>
-            <S.Comments></S.Comments>
+            <S.Comments>
+              <S.CommentBox>
+                <S.Profile>
+                  <img src='svg/Vote.svg' alt='' />
+                  <S.Name>강민제</S.Name>
+                </S.Profile>
+                <S.Comment>dansfbasnd</S.Comment>
+              </S.CommentBox>
+            </S.Comments>
           </S.CommentSection>
         </S.PostDetailSection>
         <S.AnotherPosts>
