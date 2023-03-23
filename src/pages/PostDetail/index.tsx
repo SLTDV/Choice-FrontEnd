@@ -4,7 +4,6 @@ import Header from '../../components/common/Header';
 import Post from '../../components/common/Post';
 import * as S from './style';
 const PostDetail = () => {
-  const [inputFocus, setInputFocus] = useState(false);
   return (
     <>
       <Header />
