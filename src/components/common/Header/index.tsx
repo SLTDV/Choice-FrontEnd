@@ -5,7 +5,9 @@ import * as S from './style';
 const Header = () => {
   return (
     <S.Header>
-      <img src='svg/SmallLogo.svg' alt='' className='logo' />
+      <Link to='/'>
+        <img src='svg/SmallLogo.svg' alt='' className='logo' />
+      </Link>
       <Link to='/my'>
         <S.ProfileWrap>
           <p>강민제</p>
