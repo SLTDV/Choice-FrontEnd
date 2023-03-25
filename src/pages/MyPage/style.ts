@@ -5,6 +5,15 @@ export const Layout = styled.section`
   width: 100vw;
   display: flex;
   justify-content: space-around;
-  height: 400px;
-  background-color: aliceblue;
+`;
+
+export const ProfileBox = styled.section`
+  text-align: center;
+  width: 50rem;
+  & img {
+    width: 25rem;
+    height: 25rem;
+    border-radius: 25rem;
+    object-fit: cover;
+  }
 `;

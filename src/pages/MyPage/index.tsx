@@ -7,7 +7,11 @@ const MyPage = () => {
     <>
       <Header />
       <S.Layout>
-        <div></div>
+        <div>
+          <S.ProfileBox>
+            <img src='post.png' alt='profile image' />
+          </S.ProfileBox>
+        </div>
       </S.Layout>
     </>
   );
