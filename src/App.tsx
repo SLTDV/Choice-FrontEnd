@@ -9,6 +9,7 @@ import Signin from './pages/Signin';
 import Main from './pages/Main';
 import PostDetail from './pages/PostDetail';
 import MyPage from './pages/MyPage';
+import MakeChoice from './pages/MakeChoice';
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
           <Route path='/signup' element={<Signup />} />
           <Route path='/post' element={<PostDetail />} />
           <Route path='/my' element={<MyPage />} />
+          <Route path='/makeChoice' element={<MakeChoice />} />
         </Routes>
       </BrowserRouter>
     </>
