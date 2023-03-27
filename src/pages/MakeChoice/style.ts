@@ -98,3 +98,20 @@ export const OptionName = styled.section`
     }
   }
 `;
+
+export const Button = styled.button`
+  margin: 4rem auto;
+  width: 80.4rem;
+  height: 6.7rem;
+  background-color: #f3f3f3;
+  color: #898989;
+  border: none;
+  border-radius: 2rem;
+  font-size: 2rem;
+  cursor: pointer;
+  transition: 0.3s;
+  &:hover {
+    background-color: #000000;
+    color: #ffffff;
+  }
+`;

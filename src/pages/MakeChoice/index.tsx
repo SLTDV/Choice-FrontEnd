@@ -28,6 +28,7 @@ const MakeChoice = () => {
               <input type='text' placeholder='주제2' maxLength={8} />
             </S.OptionName>
           </S.OptionBox>
+          <S.Button>초이스 만들기</S.Button>
         </S.UploadForm>
       </S.Layout>
       ;
