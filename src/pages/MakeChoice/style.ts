@@ -51,31 +51,37 @@ export const OptionBox = styled.section`
 export const OptionImage = styled.section`
   display: flex;
   margin-bottom: 3.6rem;
-  & input {
-    width: 26rem;
-    height: 26rem;
-    background-color: #f3f3f3;
-    border: none;
-    cursor: pointer;
-    font-size: 0;
-    border-radius: 2rem;
-    display: flex;
-    &::-webkit-file-upload-button {
-      border: none;
-      background-image: url('svg/Plus.svg');
-      width: 5rem;
-      height: 5rem;
-      background-color: #f3f3f3;
-      cursor: pointer;
-      margin-top: 10.5rem;
-      margin-left: 10.5rem;
-    }
-  }
   & p {
     font-size: 3rem;
     margin: auto 7rem;
     color: #6d6d6d;
     font-weight: bold;
+  }
+`;
+
+export const Image = styled.input<{ image: string | undefined }>`
+  background-image: url(${(props) => props.image});
+  opacity: 0.5;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  width: 26rem;
+  height: 26rem;
+  background-color: #f3f3f3;
+  border: none;
+  cursor: pointer;
+  font-size: 0;
+  border-radius: 2rem;
+  display: flex;
+  &::-webkit-file-upload-button {
+    border: none;
+    background-image: url('svg/Plus.svg');
+    width: 5rem;
+    height: 5rem;
+    cursor: pointer;
+    margin-top: 10.5rem;
+    margin-left: 10.5rem;
+    background-color: transparent;
   }
 `;
 

@@ -1,7 +1,30 @@
-import React from 'react';
+import React, { useRef, useState } from 'react';
 import Header from '../../components/common/Header';
 import * as S from './style';
 const MakeChoice = () => {
+  const [image1, setImage1] = useState('');
+  const [image2, setImage2] = useState('');
+
+  const img1Ref = useRef<any>();
+  const img2Ref = useRef<any>();
+
+  const saveImage1 = () => {
+    const file = img1Ref.current.files[0];
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onloadend = () => {
+      setImage1(URL.createObjectURL(file));
+    };
+  };
+  const saveImage2 = () => {
+    const file = img2Ref.current.files[0];
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onloadend = () => {
+      setImage2(URL.createObjectURL(file));
+    };
+  };
+
   return (
     <>
       <Header />
@@ -19,9 +42,19 @@ const MakeChoice = () => {
           />
           <S.OptionBox>
             <S.OptionImage>
-              <input type='file' />
+              <S.Image
+                type='file'
+                ref={img1Ref}
+                onChange={saveImage1}
+                image={image1}
+              />
               <p>VS</p>
-              <input type='file' />
+              <S.Image
+                type='file'
+                ref={img2Ref}
+                onChange={saveImage2}
+                image={image2}
+              />
             </S.OptionImage>
             <S.OptionName>
               <input type='text' placeholder='주제1' maxLength={8} />
