@@ -1,7 +1,6 @@
 import styled from '@emotion/styled';
 
 export const Layout = styled.section`
-  width: 100vw;
   display: flex;
   justify-content: space-around;
   margin-top: 20rem;
@@ -14,7 +13,7 @@ export const UploadForm = styled.div`
 `;
 
 export const Title = styled.input`
-  width: 90rem;
+  width: 100rem;
   border: none;
   border-bottom: 2px solid #f0f0f0;
   outline: none;
@@ -40,5 +39,62 @@ export const Content = styled.textarea`
   resize: none;
   &::-webkit-scrollbar {
     display: none;
+  }
+`;
+
+export const OptionBox = styled.section`
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+`;
+
+export const OptionImage = styled.section`
+  display: flex;
+  margin-bottom: 3.6rem;
+  & input {
+    width: 26rem;
+    height: 26rem;
+    background-color: #f3f3f3;
+    border: none;
+    cursor: pointer;
+    font-size: 0;
+    border-radius: 2rem;
+    display: flex;
+    &::-webkit-file-upload-button {
+      border: none;
+      background-image: url('svg/Plus.svg');
+      width: 5rem;
+      height: 5rem;
+      background-color: #f3f3f3;
+      cursor: pointer;
+      margin-top: 10.5rem;
+      margin-left: 10.5rem;
+    }
+  }
+  & p {
+    font-size: 3rem;
+    margin: auto 7rem;
+    color: #6d6d6d;
+    font-weight: bold;
+  }
+`;
+
+export const OptionName = styled.section`
+  display: flex;
+  margin: auto;
+  width: 100%;
+  justify-content: space-between;
+  & input {
+    text-align: center;
+    width: 23.6rem;
+    height: 7rem;
+    padding: 1rem;
+    font-size: 2rem;
+    border-radius: 2rem;
+    border: 2px solid #f0f0f0;
+    outline: none;
+    &:focus {
+      border: 2px solid #737373;
+    }
   }
 `;

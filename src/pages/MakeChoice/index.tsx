@@ -12,7 +12,22 @@ const MakeChoice = () => {
             maxLength={16}
             minLength={2}
           />
-          <S.Content placeholder='내용 (2~100자)' />
+          <S.Content
+            placeholder='내용 (2~100자)'
+            maxLength={100}
+            minLength={2}
+          />
+          <S.OptionBox>
+            <S.OptionImage>
+              <input type='file' />
+              <p>VS</p>
+              <input type='file' />
+            </S.OptionImage>
+            <S.OptionName>
+              <input type='text' placeholder='주제1' maxLength={8} />
+              <input type='text' placeholder='주제2' maxLength={8} />
+            </S.OptionName>
+          </S.OptionBox>
         </S.UploadForm>
       </S.Layout>
       ;
