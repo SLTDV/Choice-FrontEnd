@@ -7,6 +7,10 @@ const MyPage = () => {
   return (
     <>
       <Header />
+      <S.LogoutBox>
+        <p>로그아웃</p>
+        <p>회원탈퇴</p>
+      </S.LogoutBox>
       <S.Layout>
         <div>
           <S.ProfileBox>

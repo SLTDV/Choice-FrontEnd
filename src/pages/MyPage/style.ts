@@ -1,5 +1,18 @@
 import styled from '@emotion/styled';
 
+export const LogoutBox = styled.div`
+  position: fixed;
+  bottom: 5rem;
+  right: 4%;
+  transition: 0.3s;
+  & p {
+    margin-top: 2rem;
+    color: #939393;
+    font-size: 1.5rem;
+    cursor: pointer;
+  }
+`;
+
 export const Layout = styled.section`
   margin-top: 21rem;
   display: flex;
@@ -18,7 +31,7 @@ export const ProfileBox = styled.section`
     object-fit: cover;
   }
   & p {
-    color: #6d6d6d;
+    color: #939393;
     font-size: 1.5rem;
     margin-top: 1.7rem;
     text-decoration-line: underline;
