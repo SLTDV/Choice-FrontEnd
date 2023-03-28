@@ -45,4 +45,5 @@ export const PostLayout = styled.section`
   width: 100%;
   justify-content: space-between;
   flex-flow: row wrap;
+  row-gap: 6rem;
 `;

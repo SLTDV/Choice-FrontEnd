@@ -73,5 +73,5 @@ export const PostLayout = styled.section`
   display: grid;
   grid-template-columns: 30rem 30rem 30rem;
   justify-content: space-between;
-  column-gap: 6rem;
+  gap: 6rem;
 `;
