@@ -9,13 +9,15 @@ import tokenService from '../../../utils/tokenService';
 const Header = () => {
   const [logged] = useRecoilState(loggedAtom);
   const [nickname, setNickname] = useState();
-  const [profileImageUrl, setProfileImageUrl] = useState();
+  const [profileImageUrl, setProfileImageUrl] = useState(
+    'svg/DefaultProfileImage.svg'
+  );
   const getMiniProfile = async () => {
     if (logged) {
       try {
         const res: any = await User.getMiniProfile();
         setNickname(res.data.nickname);
-        setProfileImageUrl(res.data.image);
+        res.data.image && setProfileImageUrl(res.data.image);
       } catch (error: any) {
         console.log(error);
       }
