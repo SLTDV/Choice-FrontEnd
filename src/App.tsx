@@ -11,10 +11,11 @@ import PostDetail from './pages/PostDetail';
 import MyPage from './pages/MyPage';
 import MakeChoice from './pages/MakeChoice';
 import Page404 from './pages/Page404';
+import { RecoilRoot } from 'recoil';
 
 function App() {
   return (
-    <>
+    <RecoilRoot>
       <GlobalStyle />
       <BrowserRouter>
         <ToastContainer className='toast' />
@@ -28,7 +29,7 @@ function App() {
           <Route path='/*' element={<Page404 />} />
         </Routes>
       </BrowserRouter>
-    </>
+    </RecoilRoot>
   );
 }
 

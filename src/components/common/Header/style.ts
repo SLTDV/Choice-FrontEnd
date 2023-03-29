@@ -16,11 +16,22 @@ export const Header = styled.header`
   }
 `;
 
+export const SigninBox = styled.div`
+  position: absolute;
+  display: flex;
+  gap: 1.2rem;
+  bottom: 1rem;
+  right: 8%;
+  & p {
+    font-size: 1.8rem;
+  }
+`;
+
 export const ProfileWrap = styled.div`
   display: flex;
   position: absolute;
   bottom: 0;
-  right: 4%;
+  right: 7%;
   & p {
     font-size: 1.8rem;
     margin: auto 1rem;
