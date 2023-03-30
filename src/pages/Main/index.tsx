@@ -11,7 +11,18 @@ const Main = () => {
   const [category, setCategory] = useState<'latest' | 'popularity'>('latest');
   const getPost = async () => {
     try {
+      setCategory('latest');
       const res: any = await Post.getPost();
+      setChoiceList(res.data);
+    } catch (error: any) {
+      console.log(error);
+    }
+  };
+
+  const getPopularPost = async () => {
+    try {
+      setCategory('popularity');
+      const res: any = await Post.getPopularPost();
       setChoiceList(res.data);
     } catch (error: any) {
       console.log(error);
@@ -34,13 +45,10 @@ const Main = () => {
             <img src='svg/Category.svg' alt='' />
             <p>{category == 'latest' ? '최신순' : '인기순'}</p>
             <S.CategoryModal>
-              <S.Latest mode={category} onClick={() => setCategory('latest')}>
+              <S.Latest mode={category} onClick={getPost}>
                 최신순
               </S.Latest>
-              <S.popularity
-                mode={category}
-                onClick={() => setCategory('popularity')}
-              >
+              <S.popularity mode={category} onClick={getPopularPost}>
                 인기순
               </S.popularity>
             </S.CategoryModal>

@@ -12,5 +12,16 @@ class Post {
       return error;
     }
   }
+
+  getPopularPost() {
+    try {
+      return instance({
+        method: 'GET',
+        url: process.env.REACT_APP_BASE_URL + '/post/list/web',
+      });
+    } catch (error) {
+      return error;
+    }
+  }
 }
 export default new Post();
