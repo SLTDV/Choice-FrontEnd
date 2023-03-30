@@ -4,4 +4,6 @@ export interface ChoiceData {
   title: string;
   participants: number;
   commentCount: number;
+  firstVotingOption: string;
+  secondVotingOption: string;
 }

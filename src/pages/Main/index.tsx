@@ -1,9 +1,26 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Header from '../../components/common/Header';
 import * as S from './style';
-import Post from '../../components/common/Post';
+import Choice from '../../components/common/Choice';
 import { Link } from 'react-router-dom';
+import Post from '../../services/Post';
+import tokenService from '../../utils/tokenService';
+import { ChoiceData } from '../../types/choice.types';
 const Main = () => {
+  const [choiceList, setChoiceList] = useState<ChoiceData[]>();
+  const getPost = async () => {
+    try {
+      const res: any = await Post.getPost();
+      setChoiceList(res.data);
+    } catch (error: any) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    getPost();
+  }, []);
+
   return (
     <S.Layout>
       <div>
@@ -18,10 +35,18 @@ const Main = () => {
           </S.Category>
         </S.Nav>
         <S.PostLayout>
-          <Post />
-          <Post />
-          <Post />
-          <Post />
+          {choiceList?.map((choice) => (
+            <Choice
+              key={choice.idx}
+              idx={choice.idx}
+              imageUrl={choice.imageUrl}
+              title={choice.title}
+              participants={choice.participants}
+              commentCount={choice.commentCount}
+              firstVotingOption={choice.firstVotingOption}
+              secondVotingOption={choice.secondVotingOption}
+            />
+          ))}
         </S.PostLayout>
       </div>
     </S.Layout>

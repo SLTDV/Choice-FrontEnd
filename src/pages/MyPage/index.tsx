@@ -1,6 +1,6 @@
 import React from 'react';
 import Header from '../../components/common/Header';
-import Post from '../../components/common/Post';
+import Post from '../../components/common/Choice';
 import * as S from './style';
 
 const MyPage = () => {
@@ -19,12 +19,7 @@ const MyPage = () => {
             <input value='양세련' maxLength={6} minLength={2} />
             <S.Edit />
           </S.ProfileBox>
-          <S.PostLayout>
-            <Post />
-            <Post />
-            <Post />
-            <Post />
-          </S.PostLayout>
+          <S.PostLayout></S.PostLayout>
         </div>
       </S.Layout>
     </>
