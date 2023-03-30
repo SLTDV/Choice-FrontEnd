@@ -8,6 +8,7 @@ import tokenService from '../../utils/tokenService';
 import { ChoiceData } from '../../types/choice.types';
 const Main = () => {
   const [choiceList, setChoiceList] = useState<ChoiceData[]>();
+  const [category, setCategory] = useState<'latest' | 'popularity'>('latest');
   const getPost = async () => {
     try {
       const res: any = await Post.getPost();
@@ -31,7 +32,18 @@ const Main = () => {
           </Link>
           <S.Category>
             <img src='svg/Category.svg' alt='' />
-            <p>최신순</p>
+            <p>{category == 'latest' ? '최신순' : '인기순'}</p>
+            <S.CategoryModal>
+              <S.Latest mode={category} onClick={() => setCategory('latest')}>
+                최신순
+              </S.Latest>
+              <S.popularity
+                mode={category}
+                onClick={() => setCategory('popularity')}
+              >
+                인기순
+              </S.popularity>
+            </S.CategoryModal>
           </S.Category>
         </S.Nav>
         <S.PostLayout>
