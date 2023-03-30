@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import TextareaAutosize from 'react-textarea-autosize';
 import Header from '../../components/common/Header';
-import Post from '../../components/common/Post';
+import Post from '../../components/common/Choice';
 import * as S from './style';
 const PostDetail = () => {
   return (
@@ -66,11 +66,6 @@ const PostDetail = () => {
         </S.PostDetailSection>
         <S.AnotherPosts>
           <S.Todays>오늘의 Choice</S.Todays>
-          <Post />
-          <Post />
-          <Post />
-          <Post />
-          <Post />
         </S.AnotherPosts>
       </S.Layout>
     </>

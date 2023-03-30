@@ -1,11 +1,10 @@
 import styled from '@emotion/styled';
 
-export const Post = styled.div`
+export const Post = styled.div<{ imageUrl: string }>`
   width: 30rem;
   height: 30rem;
-  margin-bottom: 6rem;
   border-radius: 2rem;
-  background-image: url(post.png);
+  background-image: url(${(props) => props.imageUrl});
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;

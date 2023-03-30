@@ -6,17 +6,21 @@ import Auth from '../../services/Auth';
 import { SigninInterface } from '../../types/auth.types';
 import { toast } from 'react-toastify';
 import tokenService from '../../utils/tokenService';
+import { useRecoilState } from 'recoil';
+import { loggedAtom } from '../../atoms';
 
 const Signin = () => {
   const { register, handleSubmit } = useForm<SigninInterface>();
   const [isError, setIsError] = useState(false);
   const navigate = useNavigate();
+  const [logged, setLogged] = useRecoilState(loggedAtom);
 
   const onValid = async (data: SigninInterface) => {
     try {
       setIsError(false);
       const res: any = await Auth.signin(data);
       tokenService.setUser(res.data);
+      setLogged(true);
       navigate('/');
     } catch (error: any) {
       console.log(error);
