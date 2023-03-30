@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import * as S from './style';
-const Post = () => {
+const Choice = () => {
   return (
     <Link to='/post'>
       <S.Post>
@@ -20,4 +20,4 @@ const Post = () => {
   );
 };
 
-export default Post;
+export default Choice;
