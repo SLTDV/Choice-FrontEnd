@@ -7,3 +7,8 @@ export const loggedAtom = atom({
   default: false,
   effects_UNSTABLE: [persistAtom],
 });
+
+export const editProfileImageModalAtom = atom({
+  key: 'editProfileImageModal',
+  default: false,
+});
