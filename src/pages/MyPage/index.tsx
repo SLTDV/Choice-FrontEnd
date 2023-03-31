@@ -21,7 +21,9 @@ const MyPage = () => {
         <div>
           <S.ProfileBox>
             <img src='post.png' alt='profile image' className='profileImage' />
-            <p>프로필 수정</p>
+            <p onClick={() => setEditProfileModal(!editProfileModal)}>
+              프로필 수정
+            </p>
             <input value='양세련' maxLength={6} minLength={2} />
             <S.Edit />
           </S.ProfileBox>

@@ -6,7 +6,9 @@ const EditProfileModal = () => {
   const [editProfileModal, setEditProfileModal] =
     useRecoilState(editProfileModalAtom);
   return (
-    <S.Layout onClick={() => setEditProfileModal(!editProfileModal)}></S.Layout>
+    <S.Layout onClick={() => setEditProfileModal(!editProfileModal)}>
+      <S.Modal></S.Modal>
+    </S.Layout>
   );
 };
 
