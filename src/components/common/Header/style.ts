@@ -8,7 +8,7 @@ export const Header = styled.header`
   position: absolute;
   top: 0;
   left: 0;
-  z-index: 9999;
+  z-index: 5000;
   & .logo {
     position: absolute;
     bottom: 0;

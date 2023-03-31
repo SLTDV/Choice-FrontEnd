@@ -2,10 +2,16 @@ import React from 'react';
 import Header from '../../components/common/Header';
 import Post from '../../components/common/Choice';
 import * as S from './style';
-
+import { useRecoilState } from 'recoil';
+import { editProfileModalAtom } from '../../atoms/AtomContainer';
+import EditProfileModal from '../../components/modal/EditProfileModal';
 const MyPage = () => {
+  const [editProfileModal, setEditProfileModal] =
+    useRecoilState(editProfileModalAtom);
+
   return (
     <>
+      {editProfileModal ? <EditProfileModal /> : ''}
       <Header />
       <S.LogoutBox>
         <p>로그아웃</p>
