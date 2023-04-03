@@ -23,7 +23,17 @@ export const Layout = styled.section`
   justify-content: space-around;
 `;
 
+export const ModalBg = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 9998;
+`;
+
 export const Modal = styled.div`
+  z-index: 9999;
   position: absolute;
   width: 35rem;
   height: 35rem;
