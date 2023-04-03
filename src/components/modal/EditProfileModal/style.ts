@@ -33,4 +33,43 @@ export const Modal = styled.div`
   transition: 0.5s;
   bottom: 50%;
   animation: ${modal} 0.5s ease;
+  & span {
+    padding: 0rem 39%;
+    width: 22%;
+    display: flex;
+    justify-content: space-between;
+    p {
+      font-size: 1.6rem;
+      cursor: pointer;
+    }
+    .cancel {
+      color: #ec5f5f;
+    }
+  }
+`;
+
+export const Image = styled.input<{ image?: string }>`
+  background-image: url(${(props) => props.image});
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  margin: 3.4rem auto;
+  display: flex;
+  width: 24rem;
+  height: 24rem;
+  border: none;
+  cursor: pointer;
+  font-size: 0;
+  border-radius: 26rem;
+  &::-webkit-file-upload-button {
+    position: absolute;
+    border: none;
+    background-image: url('svg/Plus.svg');
+    width: 5rem;
+    height: 5rem;
+    cursor: pointer;
+    top: 4.4rem;
+    left: 24rem;
+    background-color: transparent;
+  }
 `;

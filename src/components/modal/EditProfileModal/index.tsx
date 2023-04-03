@@ -7,7 +7,13 @@ const EditProfileModal = () => {
     useRecoilState(editProfileModalAtom);
   return (
     <S.Layout onClick={() => setEditProfileModal(!editProfileModal)}>
-      <S.Modal></S.Modal>
+      <S.Modal>
+        <S.Image type='file' image='post.png' />
+        <span>
+          <p className='cancel'>취소</p>
+          <p>완료</p>
+        </span>
+      </S.Modal>
     </S.Layout>
   );
 };
