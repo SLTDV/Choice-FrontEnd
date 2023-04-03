@@ -25,7 +25,6 @@ const MyPage = () => {
               프로필 수정
             </p>
             <input value='양세련' maxLength={6} minLength={2} />
-            <S.Edit />
           </S.ProfileBox>
           <S.PostLayout></S.PostLayout>
         </div>
