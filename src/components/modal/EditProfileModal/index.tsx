@@ -10,6 +10,7 @@ const EditProfileModal = (data: editProfileType) => {
   const profileImageRef = useRef<any>();
   const nicknameRef = useRef<any>();
   const [profileImage, setProfileImage] = useState('');
+  const [isError, setIsError] = useState(false);
 
   const saveImage = () => {
     const file = profileImageRef.current.files[0];
@@ -22,8 +23,14 @@ const EditProfileModal = (data: editProfileType) => {
 
   const editPropfile = async () => {
     try {
-      User.editProfileImage(profileImage);
-      User.editNickname(nicknameRef.current.value);
+      const nickname = nicknameRef.current.value;
+      if (nickname.length > 1 && nickname.length < 7) {
+        setIsError(false);
+        User.editProfileImage(profileImage);
+        User.editNickname(nickname);
+      } else {
+        setIsError(true);
+      }
     } catch (error: any) {
       console.log(error);
     }
@@ -45,6 +52,9 @@ const EditProfileModal = (data: editProfileType) => {
           defaultValue={data.nickname}
           ref={nicknameRef}
         />
+        <S.ErrorMessage isError={isError}>
+          닉네임은 2~6글자 입니다.
+        </S.ErrorMessage>
         <button onClick={() => editPropfile()}>수정 완료</button>
       </S.Modal>
     </S.Layout>

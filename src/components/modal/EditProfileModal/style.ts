@@ -74,6 +74,7 @@ export const NicknameInput = styled.input`
   text-align: center;
   margin: auto;
   margin-top: 3.3rem;
+  margin-bottom: 1rem;
   &:focus {
     border-bottom: 2px solid #000000;
   }
@@ -105,4 +106,11 @@ export const Image = styled.input<{ image?: string }>`
     cursor: pointer;
     background-color: transparent;
   }
+`;
+
+export const ErrorMessage = styled.p<{ isError: boolean }>`
+  color: #e10000;
+  margin-bottom: 3rem;
+  font-size: 1.4rem;
+  opacity: ${(props) => (props.isError ? '1' : '0')};
 `;
