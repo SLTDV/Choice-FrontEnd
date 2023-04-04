@@ -19,6 +19,14 @@ const EditProfileModal = (data: editProfileType) => {
     };
   };
 
+  const editPropfile = async () => {
+    try {
+      User.editProfileImage(profileImage);
+    } catch (error: any) {
+      console.log(error);
+    }
+  };
+
   return (
     <S.Layout>
       <S.ModalBg onClick={() => setEditProfileModal(!editProfileModal)} />
@@ -31,7 +39,7 @@ const EditProfileModal = (data: editProfileType) => {
           onChange={() => saveImage()}
         />
         <S.NicknameInput type='text' defaultValue={data.nickname} />
-        <button>수정 완료</button>
+        <button onClick={() => editPropfile()}>수정 완료</button>
       </S.Modal>
     </S.Layout>
   );
