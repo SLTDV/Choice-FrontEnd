@@ -11,6 +11,7 @@ import { myInfoType } from '../../types/user.type';
 import { ChoiceData } from '../../types/choice.types';
 import { Link, useNavigate } from 'react-router-dom';
 import tokenService from '../../utils/tokenService';
+import Auth from '../../services/Auth';
 const MyPage = () => {
   const [myInfo, setMyInfo] = useState<myInfoType>();
   const [myPostList, setMyPostList] = useState<ChoiceData[]>();
@@ -41,16 +42,28 @@ const MyPage = () => {
     }
   };
 
+  const logout = async () => {
+    try {
+      await Auth.logout();
+      window.localStorage.clear();
+      navigate('/', { replace: true });
+      window.location.reload();
+    } catch (error: any) {
+      console.log(error);
+    }
+  };
+
   useEffect(() => {
     getMyPost();
   }, []);
+
   return (
     <>
       {editProfileModal && <EditProfileModal />}
       <Header />
       <S.OptionBox modalState={optionModal}>
         <S.OptionModal modalState={optionModal}>
-          <p>로그아웃</p>
+          <p onClick={() => logout()}>로그아웃</p>
           <p className='withdrawal' onClick={() => withdrawal()}>
             회원탈퇴
           </p>
