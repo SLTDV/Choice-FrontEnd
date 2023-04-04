@@ -11,7 +11,7 @@ export const OptionBox = styled.div<{ modalState: boolean }>`
   & img {
     cursor: pointer;
     transition: 0.5s ease-out;
-    transform: rotate(${(props) => (props.modalState ? '270deg' : '0')});
+    transform: rotate(${(props) => (props.modalState ? '0' : '270deg')});
     margin-top: 1rem;
   }
 `;
