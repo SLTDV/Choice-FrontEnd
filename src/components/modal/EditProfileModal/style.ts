@@ -3,7 +3,7 @@ import styled from '@emotion/styled';
 
 const modal = keyframes`
     0%{
-        bottom: 0;
+        bottom: -18%;
         opacity: 0.1;
         transform: scale(0);
     }
@@ -33,53 +33,76 @@ export const ModalBg = styled.div`
 `;
 
 export const Modal = styled.div`
+  text-align: center;
   z-index: 9999;
   position: absolute;
-  width: 35rem;
-  height: 35rem;
+  width: 72rem;
+  height: 58rem;
   border-radius: 2rem;
   opacity: 1;
   background-color: #ffffff;
-  transition: 0.5s;
-  bottom: 50%;
+  transition: 0.5s ease-out;
+  bottom: 22%;
   animation: ${modal} 0.5s ease;
-  & span {
-    padding: 0rem 39%;
-    width: 22%;
-    display: flex;
-    justify-content: space-between;
-    p {
-      font-size: 1.6rem;
-      cursor: pointer;
-    }
-    .cancel {
-      color: #ec5f5f;
-    }
+  display: flex;
+  flex-direction: column;
+  & h1 {
+    font-size: 2.4rem;
+    margin: 5rem 0;
+    margin-bottom: 6rem;
+  }
+  & button {
+    width: 30rem;
+    margin: auto;
+    height: 6rem;
+    color: #ffffff;
+    background-color: #000000;
+    border: none;
+    border-radius: 2rem;
+    font-size: 2rem;
+    margin-top: 0;
+    cursor: pointer;
+  }
+`;
+
+export const NicknameInput = styled.input`
+  width: 28rem;
+  font-size: 2rem;
+  border: none;
+  border-bottom: 1px solid #000000;
+  outline: none;
+  text-align: center;
+  margin: auto;
+  margin-top: 3.3rem;
+  &:focus {
+    border-bottom: 2px solid #000000;
   }
 `;
 
 export const Image = styled.input<{ image?: string }>`
-  background-image: url(${(props) => props.image});
+  background: linear-gradient(0deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)),
+    url(${(props) => props.image});
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
-  margin: 3.4rem auto;
+  margin: 0 auto;
   display: flex;
-  width: 24rem;
-  height: 24rem;
+  width: 21rem;
+  height: 21rem;
   border: none;
   cursor: pointer;
   font-size: 0;
   border-radius: 26rem;
+  position: relative;
   &::-webkit-file-upload-button {
+    top: 42%;
+    left: 42%;
     position: absolute;
     border: none;
-    background-image: url('svg/Plus.svg');
-    width: 5rem;
-    height: 5rem;
+    background-image: url('svg/ProfileImageUpload.svg');
+    width: 35px;
+    height: 35px;
     cursor: pointer;
-    top: 4.4rem;
-    left: 24rem;
     background-color: transparent;
   }
 `;
