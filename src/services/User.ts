@@ -41,6 +41,22 @@ class User {
       return error;
     }
   }
+  editProfileImage(image: string) {
+    try {
+      return instance({
+        method: 'PATCH',
+        url: process.env.REACT_APP_BASE_URL + '/user/image',
+        headers: {
+          Authorization: tokenService.getLocalAccessToken(),
+        },
+        data: {
+          image: image,
+        },
+      });
+    } catch (error) {
+      return error;
+    }
+  }
 }
 
 export default new User();
