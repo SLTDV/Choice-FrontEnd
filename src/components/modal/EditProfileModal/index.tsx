@@ -8,6 +8,7 @@ const EditProfileModal = (data: editProfileType) => {
   const [editProfileModal, setEditProfileModal] =
     useRecoilState(editProfileModalAtom);
   const profileImageRef = useRef<any>();
+  const nicknameRef = useRef<any>();
   const [profileImage, setProfileImage] = useState('');
 
   const saveImage = () => {
@@ -22,6 +23,7 @@ const EditProfileModal = (data: editProfileType) => {
   const editPropfile = async () => {
     try {
       User.editProfileImage(profileImage);
+      User.editNickname(nicknameRef.current.value);
     } catch (error: any) {
       console.log(error);
     }
@@ -38,7 +40,11 @@ const EditProfileModal = (data: editProfileType) => {
           ref={profileImageRef}
           onChange={() => saveImage()}
         />
-        <S.NicknameInput type='text' defaultValue={data.nickname} />
+        <S.NicknameInput
+          type='text'
+          defaultValue={data.nickname}
+          ref={nicknameRef}
+        />
         <button onClick={() => editPropfile()}>수정 완료</button>
       </S.Modal>
     </S.Layout>

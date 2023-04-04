@@ -57,6 +57,22 @@ class User {
       return error;
     }
   }
+  editNickname(nickname: string) {
+    try {
+      return instance({
+        method: 'PATCH',
+        url: process.env.REACT_APP_BASE_URL + '/user',
+        headers: {
+          Authorization: tokenService.getLocalAccessToken(),
+        },
+        data: {
+          nickname: nickname,
+        },
+      });
+    } catch (error) {
+      return error;
+    }
+  }
 }
 
 export default new User();
