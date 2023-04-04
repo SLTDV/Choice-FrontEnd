@@ -53,7 +53,12 @@ const MyPage = () => {
 
   return (
     <>
-      {editProfileModal && <EditProfileModal />}
+      {editProfileModal && (
+        <EditProfileModal
+          nickname={myInfo?.nickname}
+          image={myInfo?.image ? myInfo.image : 'svg/DefaultProfileImage.svg'}
+        />
+      )}
       {userWithdrawalModal && <UserWithdrawalModal />}
       <Header />
       <S.OptionBox modalState={optionModal}>

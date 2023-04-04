@@ -3,3 +3,8 @@ export interface myInfoType {
   image: string;
   postList: [];
 }
+
+export interface editProfileType {
+  nickname: string | undefined;
+  image: string | undefined;
+}
