@@ -114,3 +114,12 @@ export const ErrorMessage = styled.p<{ isError: boolean }>`
   font-size: 1.4rem;
   opacity: ${(props) => (props.isError ? '1' : '0')};
 `;
+
+export const Close = styled.p`
+  font-size: 1.7rem;
+  position: absolute;
+  right: 5rem;
+  top: 5rem;
+  color: #6d6d6d;
+  cursor: pointer;
+`;

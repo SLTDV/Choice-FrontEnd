@@ -41,6 +41,7 @@ const EditProfileModal = (data: editProfileType) => {
       <S.ModalBg onClick={() => setEditProfileModal(!editProfileModal)} />
       <S.Modal>
         <h1>프로필 수정</h1>
+        <S.Close onClick={() => setEditProfileModal(false)}>닫기</S.Close>
         <S.Image
           type='file'
           image={profileImage ? profileImage : data.image}
