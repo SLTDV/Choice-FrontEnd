@@ -27,6 +27,15 @@ const MyPage = () => {
       console.log(error);
     }
   };
+
+  const withdrawal = async () => {
+    try {
+      await User.userWithdrawal();
+    } catch (error: any) {
+      console.log(error);
+    }
+  };
+
   useEffect(() => {
     getMyPost();
   }, []);
@@ -37,7 +46,9 @@ const MyPage = () => {
       <S.OptionBox modalState={optionModal}>
         <S.OptionModal modalState={optionModal}>
           <p>로그아웃</p>
-          <p className='withdrawal'>회원탈퇴</p>
+          <p className='withdrawal' onClick={() => withdrawal()}>
+            회원탈퇴
+          </p>
         </S.OptionModal>
         <img
           src='svg/Option.svg'

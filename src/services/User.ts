@@ -28,6 +28,19 @@ class User {
       return error;
     }
   }
+  userWithdrawal() {
+    try {
+      return instance({
+        method: 'DELETE',
+        url: process.env.REACT_APP_BASE_URL + '/user',
+        headers: {
+          Authorization: tokenService.getLocalAccessToken(),
+        },
+      });
+    } catch (error) {
+      return error;
+    }
+  }
 }
 
 export default new User();
