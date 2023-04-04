@@ -12,3 +12,8 @@ export const editProfileModalAtom = atom({
   key: 'editProfileModal',
   default: false,
 });
+
+export const userWithdrawalModalAtom = atom({
+  key: 'userWithdrawalModal',
+  default: false,
+});
