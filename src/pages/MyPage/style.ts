@@ -75,3 +75,29 @@ export const PostLayout = styled.section`
   justify-content: space-between;
   gap: 6rem;
 `;
+
+export const NonePost = styled.div`
+  width: 100%;
+  text-align: center;
+  margin: 13rem auto;
+  & p {
+    font-size: 2.3rem;
+    color: #737373;
+    margin-bottom: 2rem;
+  }
+`;
+
+export const MakeChoiceButton = styled.button`
+  font-size: 1.8rem;
+  background: #ffffff;
+  border: 2px solid #000000;
+  border-radius: 1.4rem;
+  width: 22.8rem;
+  height: 4rem;
+  cursor: pointer;
+  transition: 0.2s ease;
+  &:hover {
+    background-color: #000000;
+    color: #ffffff;
+  }
+`;
