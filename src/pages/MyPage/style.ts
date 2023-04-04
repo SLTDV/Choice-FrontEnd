@@ -1,15 +1,41 @@
+import { keyframes } from '@emotion/react';
 import styled from '@emotion/styled';
 
-export const LogoutBox = styled.div`
+export const OptionBox = styled.div<{ modalState: boolean }>`
   position: fixed;
   bottom: 5rem;
-  right: 4%;
-  transition: 0.3s;
+  right: 6%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  & img {
+    cursor: pointer;
+    transition: 0.5s ease-out;
+    transform: rotate(${(props) => (props.modalState ? '270deg' : '0')});
+    margin-top: 1rem;
+  }
+`;
+
+export const OptionModal = styled.div<{ modalState: boolean }>`
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  width: 11rem;
+  height: 12rem;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.25);
+  border-radius: 2rem;
+  transition: 0.5s;
+  transform: translateX(${(props) => (props.modalState ? '0' : '2rem')});
+  opacity: ${(props) => (props.modalState ? '1' : '0')};
   & p {
-    margin-top: 2rem;
+    pointer-events: ${(props) => (props.modalState ? '' : 'none')};
     color: #939393;
     font-size: 1.5rem;
     cursor: pointer;
+  }
+  & .withdrawal {
+    color: #e10000;
   }
 `;
 

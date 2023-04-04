@@ -13,6 +13,7 @@ import { Link } from 'react-router-dom';
 const MyPage = () => {
   const [myInfo, setMyInfo] = useState<myInfoType>();
   const [myPostList, setMyPostList] = useState<ChoiceData[]>();
+  const [optionModal, setOptionModal] = useState(false);
   const [editProfileModal, setEditProfileModal] =
     useRecoilState(editProfileModalAtom);
 
@@ -31,12 +32,19 @@ const MyPage = () => {
   }, []);
   return (
     <>
-      {editProfileModal ? <EditProfileModal /> : ''}
+      {editProfileModal && <EditProfileModal />}
       <Header />
-      <S.LogoutBox>
-        <p>로그아웃</p>
-        <p>회원탈퇴</p>
-      </S.LogoutBox>
+      <S.OptionBox modalState={optionModal}>
+        <S.OptionModal modalState={optionModal}>
+          <p>로그아웃</p>
+          <p className='withdrawal'>회원탈퇴</p>
+        </S.OptionModal>
+        <img
+          src='svg/Option.svg'
+          alt=''
+          onClick={() => setOptionModal(!optionModal)}
+        />
+      </S.OptionBox>
       <S.Layout>
         <div>
           <S.ProfileBox>
