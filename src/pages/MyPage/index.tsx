@@ -1,21 +1,26 @@
 import React, { useEffect, useState } from 'react';
 import Header from '../../components/common/Header';
-import Post from '../../components/common/Choice';
 import * as S from './style';
 import { useRecoilState } from 'recoil';
-import { editProfileModalAtom } from '../../atoms/AtomContainer';
+import {
+  editProfileModalAtom,
+  userWithdrawalModalAtom,
+} from '../../atoms/AtomContainer';
 import EditProfileModal from '../../components/modal/EditProfileModal';
 import Choice from '../../components/common/Choice';
 import User from '../../services/User';
 import { myInfoType } from '../../types/user.type';
 import { ChoiceData } from '../../types/choice.types';
 import { Link, useNavigate } from 'react-router-dom';
-import tokenService from '../../utils/tokenService';
 import Auth from '../../services/Auth';
+import UserWithdrawalModal from '../../components/modal/UserWithdrawalModal/inde';
 const MyPage = () => {
   const [myInfo, setMyInfo] = useState<myInfoType>();
   const [myPostList, setMyPostList] = useState<ChoiceData[]>();
   const [optionModal, setOptionModal] = useState(false);
+  const [userWithdrawalModal, setUserWithdrawalModal] = useRecoilState(
+    userWithdrawalModalAtom
+  );
   const navigate = useNavigate();
   const [editProfileModal, setEditProfileModal] =
     useRecoilState(editProfileModalAtom);
@@ -26,17 +31,6 @@ const MyPage = () => {
       console.log(res.data);
       setMyInfo(res.data);
       setMyPostList(res.data.postList);
-    } catch (error: any) {
-      console.log(error);
-    }
-  };
-
-  const withdrawal = async () => {
-    try {
-      await User.userWithdrawal();
-      window.localStorage.clear();
-      navigate('/', { replace: true });
-      window.location.reload();
     } catch (error: any) {
       console.log(error);
     }
@@ -60,11 +54,15 @@ const MyPage = () => {
   return (
     <>
       {editProfileModal && <EditProfileModal />}
+      {userWithdrawalModal && <UserWithdrawalModal />}
       <Header />
       <S.OptionBox modalState={optionModal}>
         <S.OptionModal modalState={optionModal}>
           <p onClick={() => logout()}>로그아웃</p>
-          <p className='withdrawal' onClick={() => withdrawal()}>
+          <p
+            className='withdrawal'
+            onClick={() => setUserWithdrawalModal(true)}
+          >
             회원탈퇴
           </p>
         </S.OptionModal>
