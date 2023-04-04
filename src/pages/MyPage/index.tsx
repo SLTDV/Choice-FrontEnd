@@ -9,11 +9,13 @@ import Choice from '../../components/common/Choice';
 import User from '../../services/User';
 import { myInfoType } from '../../types/user.type';
 import { ChoiceData } from '../../types/choice.types';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import tokenService from '../../utils/tokenService';
 const MyPage = () => {
   const [myInfo, setMyInfo] = useState<myInfoType>();
   const [myPostList, setMyPostList] = useState<ChoiceData[]>();
   const [optionModal, setOptionModal] = useState(false);
+  const navigate = useNavigate();
   const [editProfileModal, setEditProfileModal] =
     useRecoilState(editProfileModalAtom);
 
@@ -31,6 +33,9 @@ const MyPage = () => {
   const withdrawal = async () => {
     try {
       await User.userWithdrawal();
+      window.localStorage.clear();
+      navigate('/', { replace: true });
+      window.location.reload();
     } catch (error: any) {
       console.log(error);
     }
