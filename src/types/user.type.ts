@@ -6,5 +6,5 @@ export interface myInfoType {
 
 export interface editProfileType {
   nickname: string | undefined;
-  image: string | undefined;
+  image: string;
 }
