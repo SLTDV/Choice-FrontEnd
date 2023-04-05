@@ -61,20 +61,27 @@ export const Modal = styled.div`
     margin-top: 0;
     cursor: pointer;
   }
+  & .edit {
+    position: absolute;
+    bottom: 17rem;
+    right: 22rem;
+    width: 2rem;
+    height: 2rem;
+  }
 `;
 
 export const NicknameInput = styled.input`
   width: 28rem;
   font-size: 2rem;
   border: none;
-  border-bottom: 1px solid #000000;
+  border-bottom: 1px solid #b0b0b0;
   outline: none;
   text-align: center;
   margin: auto;
   margin-top: 3.3rem;
   margin-bottom: 1rem;
   &:focus {
-    border-bottom: 2px solid #000000;
+    border-color: #000000;
   }
 `;
 
