@@ -3,11 +3,9 @@ import styled from '@emotion/styled';
 
 const modal = keyframes`
     0%{
-        bottom: -18%;
-        opacity: 0.1;
+        bottom: -30%;
+        opacity: 0;
         transform: scale(0);
-    }
-    100%{
     }
 `;
 
