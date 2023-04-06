@@ -28,7 +28,6 @@ const MyPage = () => {
   const getMyPost = async () => {
     try {
       const res: any = await User.getMyPost();
-      console.log(res.data);
       setMyInfo(res.data);
       setMyPostList(res.data.postList);
     } catch (error: any) {
@@ -61,22 +60,7 @@ const MyPage = () => {
       )}
       {userWithdrawalModal && <UserWithdrawalModal />}
       <Header />
-      <S.OptionBox modalState={optionModal}>
-        <S.OptionModal modalState={optionModal}>
-          <p onClick={() => logout()}>로그아웃</p>
-          <p
-            className='withdrawal'
-            onClick={() => setUserWithdrawalModal(true)}
-          >
-            회원탈퇴
-          </p>
-        </S.OptionModal>
-        <img
-          src='svg/Option.svg'
-          alt=''
-          onClick={() => setOptionModal(!optionModal)}
-        />
-      </S.OptionBox>
+
       <S.Layout>
         <div>
           <S.ProfileBox>
@@ -119,6 +103,22 @@ const MyPage = () => {
           )}
         </div>
       </S.Layout>
+      <S.OptionBox modalState={optionModal}>
+        <S.OptionModal modalState={optionModal}>
+          <p onClick={() => logout()}>로그아웃</p>
+          <p
+            className='withdrawal'
+            onClick={() => setUserWithdrawalModal(true)}
+          >
+            회원탈퇴
+          </p>
+        </S.OptionModal>
+        <img
+          src='svg/Option.svg'
+          alt=''
+          onClick={() => setOptionModal(!optionModal)}
+        />
+      </S.OptionBox>
     </>
   );
 };

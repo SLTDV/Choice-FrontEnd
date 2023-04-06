@@ -4,6 +4,7 @@ import { useRecoilState } from 'recoil';
 import { editProfileModalAtom } from '../../../atoms/AtomContainer';
 import { editProfileType } from '../../../types/user.type';
 import User from '../../../services/User';
+import Image from '../../../services/Image';
 const EditProfileModal = (data: editProfileType) => {
   const [editProfileModal, setEditProfileModal] =
     useRecoilState(editProfileModalAtom);
@@ -12,13 +13,12 @@ const EditProfileModal = (data: editProfileType) => {
   const [profileImage, setProfileImage] = useState('');
   const [isError, setIsError] = useState(false);
 
-  const saveImage = () => {
-    const file = profileImageRef.current.files[0];
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onloadend = () => {
-      setProfileImage(URL.createObjectURL(file));
-    };
+  const saveImage = async (e: any) => {
+    setProfileImage(URL.createObjectURL(e.target.files[0]));
+    const formData = new FormData();
+    formData.append('image', e.target.files[0]);
+    const res: any = await Image.uploadImage(formData);
+    setProfileImage(res.data.profileImageUrl);
   };
 
   const editPropfile = async () => {
@@ -47,7 +47,8 @@ const EditProfileModal = (data: editProfileType) => {
           type='file'
           image={profileImage ? profileImage : data.image}
           ref={profileImageRef}
-          onChange={() => saveImage()}
+          onChange={saveImage}
+          accept='image/*'
         />
         <S.NicknameInput
           type='text'
