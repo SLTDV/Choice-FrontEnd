@@ -1,5 +1,6 @@
 import { instance } from '../libs/instance';
 import { SigninInterface, SignupInterface } from '../types/auth.types';
+import tokenService from '../utils/tokenService';
 
 class Auth {
   signup(data: SignupInterface) {
@@ -25,6 +26,19 @@ class Auth {
         data: {
           email: data.email,
           password: data.password,
+        },
+      });
+    } catch (error) {
+      return error;
+    }
+  }
+  logout() {
+    try {
+      return instance({
+        method: 'DELETE',
+        url: process.env.REACT_APP_BASE_URL + '/auth',
+        headers: {
+          Authorization: tokenService.getLocalAccessToken(),
         },
       });
     } catch (error) {

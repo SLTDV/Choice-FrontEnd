@@ -7,3 +7,13 @@ export const loggedAtom = atom({
   default: false,
   effects_UNSTABLE: [persistAtom],
 });
+
+export const editProfileModalAtom = atom({
+  key: 'editProfileModal',
+  default: false,
+});
+
+export const userWithdrawalModalAtom = atom({
+  key: 'userWithdrawalModal',
+  default: false,
+});
