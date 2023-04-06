@@ -9,7 +9,6 @@ import Image from '../../../services/Image';
 const EditProfileModal = (data: editProfileType) => {
   const [editProfileModal, setEditProfileModal] =
     useRecoilState(editProfileModalAtom);
-  const profileImageRef = useRef<any>();
   const nicknameRef = useRef<any>();
   const [profileImage, setProfileImage] = useState(data.image ?? '');
   const [isError, setIsError] = useState(false);
@@ -32,11 +31,9 @@ const EditProfileModal = (data: editProfileType) => {
       const nickname = nicknameRef.current.value;
       if (nickname.length > 1 && nickname.length < 7) {
         setIsError(false);
-        await Promise.all([
-          User.editProfileImage(profileImage ? profileImage : data.image),
-          User.editNickname(nickname),
-        ]);
-        window.location.reload();
+        await User.editProfileImage(profileImage ? profileImage : data.image),
+          await User.editNickname(nickname),
+          window.location.reload();
       } else {
         setIsError(true);
       }
@@ -53,8 +50,7 @@ const EditProfileModal = (data: editProfileType) => {
         <S.Close onClick={() => setEditProfileModal(false)}>닫기</S.Close>
         <S.Image
           type='file'
-          image={profileImage ? profileImage : data.image}
-          ref={profileImageRef}
+          image={profileImage}
           onChange={saveImage}
           accept='image/*'
         />

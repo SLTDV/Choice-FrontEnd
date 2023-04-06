@@ -1,5 +1,4 @@
 import { instance } from '../libs/instance';
-import tokenService from '../utils/tokenService';
 
 class Image {
   uploadImage(formdata: FormData) {
