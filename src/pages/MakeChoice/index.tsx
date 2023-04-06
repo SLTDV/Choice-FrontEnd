@@ -1,11 +1,23 @@
 import React, { useRef, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Header from '../../components/common/Header';
+import Post from '../../services/Post';
+import { MakeChoiceData } from '../../types/choice.types';
 import * as S from './style';
 const MakeChoice = () => {
   const [image1, setImage1] = useState('');
   const [image2, setImage2] = useState('');
   const img1Ref = useRef<any>();
   const img2Ref = useRef<any>();
+  const navigate = useNavigate();
+  const [formData, setFormData] = useState({
+    title: '',
+    content: '',
+    firstVotingOption: '',
+    secondVotingOption: '',
+    firstImageUrl: '',
+    secondImageUrl: '',
+  });
 
   const saveImage1 = () => {
     const file = img1Ref.current.files[0];
@@ -14,6 +26,21 @@ const MakeChoice = () => {
   const saveImage2 = () => {
     const file = img2Ref.current.files[0];
     setImage2(URL.createObjectURL(file));
+  };
+
+  const eventHandler = (e: any) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+    console.log(formData);
+  };
+
+  const makeChoice = async () => {
+    try {
+      await Post.makeChoice(formData);
+      navigate('/');
+    } catch (error: any) {
+      console.log(error);
+    }
   };
 
   return (
@@ -26,12 +53,16 @@ const MakeChoice = () => {
             maxLength={16}
             minLength={2}
             required
+            name='title'
+            onChange={eventHandler}
           />
           <S.Content
             placeholder='내용 (2~100자)'
             maxLength={100}
             minLength={2}
             required
+            name='content'
+            onChange={eventHandler}
           />
           <S.OptionBox>
             <S.OptionImage>
@@ -57,12 +88,16 @@ const MakeChoice = () => {
                 placeholder='주제1 (최대 8자)'
                 maxLength={8}
                 required
+                name='firstVotingOption'
+                onChange={eventHandler}
               />
               <input
                 type='text'
                 placeholder='주제2 (최대 8자)'
                 maxLength={8}
                 required
+                name='secondVotingOption'
+                onChange={eventHandler}
               />
             </S.OptionName>
           </S.OptionBox>
