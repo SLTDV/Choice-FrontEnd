@@ -6,10 +6,16 @@ export const Layout = styled.section`
   margin-top: 20rem;
 `;
 
-export const UploadForm = styled.div`
+export const UploadForm = styled.form`
   display: flex;
   flex-direction: column;
   gap: 3rem;
+  &:valid {
+    & button {
+      background-color: #000000;
+      color: #ffffff;
+    }
+  }
 `;
 
 export const Title = styled.input`
@@ -116,8 +122,4 @@ export const Button = styled.button`
   font-size: 2rem;
   cursor: pointer;
   transition: 0.3s;
-  &:hover {
-    background-color: #000000;
-    color: #ffffff;
-  }
 `;
