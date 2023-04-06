@@ -5,20 +5,26 @@ import { editProfileModalAtom } from '../../../atoms/AtomContainer';
 import { editProfileType } from '../../../types/user.type';
 import User from '../../../services/User';
 import Image from '../../../services/Image';
+
 const EditProfileModal = (data: editProfileType) => {
   const [editProfileModal, setEditProfileModal] =
     useRecoilState(editProfileModalAtom);
   const profileImageRef = useRef<any>();
   const nicknameRef = useRef<any>();
-  const [profileImage, setProfileImage] = useState('');
+  const [profileImage, setProfileImage] = useState(data.image ?? '');
   const [isError, setIsError] = useState(false);
 
   const saveImage = async (e: any) => {
-    setProfileImage(URL.createObjectURL(e.target.files[0]));
-    const formData = new FormData();
-    formData.append('image', e.target.files[0]);
-    const res: any = await Image.uploadImage(formData);
-    setProfileImage(res.data.profileImageUrl);
+    try {
+      console.log(profileImage);
+      const formData = new FormData();
+      formData.append('profileImage', e.target.files[0]);
+      const res: any = await Image.uploadImage(formData);
+      console.log('success');
+      setProfileImage(res.data.profileImageUrl);
+    } catch (error: any) {
+      console.log(error);
+    }
   };
 
   const editPropfile = async () => {
@@ -26,8 +32,10 @@ const EditProfileModal = (data: editProfileType) => {
       const nickname = nicknameRef.current.value;
       if (nickname.length > 1 && nickname.length < 7) {
         setIsError(false);
-        User.editProfileImage(profileImage ? profileImage : data.image);
-        User.editNickname(nickname);
+        await Promise.all([
+          User.editProfileImage(profileImage ? profileImage : data.image),
+          User.editNickname(nickname),
+        ]);
         window.location.reload();
       } else {
         setIsError(true);

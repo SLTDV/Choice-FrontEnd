@@ -14,6 +14,7 @@ import { ChoiceData } from '../../types/choice.types';
 import { Link, useNavigate } from 'react-router-dom';
 import Auth from '../../services/Auth';
 import UserWithdrawalModal from '../../components/modal/UserWithdrawalModal/inde';
+
 const MyPage = () => {
   const [myInfo, setMyInfo] = useState<myInfoType>();
   const [myPostList, setMyPostList] = useState<ChoiceData[]>();
@@ -28,6 +29,7 @@ const MyPage = () => {
   const getMyPost = async () => {
     try {
       const res: any = await User.getMyPost();
+      console.log(res);
       setMyInfo(res.data);
       setMyPostList(res.data.postList);
     } catch (error: any) {
