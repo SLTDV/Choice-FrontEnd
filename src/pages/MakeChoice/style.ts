@@ -30,6 +30,10 @@ export const Title = styled.input`
   &::placeholder {
     color: #939393;
   }
+  &:focus {
+    border-bottom: 2px solid #737373;
+    transition: 0.5s;
+  }
 `;
 
 export const Content = styled.textarea`
@@ -45,6 +49,10 @@ export const Content = styled.textarea`
   resize: none;
   &::-webkit-scrollbar {
     display: none;
+  }
+  &:focus {
+    border: 2px solid #737373;
+    transition: 0.5s ease;
   }
 `;
 
@@ -107,6 +115,7 @@ export const OptionName = styled.section`
     outline: none;
     &:focus {
       border: 2px solid #737373;
+      transition: 0.5s ease;
     }
   }
 `;
