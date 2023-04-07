@@ -1,15 +1,14 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Header from '../../components/common/Header';
+import Image from '../../services/Image';
 import Post from '../../services/Post';
-import { MakeChoiceData } from '../../types/choice.types';
 import * as S from './style';
 const MakeChoice = () => {
   const [image1, setImage1] = useState('');
   const [image2, setImage2] = useState('');
-  const img1Ref = useRef<any>();
-  const img2Ref = useRef<any>();
-  const navigate = useNavigate();
+  const image1Ref = useRef<any>();
+  const image2Ref = useRef<any>();
   const [formData, setFormData] = useState({
     title: '',
     content: '',
@@ -19,29 +18,43 @@ const MakeChoice = () => {
     secondImageUrl: '',
   });
 
-  const saveImage1 = () => {
-    const file = img1Ref.current.files[0];
-    setImage1(URL.createObjectURL(file));
+  const saveImage1 = (e: any) => {
+    setImage1(URL.createObjectURL(e.target.files[0]));
   };
-  const saveImage2 = () => {
-    const file = img2Ref.current.files[0];
-    setImage2(URL.createObjectURL(file));
+
+  const saveImage2 = (e: any) => {
+    setImage2(URL.createObjectURL(e.target.files[0]));
   };
 
   const eventHandler = (e: any) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
-    console.log(formData);
   };
 
   const makeChoice = async () => {
     try {
-      await Post.makeChoice(formData);
-      navigate('/');
+      const imageData = new FormData();
+      imageData.append('firstImage', image1Ref.current.files[0]);
+      imageData.append('secondImage', image2Ref.current.files[0]);
+      const res: any = await Image.uploadPostImage(imageData);
+      setFormData((data) => {
+        return {
+          ...data,
+          firstImageUrl: res.data.firstUploadImageUrl,
+          secondImageUrl: res.data.secondUploadImageUrl,
+        };
+      });
+      console.log(formData);
     } catch (error: any) {
       console.log(error);
     }
   };
+
+  useEffect(() => {
+    if (formData.secondImageUrl && formData.firstImageUrl) {
+      Post.makeChoice(formData);
+    }
+  }, [formData]);
 
   return (
     <>
@@ -68,18 +81,18 @@ const MakeChoice = () => {
             <S.OptionImage>
               <S.Image
                 type='file'
-                ref={img1Ref}
                 onChange={saveImage1}
                 image={image1}
                 required
+                ref={image1Ref}
               />
               <p>VS</p>
               <S.Image
                 type='file'
-                ref={img2Ref}
                 onChange={saveImage2}
                 image={image2}
                 required
+                ref={image2Ref}
               />
             </S.OptionImage>
             <S.OptionName>
@@ -101,7 +114,9 @@ const MakeChoice = () => {
               />
             </S.OptionName>
           </S.OptionBox>
-          <S.Button>초이스 만들기</S.Button>
+          <S.Button type='button' onClick={() => makeChoice()}>
+            초이스 만들기
+          </S.Button>
         </S.UploadForm>
       </S.Layout>
       ;

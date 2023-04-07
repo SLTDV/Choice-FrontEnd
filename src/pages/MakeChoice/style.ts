@@ -14,6 +14,7 @@ export const UploadForm = styled.form`
     & button {
       background-color: #000000;
       color: #ffffff;
+      cursor: pointer;
     }
   }
 `;
@@ -129,6 +130,5 @@ export const Button = styled.button`
   border: none;
   border-radius: 2rem;
   font-size: 2rem;
-  cursor: pointer;
   transition: 0.3s;
 `;
