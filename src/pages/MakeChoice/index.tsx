@@ -1,5 +1,4 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import Header from '../../components/common/Header';
 import Image from '../../services/Image';
 import Post from '../../services/Post';
@@ -53,6 +52,7 @@ const MakeChoice = () => {
   useEffect(() => {
     if (formData.secondImageUrl && formData.firstImageUrl) {
       Post.makeChoice(formData);
+      window.location.replace('/');
     }
   }, [formData]);
 
