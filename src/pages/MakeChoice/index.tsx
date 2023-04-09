@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import Header from '../../components/common/Header';
-import IsMaking from '../../components/modal/IsMakingModal';
+import IsMaking from '../../components/IsMaking';
 import Image from '../../services/Image';
 import Post from '../../services/Post';
 import * as S from './style';
