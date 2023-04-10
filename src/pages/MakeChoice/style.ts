@@ -6,10 +6,17 @@ export const Layout = styled.section`
   margin-top: 20rem;
 `;
 
-export const UploadForm = styled.div`
+export const UploadForm = styled.form`
   display: flex;
   flex-direction: column;
   gap: 3rem;
+  &:valid {
+    & button {
+      background-color: #000000;
+      color: #ffffff;
+      cursor: pointer;
+    }
+  }
 `;
 
 export const Title = styled.input`
@@ -23,6 +30,10 @@ export const Title = styled.input`
   padding-bottom: 2.8rem;
   &::placeholder {
     color: #939393;
+  }
+  &:focus {
+    border-bottom: 2px solid #737373;
+    transition: 0.5s;
   }
 `;
 
@@ -39,6 +50,10 @@ export const Content = styled.textarea`
   resize: none;
   &::-webkit-scrollbar {
     display: none;
+  }
+  &:focus {
+    border: 2px solid #737373;
+    transition: 0.5s ease;
   }
 `;
 
@@ -101,6 +116,7 @@ export const OptionName = styled.section`
     outline: none;
     &:focus {
       border: 2px solid #737373;
+      transition: 0.5s ease;
     }
   }
 `;
@@ -114,10 +130,5 @@ export const Button = styled.button`
   border: none;
   border-radius: 2rem;
   font-size: 2rem;
-  cursor: pointer;
   transition: 0.3s;
-  &:hover {
-    background-color: #000000;
-    color: #ffffff;
-  }
 `;
