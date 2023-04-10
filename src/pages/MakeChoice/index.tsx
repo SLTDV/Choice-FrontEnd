@@ -6,7 +6,7 @@ import Image from '../../services/Image';
 import Post from '../../services/Post';
 import * as S from './style';
 const MakeChoice = () => {
-  const [isMaking, setIsMaking] = useState(true);
+  const [isMaking, setIsMaking] = useState(false);
   const [image1, setImage1] = useState('');
   const [image2, setImage2] = useState('');
   const image1Ref = useRef<any>();
