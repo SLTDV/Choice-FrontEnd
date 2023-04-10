@@ -5,7 +5,7 @@ import Image from '../../services/Image';
 import Post from '../../services/Post';
 import * as S from './style';
 const MakeChoice = () => {
-  const [isMaking, setIsMaking] = useState(true);
+  const [isMaking, setIsMaking] = useState(false);
   const [image1, setImage1] = useState('');
   const [image2, setImage2] = useState('');
   const image1Ref = useRef<any>();
@@ -18,6 +18,15 @@ const MakeChoice = () => {
     firstImageUrl: '',
     secondImageUrl: '',
   });
+
+  const options = {
+    onUploadProgress: function (progressEvent: any) {
+      const percent = Math.floor(
+        (progressEvent.loaded / progressEvent.total) * 100
+      );
+      console.log(progressEvent, '%');
+    },
+  };
 
   const saveImage1 = (e: any) => {
     setImage1(URL.createObjectURL(e.target.files[0]));
@@ -34,6 +43,7 @@ const MakeChoice = () => {
 
   const makeChoice = async () => {
     try {
+      setIsMaking(true);
       const imageData = new FormData();
       imageData.append('firstImage', image1Ref.current.files[0]);
       imageData.append('secondImage', image2Ref.current.files[0]);
@@ -45,7 +55,6 @@ const MakeChoice = () => {
           secondImageUrl: res.data.secondUploadImageUrl,
         };
       });
-      console.log(formData);
     } catch (error: any) {
       console.log(error);
     }
@@ -53,8 +62,8 @@ const MakeChoice = () => {
 
   useEffect(() => {
     if (formData.secondImageUrl && formData.firstImageUrl) {
-      Post.makeChoice(formData);
-      window.location.replace('/');
+      const res = Post.makeChoice(formData, options);
+      setIsMaking(false);
     }
   }, [formData]);
 
