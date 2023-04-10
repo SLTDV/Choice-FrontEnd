@@ -5,6 +5,9 @@ const IsMaking = () => {
     <S.Layout>
       <div>
         <img src='svg/smallLogo.svg' alt='choice' />
+        <S.ProgressBarBox>
+          <S.ProgressBar />
+        </S.ProgressBarBox>
       </div>
     </S.Layout>
   );

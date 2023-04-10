@@ -25,7 +25,7 @@ class Post {
     }
   }
 
-  makeChoice(data: MakeChoiceData, options: any) {
+  makeChoice(data: MakeChoiceData) {
     try {
       return instance({
         method: 'POST',
@@ -38,7 +38,9 @@ class Post {
           firstImageUrl: data.firstImageUrl,
           secondImageUrl: data.secondImageUrl,
         },
-        ...options,
+        headers: {
+          Authorization: tokenService.getLocalAccessToken(),
+        },
       });
     } catch (error) {
       return error;

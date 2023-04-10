@@ -1,11 +1,12 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { useRecoilState } from 'recoil';
 import Header from '../../components/common/Header';
 import IsMaking from '../../components/IsMaking';
 import Image from '../../services/Image';
 import Post from '../../services/Post';
 import * as S from './style';
 const MakeChoice = () => {
-  const [isMaking, setIsMaking] = useState(false);
+  const [isMaking, setIsMaking] = useState(true);
   const [image1, setImage1] = useState('');
   const [image2, setImage2] = useState('');
   const image1Ref = useRef<any>();
@@ -18,15 +19,6 @@ const MakeChoice = () => {
     firstImageUrl: '',
     secondImageUrl: '',
   });
-
-  const options = {
-    onUploadProgress: function (progressEvent: any) {
-      const percent = Math.floor(
-        (progressEvent.loaded / progressEvent.total) * 100
-      );
-      console.log(progressEvent, '%');
-    },
-  };
 
   const saveImage1 = (e: any) => {
     setImage1(URL.createObjectURL(e.target.files[0]));
@@ -62,7 +54,7 @@ const MakeChoice = () => {
 
   useEffect(() => {
     if (formData.secondImageUrl && formData.firstImageUrl) {
-      const res = Post.makeChoice(formData, options);
+      Post.makeChoice(formData);
       setIsMaking(false);
     }
   }, [formData]);
