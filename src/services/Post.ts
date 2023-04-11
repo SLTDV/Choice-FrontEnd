@@ -46,5 +46,19 @@ class Post {
       return error;
     }
   }
+
+  getTodaysPost() {
+    try {
+      return instance({
+        method: 'GET',
+        url: process.env.REACT_APP_BASE_URL + '/post/today',
+        headers: {
+          Authorization: tokenService.getLocalAccessToken(),
+        },
+      });
+    } catch (error) {
+      return error;
+    }
+  }
 }
 export default new Post();
