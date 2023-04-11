@@ -145,6 +145,7 @@ export const CommentSection = styled.section`
   text-align: left;
   padding-top: 7rem;
   padding-left: 6rem;
+  padding-bottom: 8rem;
   & h1 {
     font-size: 2.5rem;
     margin-bottom: 4rem;

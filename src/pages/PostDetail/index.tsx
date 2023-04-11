@@ -10,12 +10,13 @@ import TodaysChoice from './TodaysChoice';
 const PostDetail = () => {
   const postId = useParams() as unknown as { idx: number };
   const [postInfo, setPostInfo] = useState<PostDetailType>();
-
+  const [comments, setComments] = useState();
   const getPostDetail = async () => {
     try {
       const idx: number = postId.idx;
       const res: any = await Post.getPostInfo(idx);
       setPostInfo(res.data);
+      setComments(res.data.comment);
       console.log(res.data);
     } catch (error: any) {
       console.log(error);
@@ -74,15 +75,17 @@ const PostDetail = () => {
               </S.Profile>
               <button>등록</button>
             </S.InputWrap>
-            <S.Comments>
-              <S.CommentBox>
-                <S.Profile>
-                  <img src='svg/Vote.svg' alt='' />
-                  <S.Name>강민제</S.Name>
-                </S.Profile>
-                <S.Comment>dansfbasnd</S.Comment>
-              </S.CommentBox>
-            </S.Comments>
+            {postInfo?.comment.map((comment) => (
+              <S.Comments key={comment.idx}>
+                <S.CommentBox>
+                  <S.Profile>
+                    <img src={comment.image} alt='' />
+                    <S.Name>{comment.nickname}</S.Name>
+                  </S.Profile>
+                  <S.Comment>{comment.content}</S.Comment>
+                </S.CommentBox>
+              </S.Comments>
+            ))}
           </S.CommentSection>
         </S.PostDetailSection>
         <TodaysChoice />
