@@ -6,7 +6,7 @@ import Choice from '../../components/common/Choice';
 import Post from '../../services/Post';
 import { ChoiceData, PostDetailType } from '../../types/choice.types';
 import { useParams } from 'react-router-dom';
-import TodaysChoice from '../../components/TodaysChoice';
+import TodaysChoice from './TodaysChoice';
 const PostDetail = () => {
   const postId = useParams() as unknown as { idx: number };
   const [postInfo, setPostInfo] = useState<PostDetailType>();

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import Post from '../../services/Post';
-import { ChoiceData } from '../../types/choice.types';
-import Choice from '../common/Choice';
+import Post from '../../../services/Post';
+import { ChoiceData } from '../../../types/choice.types';
+import Choice from '../../../components/common/Choice';
 import * as S from './style';
 const TodaysChoice = () => {
   const [todaysPostList, setTodaysPostList] = useState<ChoiceData[]>();
