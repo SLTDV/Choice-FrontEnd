@@ -24,6 +24,10 @@ const PostDetail = () => {
       <Header />
       <S.Layout>
         <S.PostDetailSection>
+          <S.ProfileBox>
+            <img src='svg/Vote.svg' alt='' />
+            <p>강민제</p>
+          </S.ProfileBox>
           <h1>오늘 저녁 메뉴</h1>
           <S.Detail>
             <S.Description>

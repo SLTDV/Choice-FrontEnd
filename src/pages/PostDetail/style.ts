@@ -15,6 +15,22 @@ export const PostDetailSection = styled.section`
   }
 `;
 
+export const ProfileBox = styled.div`
+  position: absolute;
+  display: flex;
+  & img {
+    width: 5rem;
+    height: 5rem;
+    border-radius: 5rem;
+    background-color: pink;
+  }
+  & p {
+    font-size: 1.6rem;
+    margin: auto 1rem;
+    font-weight: 600;
+  }
+`;
+
 export const Detail = styled.section`
   width: 100%;
   border-top: 2px solid #f0f0f0;
@@ -58,8 +74,8 @@ export const Option = styled.div`
   background-size: cover;
   background-position: center;
   position: relative;
-  margin-bottom: 2.8rem;
   box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.15);
+  z-index: 1;
   &:hover {
     & div {
       opacity: 1;
@@ -104,6 +120,7 @@ export const ButtonWrap = styled.div`
   display: flex;
   width: 61rem;
   margin: 0 auto;
+  padding-top: 2.8rem;
   justify-content: space-between;
 `;
 
@@ -115,6 +132,7 @@ export const VoteButton = styled.button`
   border: none;
   box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.15);
   transition: 0.3s ease;
+  z-index: 20;
   cursor: pointer;
   &:hover {
     box-shadow: 1px 2px 10px #9f9f9f;
