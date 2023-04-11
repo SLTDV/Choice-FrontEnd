@@ -24,6 +24,7 @@ export const ProfileBox = styled.div`
     height: 5rem;
     border-radius: 5rem;
     background-color: pink;
+    object-fit: cover;
   }
   & p {
     font-size: 1.6rem;

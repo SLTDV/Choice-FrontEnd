@@ -40,5 +40,6 @@ export const ProfileWrap = styled.div`
     width: 4.5rem;
     height: 4.5rem;
     border-radius: 5rem;
+    object-fit: cover;
   }
 `;
