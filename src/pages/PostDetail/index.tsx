@@ -28,7 +28,14 @@ const PostDetail = () => {
       <S.Layout>
         <S.PostDetailSection>
           <S.ProfileBox>
-            <img src={postInfo?.profileImageUrl} alt='' />
+            <img
+              src={
+                postInfo?.profileImageUrl
+                  ? postInfo.profileImageUrl
+                  : 'svg/DefaultProfileImage.svg'
+              }
+              alt=''
+            />
             <p>{postInfo?.writer}</p>
           </S.ProfileBox>
           <h1>{postInfo?.title}</h1>
@@ -76,7 +83,14 @@ const PostDetail = () => {
               <S.Comments key={comment.idx}>
                 <S.CommentBox>
                   <S.Profile>
-                    <img src={comment.image} alt='' />
+                    <img
+                      src={
+                        comment.image
+                          ? comment.image
+                          : 'svg/DefaultProfileImage.svg'
+                      }
+                      alt=''
+                    />
                     <S.Name>{comment.nickname}</S.Name>
                   </S.Profile>
                   <S.Comment>{comment.content}</S.Comment>
