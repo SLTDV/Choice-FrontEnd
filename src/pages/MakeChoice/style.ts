@@ -15,6 +15,7 @@ export const UploadForm = styled.form`
       background-color: #000000;
       color: #ffffff;
       cursor: pointer;
+      pointer-events: all;
     }
   }
 `;
@@ -131,4 +132,5 @@ export const Button = styled.button`
   border-radius: 2rem;
   font-size: 2rem;
   transition: 0.3s;
+  pointer-events: none;
 `;
