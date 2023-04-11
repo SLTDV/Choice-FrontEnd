@@ -23,7 +23,7 @@ function App() {
           <Route path='/' element={<Main />} />
           <Route path='/signin' element={<Signin />} />
           <Route path='/signup' element={<Signup />} />
-          <Route path='/post/:idx' element={<PostDetail />} />
+          <Route path='/:idx' element={<PostDetail />} />
           <Route path='/my' element={<MyPage />} />
           <Route path='/makeChoice' element={<MakeChoice />} />
           <Route path='/*' element={<Page404 />} />
