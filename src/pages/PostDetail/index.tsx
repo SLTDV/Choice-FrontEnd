@@ -6,18 +6,11 @@ import Choice from '../../components/common/Choice';
 import Post from '../../services/Post';
 import { ChoiceData, PostDetailType } from '../../types/choice.types';
 import { useParams } from 'react-router-dom';
+import TodaysChoice from '../../components/TodaysChoice';
 const PostDetail = () => {
-  const [todaysPostList, setTodaysPostList] = useState<ChoiceData[]>();
   const postId = useParams() as unknown as { idx: number };
   const [postInfo, setPostInfo] = useState<PostDetailType>();
-  const getTodaysPost = async () => {
-    try {
-      const res: any = await Post.getTodaysPost();
-      setTodaysPostList(res.data.todayPosts);
-    } catch (error: any) {
-      console.log(error);
-    }
-  };
+
   const getPostDetail = async () => {
     try {
       const idx: number = postId.idx;
@@ -30,7 +23,6 @@ const PostDetail = () => {
   };
   useEffect(() => {
     getPostDetail();
-    getTodaysPost();
   }, []);
   return (
     <>
@@ -93,23 +85,7 @@ const PostDetail = () => {
             </S.Comments>
           </S.CommentSection>
         </S.PostDetailSection>
-        <S.TodaysPosts>
-          <S.Todays>오늘의 Choice</S.Todays>
-          <S.TodaysPostsLayout>
-            {todaysPostList?.map((choice) => (
-              <Choice
-                key={choice.idx}
-                idx={choice.idx}
-                imageUrl={choice.imageUrl}
-                title={choice.title}
-                participants={choice.participants}
-                commentCount={choice.commentCount}
-                firstVotingOption={choice.firstVotingOption}
-                secondVotingOption={choice.secondVotingOption}
-              />
-            ))}
-          </S.TodaysPostsLayout>
-        </S.TodaysPosts>
+        <TodaysChoice />
       </S.Layout>
     </>
   );
