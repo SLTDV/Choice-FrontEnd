@@ -23,7 +23,6 @@ export const ProfileBox = styled.div`
     width: 5rem;
     height: 5rem;
     border-radius: 5rem;
-    background-color: pink;
     object-fit: cover;
   }
   & p {
@@ -69,7 +68,6 @@ export const OptionBox = styled.div`
 export const Option = styled.div<{ image?: string }>`
   width: 30rem;
   height: 30rem;
-  background-color: aliceblue;
   border-radius: 2rem;
   background-image: url(${(props) => props.image});
   background-repeat: no-repeat;
@@ -114,8 +112,6 @@ export const OptionName = styled.div`
     color: #000000 !important;
     font-size: 2.2rem;
     line-height: 6rem;
-  }
-  &:hover {
   }
 `;
 export const ButtonWrap = styled.div`
@@ -196,7 +192,6 @@ export const Profile = styled.div`
     width: 3rem;
     height: 3rem;
     border-radius: 3rem;
-    background-color: pink;
   }
 `;
 

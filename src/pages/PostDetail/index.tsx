@@ -10,14 +10,11 @@ import TodaysChoice from './TodaysChoice';
 const PostDetail = () => {
   const postId = useParams() as unknown as { idx: number };
   const [postInfo, setPostInfo] = useState<PostDetailType>();
-  const [comments, setComments] = useState();
   const getPostDetail = async () => {
     try {
       const idx: number = postId.idx;
       const res: any = await Post.getPostInfo(idx);
       setPostInfo(res.data);
-      setComments(res.data.comment);
-      console.log(res.data);
     } catch (error: any) {
       console.log(error);
     }
