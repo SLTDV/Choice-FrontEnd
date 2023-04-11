@@ -121,8 +121,14 @@ export const VoteButton = styled.button`
   }
 `;
 
-export const AnotherPosts = styled.section`
+export const TodaysPosts = styled.section`
   margin-left: 10%;
+`;
+
+export const TodaysPostsLayout = styled.div`
+  display: flex;
+  flex-direction: column;
+  row-gap: 5rem;
 `;
 
 export const Todays = styled.h1`

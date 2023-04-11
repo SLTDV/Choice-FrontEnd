@@ -1,9 +1,24 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import TextareaAutosize from 'react-textarea-autosize';
 import Header from '../../components/common/Header';
-import Post from '../../components/common/Choice';
 import * as S from './style';
+import Choice from '../../components/common/Choice';
+import Post from '../../services/Post';
+import { ChoiceData } from '../../types/choice.types';
 const PostDetail = () => {
+  const [todaysPostList, setTodaysPostList] = useState<ChoiceData[]>();
+  const getTodaysPost = async () => {
+    try {
+      const res: any = await Post.getTodaysPost();
+      setTodaysPostList(res.data.todayPosts);
+    } catch (error: any) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    getTodaysPost();
+  }, []);
   return (
     <>
       <Header />
@@ -64,9 +79,23 @@ const PostDetail = () => {
             </S.Comments>
           </S.CommentSection>
         </S.PostDetailSection>
-        <S.AnotherPosts>
+        <S.TodaysPosts>
           <S.Todays>오늘의 Choice</S.Todays>
-        </S.AnotherPosts>
+          <S.TodaysPostsLayout>
+            {todaysPostList?.map((choice) => (
+              <Choice
+                key={choice.idx}
+                idx={choice.idx}
+                imageUrl={choice.imageUrl}
+                title={choice.title}
+                participants={choice.participants}
+                commentCount={choice.commentCount}
+                firstVotingOption={choice.firstVotingOption}
+                secondVotingOption={choice.secondVotingOption}
+              />
+            ))}
+          </S.TodaysPostsLayout>
+        </S.TodaysPosts>
       </S.Layout>
     </>
   );
