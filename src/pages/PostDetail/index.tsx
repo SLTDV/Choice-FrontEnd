@@ -4,9 +4,12 @@ import Header from '../../components/common/Header';
 import * as S from './style';
 import Choice from '../../components/common/Choice';
 import Post from '../../services/Post';
-import { ChoiceData } from '../../types/choice.types';
+import { ChoiceData, PostDetailType } from '../../types/choice.types';
+import { useParams } from 'react-router-dom';
 const PostDetail = () => {
   const [todaysPostList, setTodaysPostList] = useState<ChoiceData[]>();
+  const postId = useParams() as unknown as { idx: number };
+  const [postInfo, setPostInfo] = useState<PostDetailType>();
   const getTodaysPost = async () => {
     try {
       const res: any = await Post.getTodaysPost();
@@ -15,8 +18,18 @@ const PostDetail = () => {
       console.log(error);
     }
   };
-
+  const getPostDetail = async () => {
+    try {
+      const idx: number = postId.idx;
+      const res: any = await Post.getPostInfo(idx);
+      setPostInfo(res.data);
+      console.log(res.data);
+    } catch (error: any) {
+      console.log(error);
+    }
+  };
   useEffect(() => {
+    getPostDetail();
     getTodaysPost();
   }, []);
   return (
@@ -25,29 +38,26 @@ const PostDetail = () => {
       <S.Layout>
         <S.PostDetailSection>
           <S.ProfileBox>
-            <img src='svg/Vote.svg' alt='' />
-            <p>강민제</p>
+            <img src={postInfo?.profileImageUrl} alt='' />
+            <p>{postInfo?.writer}</p>
           </S.ProfileBox>
-          <h1>오늘 저녁 메뉴</h1>
+          <h1>{postInfo?.title}</h1>
           <S.Detail>
-            <S.Description>
-              오늘 저녁 메뉴를 골라주세요! 썸녀랑 첫 데이트 나왔는데 뭐가 더
-              좋을까요?????? 오늘 저녁 골라줘
-            </S.Description>
+            <S.Description>{postInfo?.content}</S.Description>
             <S.VoteBox>
               <S.OptionBox>
-                <S.Option className='first'>
+                <S.Option image={postInfo?.firstImageUrl} className='first'>
                   <S.HoverBox>
                     <S.OptionName>
-                      <p>스테이크</p>
+                      <p>{postInfo?.firstVotingOption}</p>
                     </S.OptionName>
                   </S.HoverBox>
                 </S.Option>
                 <p>VS</p>
-                <S.Option className='second'>
+                <S.Option image={postInfo?.secondImageUrl} className='second'>
                   <S.HoverBox>
                     <S.OptionName>
-                      <p>스테이크</p>
+                      <p>{postInfo?.secondVotingOption}</p>
                     </S.OptionName>
                   </S.HoverBox>
                 </S.Option>

@@ -16,3 +16,25 @@ export interface MakeChoiceData {
   firstImageUrl: string;
   secondImageUrl: string;
 }
+
+export interface PostDetailType {
+  title: string;
+  content: string;
+  firstImageUrl: string;
+  secondImageUrl: string;
+  firstVotingCount: number;
+  secondVotingCount: number;
+  writer: string;
+  profileImageUrl: string;
+  firstVotingOption: string;
+  secondVotingOption: string;
+  comment: [
+    {
+      idx: number;
+      nickname: string;
+      content: string;
+      image: string;
+      isMine: boolean;
+    }
+  ];
+}

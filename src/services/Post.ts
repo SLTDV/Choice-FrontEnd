@@ -65,7 +65,7 @@ class Post {
     try {
       return instance({
         method: 'GET',
-        url: process.env.REACT_APP_BASE_URL + '/post/web/' + { idx },
+        url: process.env.REACT_APP_BASE_URL + '/post/web/' + idx,
         headers: {
           Authorization: tokenService.getLocalAccessToken(),
         },

@@ -18,6 +18,7 @@ export const PostDetailSection = styled.section`
 export const ProfileBox = styled.div`
   position: absolute;
   display: flex;
+  margin-top: -0.5rem;
   & img {
     width: 5rem;
     height: 5rem;
@@ -27,7 +28,6 @@ export const ProfileBox = styled.div`
   & p {
     font-size: 1.6rem;
     margin: auto 1rem;
-    font-weight: 600;
   }
 `;
 
@@ -64,12 +64,12 @@ export const OptionBox = styled.div`
   margin: 0 auto;
 `;
 
-export const Option = styled.div`
+export const Option = styled.div<{ image?: string }>`
   width: 30rem;
   height: 30rem;
   background-color: aliceblue;
   border-radius: 2rem;
-  background-image: url(post.png);
+  background-image: url(${(props) => props.image});
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
@@ -99,7 +99,7 @@ export const HoverBox = styled.span`
 `;
 
 export const OptionName = styled.div`
-  border-radius: 0 0 2rem 2rem;
+  border-radius: 0 0 1.8rem 1.8rem;
   width: 26rem;
   height: 6rem;
   background-color: #ffffff;
