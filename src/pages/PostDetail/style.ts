@@ -192,6 +192,7 @@ export const Profile = styled.div`
     width: 3rem;
     height: 3rem;
     border-radius: 3rem;
+    object-fit: cover;
   }
 `;
 

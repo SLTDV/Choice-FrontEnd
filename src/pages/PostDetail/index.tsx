@@ -7,9 +7,14 @@ import Post from '../../services/Post';
 import { ChoiceData, PostDetailType } from '../../types/choice.types';
 import { useParams } from 'react-router-dom';
 import TodaysChoice from './TodaysChoice';
+import User from '../../services/User';
 const PostDetail = () => {
   const postId = useParams() as unknown as { idx: number };
   const [postInfo, setPostInfo] = useState<PostDetailType>();
+  const [nickname, setNickname] = useState('');
+  const [profileImage, setProfileImage] = useState(
+    'svg/DefaultProfileImage.svg'
+  );
   const getPostDetail = async () => {
     try {
       const idx: number = postId.idx;
@@ -19,8 +24,19 @@ const PostDetail = () => {
       console.log(error);
     }
   };
+  const getMyProfile = async () => {
+    try {
+      const res: any = await User.getMiniProfile();
+      setNickname(res.data.nickname);
+      res.data.image && setProfileImage(res.data.image);
+    } catch (error: any) {
+      console.log(error);
+    }
+  };
+
   useEffect(() => {
     getPostDetail();
+    getMyProfile();
   }, []);
   return (
     <>
@@ -74,8 +90,8 @@ const PostDetail = () => {
             <S.InputWrap>
               <TextareaAutosize placeholder='댓글을 작성해주세요.' />
               <S.Profile>
-                <img src='svg/Vote.svg' alt='' />
-                <S.Name>강민제</S.Name>
+                <img src={profileImage} alt='' />
+                <S.Name>{nickname}</S.Name>
               </S.Profile>
               <button>등록</button>
             </S.InputWrap>
