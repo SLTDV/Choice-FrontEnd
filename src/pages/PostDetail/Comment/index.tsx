@@ -1,11 +1,15 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import * as S from './style';
 import TextareaAutosize from 'react-textarea-autosize';
 import User from '../../../services/User';
+import CommentApi from '../../../services/Comment';
 import { CommentType } from '../../../types/comment.types';
+import { useParams } from 'react-router-dom';
 
 const Comment = ({ comment }: { comment: CommentType[] | undefined }) => {
   const [nickname, setNickname] = useState('');
+  const postId = useParams() as unknown as { idx: number };
+  const commentContent = useRef<any>();
   const [profileImage, setProfileImage] = useState(
     'svg/DefaultProfileImage.svg'
   );
@@ -20,6 +24,14 @@ const Comment = ({ comment }: { comment: CommentType[] | undefined }) => {
     }
   };
 
+  const addComment = async () => {
+    try {
+      await CommentApi.addComment(postId.idx, commentContent.current.value);
+    } catch (error: any) {
+      console.log(error);
+    }
+  };
+
   useEffect(() => {
     getMyProfile();
   }, []);
@@ -28,12 +40,16 @@ const Comment = ({ comment }: { comment: CommentType[] | undefined }) => {
     <S.CommentLayout>
       <h1>댓글</h1>
       <S.InputWrap>
-        <TextareaAutosize placeholder='댓글을 작성해주세요.' required />
+        <TextareaAutosize
+          placeholder='댓글을 작성해주세요.'
+          required
+          ref={commentContent}
+        />
         <S.Profile>
           <img src={profileImage} alt='' />
           <S.Name>{nickname}</S.Name>
         </S.Profile>
-        <button>등록</button>
+        <button onClick={() => addComment()}>등록</button>
       </S.InputWrap>
       {comment?.map((comment: any) => (
         <S.Comments key={comment.idx}>

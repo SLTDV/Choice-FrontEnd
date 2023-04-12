@@ -1,6 +1,6 @@
 import { instance } from '../libs/instance';
 
-class Comment {
+class CommentApi {
   addComment(idx: number, content: string) {
     try {
       return instance({
@@ -15,4 +15,4 @@ class Comment {
     }
   }
 }
-export default new Comment();
+export default new CommentApi();
