@@ -2,11 +2,11 @@ import React, { useRef, useState } from 'react';
 import * as S from './style';
 import { useRecoilState } from 'recoil';
 import { editProfileModalAtom } from '../../../atoms/AtomContainer';
-import { editProfileType } from '../../../types/user.type';
+import { EditProfileType } from '../../../types/user.type';
 import User from '../../../services/User';
 import Image from '../../../services/Image';
 
-const EditProfileModal = (data: editProfileType) => {
+const EditProfileModal = (data: EditProfileType) => {
   const [editProfileModal, setEditProfileModal] =
     useRecoilState(editProfileModalAtom);
   const nicknameRef = useRef<any>();
