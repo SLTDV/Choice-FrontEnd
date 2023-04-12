@@ -1,3 +1,5 @@
+import { CommentType } from './comment.types';
+
 export interface ChoiceData {
   idx: number;
   imageUrl: string;
@@ -29,12 +31,4 @@ export interface PostDetailType {
   firstVotingOption: string;
   secondVotingOption: string;
   comment: CommentType[];
-}
-
-export interface CommentType {
-  idx: number;
-  content: string;
-  nickname: string;
-  image: string;
-  isMine: boolean;
 }

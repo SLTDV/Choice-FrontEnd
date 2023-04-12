@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import * as S from './style';
 import TextareaAutosize from 'react-textarea-autosize';
-import { CommentType } from '../../../types/choice.types';
 import User from '../../../services/User';
+import { CommentType } from '../../../types/comment.types';
 
 const Comment = ({ comment }: { comment: CommentType[] | undefined }) => {
   const [nickname, setNickname] = useState('');
