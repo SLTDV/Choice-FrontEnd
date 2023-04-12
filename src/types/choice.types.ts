@@ -28,13 +28,13 @@ export interface PostDetailType {
   profileImageUrl: string;
   firstVotingOption: string;
   secondVotingOption: string;
-  comment: [
-    {
-      idx: number;
-      nickname: string;
-      content: string;
-      image: string;
-      isMine: boolean;
-    }
-  ];
+  comment: CommentType[];
+}
+
+export interface CommentType {
+  idx: number;
+  content: string;
+  nickname: string;
+  image: string;
+  isMine: boolean;
 }

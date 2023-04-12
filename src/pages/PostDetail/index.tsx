@@ -1,20 +1,16 @@
 import React, { useEffect, useState } from 'react';
-import TextareaAutosize from 'react-textarea-autosize';
 import Header from '../../components/common/Header';
 import * as S from './style';
-import Choice from '../../components/common/Choice';
 import Post from '../../services/Post';
-import { ChoiceData, PostDetailType } from '../../types/choice.types';
+import { PostDetailType } from '../../types/choice.types';
 import { useParams } from 'react-router-dom';
 import TodaysChoice from './TodaysChoice';
-import User from '../../services/User';
+import Comment from './Comment';
+
 const PostDetail = () => {
   const postId = useParams() as unknown as { idx: number };
   const [postInfo, setPostInfo] = useState<PostDetailType>();
-  const [nickname, setNickname] = useState('');
-  const [profileImage, setProfileImage] = useState(
-    'svg/DefaultProfileImage.svg'
-  );
+
   const getPostDetail = async () => {
     try {
       const idx: number = postId.idx;
@@ -24,20 +20,11 @@ const PostDetail = () => {
       console.log(error);
     }
   };
-  const getMyProfile = async () => {
-    try {
-      const res: any = await User.getMiniProfile();
-      setNickname(res.data.nickname);
-      res.data.image && setProfileImage(res.data.image);
-    } catch (error: any) {
-      console.log(error);
-    }
-  };
 
   useEffect(() => {
     getPostDetail();
-    getMyProfile();
   }, []);
+
   return (
     <>
       <Header />
@@ -85,35 +72,7 @@ const PostDetail = () => {
               </S.ButtonWrap>
             </S.VoteBox>
           </S.Detail>
-          <S.CommentSection>
-            <h1>댓글</h1>
-            <S.InputWrap>
-              <TextareaAutosize placeholder='댓글을 작성해주세요.' required />
-              <S.Profile>
-                <img src={profileImage} alt='' />
-                <S.Name>{nickname}</S.Name>
-              </S.Profile>
-              <button>등록</button>
-            </S.InputWrap>
-            {postInfo?.comment.map((comment) => (
-              <S.Comments key={comment.idx}>
-                <S.CommentBox>
-                  <S.Profile>
-                    <img
-                      src={
-                        comment.image
-                          ? comment.image
-                          : 'svg/DefaultProfileImage.svg'
-                      }
-                      alt=''
-                    />
-                    <S.Name>{comment.nickname}</S.Name>
-                  </S.Profile>
-                  <S.Comment>{comment.content}</S.Comment>
-                </S.CommentBox>
-              </S.Comments>
-            ))}
-          </S.CommentSection>
+          <Comment comment={postInfo?.comment} />
         </S.PostDetailSection>
         <TodaysChoice />
       </S.Layout>
