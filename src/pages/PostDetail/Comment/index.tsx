@@ -25,7 +25,7 @@ const Comment = ({ comment }: { comment: CommentType[] | undefined }) => {
   }, []);
 
   return (
-    <S.CommentSection>
+    <S.CommentLayout>
       <h1>댓글</h1>
       <S.InputWrap>
         <TextareaAutosize placeholder='댓글을 작성해주세요.' required />
@@ -51,7 +51,7 @@ const Comment = ({ comment }: { comment: CommentType[] | undefined }) => {
           </S.CommentBox>
         </S.Comments>
       ))}
-    </S.CommentSection>
+    </S.CommentLayout>
   );
 };
 

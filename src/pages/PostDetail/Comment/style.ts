@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 
-export const CommentSection = styled.section`
+export const CommentLayout = styled.section`
   text-align: left;
   padding-top: 7rem;
   padding-left: 6rem;
@@ -41,7 +41,7 @@ export const InputWrap = styled.form`
     margin-right: 1.5rem;
     align-self: flex-end;
     transition: 0.2s ease-in-out;
-    cursor: pointer;
+    pointer-events: none;
   }
   & div {
     position: absolute;
@@ -52,6 +52,8 @@ export const InputWrap = styled.form`
     & button {
       background-color: #000000;
       color: #ffffff;
+      cursor: pointer;
+      pointer-events: all;
     }
   }
 `;
