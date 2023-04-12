@@ -148,7 +148,7 @@ export const CommentSection = styled.section`
   }
 `;
 
-export const InputWrap = styled.div`
+export const InputWrap = styled.form`
   position: relative;
   display: flex;
   flex-direction: column;
@@ -177,12 +177,19 @@ export const InputWrap = styled.div`
     margin-top: 1.5rem;
     margin-right: 1.5rem;
     align-self: flex-end;
+    transition: 0.2s ease-in-out;
     cursor: pointer;
   }
   & div {
     position: absolute;
     top: 1.8rem;
     left: 1.8rem;
+  }
+  &:valid {
+    & button {
+      background-color: #000000;
+      color: #ffffff;
+    }
   }
 `;
 
