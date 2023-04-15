@@ -12,24 +12,29 @@ import MyPage from './pages/MyPage';
 import MakeChoice from './pages/MakeChoice';
 import Page404 from './pages/Page404';
 import { RecoilRoot } from 'recoil';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
 function App() {
+  const queryClient = new QueryClient();
+
   return (
-    <RecoilRoot>
-      <GlobalStyle />
-      <BrowserRouter>
-        <ToastContainer className='toast' />
-        <Routes>
-          <Route path='/' element={<Main />} />
-          <Route path='/signin' element={<Signin />} />
-          <Route path='/signup' element={<Signup />} />
-          <Route path='/:idx' element={<PostDetail />} />
-          <Route path='/my' element={<MyPage />} />
-          <Route path='/makeChoice' element={<MakeChoice />} />
-          <Route path='/*' element={<Page404 />} />
-        </Routes>
-      </BrowserRouter>
-    </RecoilRoot>
+    <QueryClientProvider client={queryClient}>
+      <RecoilRoot>
+        <GlobalStyle />
+        <BrowserRouter>
+          <ToastContainer className='toast' />
+          <Routes>
+            <Route path='/' element={<Main />} />
+            <Route path='/signin' element={<Signin />} />
+            <Route path='/signup' element={<Signup />} />
+            <Route path='/:idx' element={<PostDetail />} />
+            <Route path='/my' element={<MyPage />} />
+            <Route path='/makeChoice' element={<MakeChoice />} />
+            <Route path='/*' element={<Page404 />} />
+          </Routes>
+        </BrowserRouter>
+      </RecoilRoot>{' '}
+    </QueryClientProvider>
   );
 }
 
