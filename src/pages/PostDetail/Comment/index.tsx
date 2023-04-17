@@ -6,6 +6,9 @@ import CommentApi from '../../../services/Comment';
 import { CommentType } from '../../../types/comment.types';
 import { useParams } from 'react-router-dom';
 import { useMutation, useQueryClient } from 'react-query';
+import { removeCommentModalAtom } from '../../../atoms';
+import { useRecoilState } from 'recoil';
+import RemoveCommentModal from '../../../components/modal/RemoveCommentModal';
 
 const Comment = ({ comment }: { comment: CommentType[] | undefined }) => {
   const [nickname, setNickname] = useState('');
@@ -13,6 +16,9 @@ const Comment = ({ comment }: { comment: CommentType[] | undefined }) => {
   const commentContent = useRef<any>();
   const [profileImage, setProfileImage] = useState(
     'svg/DefaultProfileImage.svg'
+  );
+  const [removeCommentModal, setRemoveCommentModal] = useRecoilState(
+    removeCommentModalAtom
   );
   const queryClient = useQueryClient();
 
@@ -65,59 +71,67 @@ const Comment = ({ comment }: { comment: CommentType[] | undefined }) => {
   }, []);
 
   return (
-    <S.CommentLayout>
-      <h1>댓글</h1>
-      <S.InputWrap>
-        <TextareaAutosize
-          placeholder='댓글을 작성해주세요.'
-          required
-          ref={commentContent}
-        />
-        <S.Profile>
-          <img src={profileImage} alt='' />
-          <S.Name>{nickname}</S.Name>
-        </S.Profile>
-        <button onClick={() => addComment()} type='button'>
-          등록
-        </button>
-      </S.InputWrap>
-      {comment?.length == 0 ? (
-        <S.isNotCommentBox>
-          <p>첫 댓글을 입력해 주세요.</p>
-        </S.isNotCommentBox>
-      ) : (
-        <>
-          {comment?.map((comment: any) => (
-            <S.Comments key={comment.idx}>
-              <S.CommentBox>
-                <S.Profile>
-                  <img
-                    src={
-                      comment.image
-                        ? comment.image
-                        : 'svg/DefaultProfileImage.svg'
-                    }
-                    alt=''
-                  />
-                  <S.Name>{comment.nickname}</S.Name>
-                </S.Profile>
-                <S.Comment>{comment.content}</S.Comment>
-              </S.CommentBox>
-              <S.EditBox>
-                <S.Edit>
-                  <img src='svg/CommentEdit.svg' alt='edit' />
-                  <div />
-                </S.Edit>
-                <S.DeleteBox>
-                  <img src='svg/CommentDeleteTop.svg' alt='' className='top' />
-                  <img src='svg/CommentDelete.svg' alt='delete' />
-                </S.DeleteBox>
-              </S.EditBox>
-            </S.Comments>
-          ))}
-        </>
-      )}
-    </S.CommentLayout>
+    <>
+      {removeCommentModal && <RemoveCommentModal />}
+
+      <S.CommentLayout>
+        <h1>댓글</h1>
+        <S.InputWrap>
+          <TextareaAutosize
+            placeholder='댓글을 작성해주세요.'
+            required
+            ref={commentContent}
+          />
+          <S.Profile>
+            <img src={profileImage} alt='' />
+            <S.Name>{nickname}</S.Name>
+          </S.Profile>
+          <button onClick={() => addComment()} type='button'>
+            등록
+          </button>
+        </S.InputWrap>
+        {comment?.length == 0 ? (
+          <S.isNotCommentBox>
+            <p>첫 댓글을 입력해 주세요.</p>
+          </S.isNotCommentBox>
+        ) : (
+          <>
+            {comment?.map((comment: any) => (
+              <S.Comments key={comment.idx}>
+                <S.CommentBox>
+                  <S.Profile>
+                    <img
+                      src={
+                        comment.image
+                          ? comment.image
+                          : 'svg/DefaultProfileImage.svg'
+                      }
+                      alt=''
+                    />
+                    <S.Name>{comment.nickname}</S.Name>
+                  </S.Profile>
+                  <S.Comment>{comment.content}</S.Comment>
+                </S.CommentBox>
+                <S.EditBox>
+                  <S.Edit>
+                    <img src='svg/CommentEdit.svg' alt='edit' />
+                    <div />
+                  </S.Edit>
+                  <S.DeleteBox onClick={() => setRemoveCommentModal(true)}>
+                    <img
+                      src='svg/CommentDeleteTop.svg'
+                      alt=''
+                      className='top'
+                    />
+                    <img src='svg/CommentDelete.svg' alt='delete' />
+                  </S.DeleteBox>
+                </S.EditBox>
+              </S.Comments>
+            ))}
+          </>
+        )}
+      </S.CommentLayout>
+    </>
   );
 };
 

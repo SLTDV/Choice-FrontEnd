@@ -14,5 +14,17 @@ class CommentApi {
       return error;
     }
   }
+
+  removeComment(postIdx: number, commentIdx: number) {
+    try {
+      return instance({
+        method: 'DELETE',
+        url:
+          process.env.REACT_APP_BASE_URL + `/comment/${postIdx}/${commentIdx}`,
+      });
+    } catch (error) {
+      return error;
+    }
+  }
 }
 export default new CommentApi();

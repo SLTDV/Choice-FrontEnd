@@ -128,6 +128,7 @@ export const Edit = styled.div`
 export const DeleteBox = styled.div`
   position: relative;
   margin-left: 1rem;
+  cursor: pointer;
   & .top {
     position: absolute;
     margin-top: -6px;
