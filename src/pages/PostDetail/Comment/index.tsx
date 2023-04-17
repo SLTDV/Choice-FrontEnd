@@ -35,8 +35,26 @@ const Comment = ({ comment }: { comment: CommentType[] | undefined }) => {
   };
 
   const { mutate: addComment } = useMutation(onAddComment, {
+    onMutate: async (newComment) => {
+      await queryClient.cancelQueries('post');
+      const snapshotOfPreviousData = queryClient.getQueryData('post');
+      queryClient.setQueryData('post', (oldComment: any) => ({
+        newComment,
+        ...oldComment,
+      }));
+
+      return {
+        snapshotOfPreviousData,
+      };
+    },
+
+    onError: ({ snapshotOfPreviousData }) => {
+      queryClient.setQueryData('post', snapshotOfPreviousData);
+    },
     onSuccess: () => {
       commentContent.current.value = '';
+    },
+    onSettled: () => {
       queryClient.invalidateQueries('post');
     },
   });
