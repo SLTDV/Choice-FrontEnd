@@ -124,7 +124,7 @@ const Comment = ({ comment }: { comment: CommentType[] | undefined }) => {
                   <S.EditBox>
                     <S.Edit>
                       <img src='svg/CommentEdit.svg' alt='edit' />
-                      <div />
+                      <div className='line' />
                     </S.Edit>
                     <S.DeleteBox onClick={() => onRemoveComment(comment.idx)}>
                       <img

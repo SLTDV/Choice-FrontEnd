@@ -81,11 +81,11 @@ export const Comments = styled.section`
 `;
 
 export const CommentBox = styled.div`
-  width: 95%;
+  width: 90%;
   border-bottom: 1px solid #efefef;
   position: relative;
   padding: 3rem 0;
-  padding-right: 5%;
+  padding-right: 10%;
   & div {
     background-color: #ffffff;
     margin-left: 2rem;
@@ -110,14 +110,21 @@ export const isNotCommentBox = styled.div`
 export const EditBox = styled.div`
   display: flex;
   position: absolute;
-  bottom: 0;
-  right: 0;
+  bottom: 0.4rem;
+  right: 1.4rem;
 `;
 
 export const Edit = styled.div`
   margin-top: 0.8rem;
-  & div {
-    width: 100%;
+  cursor: pointer;
+  &:hover {
+    .line {
+      width: 110%;
+    }
+  }
+  & .line {
+    width: 0%;
+    transition: 0.5s ease;
     height: 1px;
     border-radius: 0.5px;
     margin-top: -0.4rem;
@@ -127,7 +134,7 @@ export const Edit = styled.div`
 
 export const DeleteBox = styled.div`
   position: relative;
-  margin-left: 1rem;
+  margin-left: 1.4rem;
   padding-top: 1.3rem;
   cursor: pointer;
   & .top {
