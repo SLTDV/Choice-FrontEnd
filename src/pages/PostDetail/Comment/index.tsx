@@ -103,6 +103,16 @@ const Comment = ({ comment }: { comment: CommentType[] | undefined }) => {
                 </S.Profile>
                 <S.Comment>{comment.content}</S.Comment>
               </S.CommentBox>
+              <S.EditBox>
+                <S.Edit>
+                  <img src='svg/CommentEdit.svg' alt='edit' />
+                  <div />
+                </S.Edit>
+                <S.DeleteBox>
+                  <img src='svg/CommentDeleteTop.svg' alt='' className='top' />
+                  <img src='svg/CommentDelete.svg' alt='delete' />
+                </S.DeleteBox>
+              </S.EditBox>
             </S.Comments>
           ))}
         </>

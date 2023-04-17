@@ -77,13 +77,15 @@ export const Name = styled.p`
 export const Comments = styled.section`
   display: flex;
   flex-direction: column;
+  position: relative;
 `;
 
 export const CommentBox = styled.div`
-  width: 100%;
+  width: 95%;
   border-bottom: 1px solid #efefef;
   position: relative;
   padding: 3rem 0;
+  padding-right: 5%;
   & div {
     background-color: #ffffff;
     margin-left: 2rem;
@@ -102,5 +104,32 @@ export const isNotCommentBox = styled.div`
   & p {
     font-size: 1.5rem;
     color: #6d6d6d;
+  }
+`;
+
+export const EditBox = styled.div`
+  display: flex;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+`;
+
+export const Edit = styled.div`
+  margin-top: -0.6rem;
+  & div {
+    width: 100%;
+    height: 1px;
+    border-radius: 0.5px;
+    margin-top: -0.4rem;
+    background-color: #000000;
+  }
+`;
+
+export const DeleteBox = styled.div`
+  position: relative;
+  margin-left: 1rem;
+  & .top {
+    position: absolute;
+    margin-top: -6px;
   }
 `;
