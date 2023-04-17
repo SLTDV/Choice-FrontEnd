@@ -3,7 +3,7 @@ import * as S from './style';
 import TextareaAutosize from 'react-textarea-autosize';
 import User from '../../../services/User';
 import CommentApi from '../../../services/Comment';
-import { CommentType } from '../../../types/comment.types';
+import { CommentIdxType, CommentType } from '../../../types/comment.types';
 import { useParams } from 'react-router-dom';
 import { useMutation, useQueryClient } from 'react-query';
 import { removeCommentModalAtom } from '../../../atoms';
@@ -20,6 +20,9 @@ const Comment = ({ comment }: { comment: CommentType[] | undefined }) => {
   const [removeCommentModal, setRemoveCommentModal] = useRecoilState(
     removeCommentModalAtom
   );
+  const [commentIdx, setCommentIdx] = useState<CommentIdxType>({
+    commentIdx: 0,
+  });
   const queryClient = useQueryClient();
 
   const getMyProfile = async () => {
@@ -65,15 +68,20 @@ const Comment = ({ comment }: { comment: CommentType[] | undefined }) => {
     },
   });
 
+  const onRemoveComment = (idx: number) => {
+    setCommentIdx({ commentIdx: idx });
+    setRemoveCommentModal(true);
+  };
+
   useEffect(() => {
     getMyProfile();
-    console.log(comment, 's');
   }, []);
 
   return (
     <>
-      {removeCommentModal && <RemoveCommentModal />}
-
+      {removeCommentModal && (
+        <RemoveCommentModal commentIdx={commentIdx.commentIdx} />
+      )}
       <S.CommentLayout>
         <h1>댓글</h1>
         <S.InputWrap>
@@ -117,7 +125,7 @@ const Comment = ({ comment }: { comment: CommentType[] | undefined }) => {
                     <img src='svg/CommentEdit.svg' alt='edit' />
                     <div />
                   </S.Edit>
-                  <S.DeleteBox onClick={() => setRemoveCommentModal(true)}>
+                  <S.DeleteBox onClick={() => onRemoveComment(comment.idx)}>
                     <img
                       src='svg/CommentDeleteTop.svg'
                       alt=''

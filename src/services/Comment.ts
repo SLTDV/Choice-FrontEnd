@@ -1,4 +1,5 @@
 import { instance } from '../libs/instance';
+import tokenService from '../utils/tokenService';
 
 class CommentApi {
   addComment(idx: number, content: string) {
@@ -20,7 +21,14 @@ class CommentApi {
       return instance({
         method: 'DELETE',
         url:
-          process.env.REACT_APP_BASE_URL + `/comment/${postIdx}/${commentIdx}`,
+          process.env.REACT_APP_BASE_URL +
+          '/comment/' +
+          postIdx +
+          '/' +
+          commentIdx,
+        headers: {
+          Authorization: tokenService.getLocalAccessToken(),
+        },
       });
     } catch (error) {
       return error;
