@@ -115,7 +115,7 @@ export const EditBox = styled.div`
 `;
 
 export const Edit = styled.div`
-  margin-top: -0.6rem;
+  margin-top: 0.8rem;
   & div {
     width: 100%;
     height: 1px;
@@ -128,9 +128,18 @@ export const Edit = styled.div`
 export const DeleteBox = styled.div`
   position: relative;
   margin-left: 1rem;
+  padding-top: 1.3rem;
   cursor: pointer;
   & .top {
     position: absolute;
     margin-top: -6px;
+    transition: 0.5s;
+  }
+  &:hover {
+    .top {
+      transform: rotate(-50deg);
+      transform-origin: left bottom;
+      margin-top: -7px;
+    }
   }
 `;
