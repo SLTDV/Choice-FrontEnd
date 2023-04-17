@@ -6,7 +6,7 @@ import { PostDetailType } from '../../types/choice.types';
 import { useParams } from 'react-router-dom';
 import TodaysChoice from './TodaysChoice';
 import Comment from './Comment';
-
+import { useQuery } from 'react-query';
 const PostDetail = () => {
   const postId = useParams() as unknown as { idx: number };
   const [postInfo, setPostInfo] = useState<PostDetailType>();
@@ -20,6 +20,10 @@ const PostDetail = () => {
       console.log(error);
     }
   };
+  useQuery({
+    queryKey: 'post',
+    queryFn: getPostDetail,
+  });
 
   useEffect(() => {
     getPostDetail();

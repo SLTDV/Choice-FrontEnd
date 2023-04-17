@@ -5,6 +5,7 @@ import User from '../../../services/User';
 import CommentApi from '../../../services/Comment';
 import { CommentType } from '../../../types/comment.types';
 import { useParams } from 'react-router-dom';
+import { useMutation, useQueryClient } from 'react-query';
 
 const Comment = ({ comment }: { comment: CommentType[] | undefined }) => {
   const [nickname, setNickname] = useState('');
@@ -13,6 +14,7 @@ const Comment = ({ comment }: { comment: CommentType[] | undefined }) => {
   const [profileImage, setProfileImage] = useState(
     'svg/DefaultProfileImage.svg'
   );
+  const queryClient = useQueryClient();
 
   const getMyProfile = async () => {
     try {
@@ -24,13 +26,20 @@ const Comment = ({ comment }: { comment: CommentType[] | undefined }) => {
     }
   };
 
-  const addComment = async () => {
+  const onAddComment = async () => {
     try {
       await CommentApi.addComment(postId.idx, commentContent.current.value);
     } catch (error: any) {
       console.log(error);
     }
   };
+
+  const { mutate: addComment } = useMutation(onAddComment, {
+    onSuccess: () => {
+      commentContent.current.value = '';
+      queryClient.invalidateQueries('post');
+    },
+  });
 
   useEffect(() => {
     getMyProfile();
@@ -49,7 +58,9 @@ const Comment = ({ comment }: { comment: CommentType[] | undefined }) => {
           <img src={profileImage} alt='' />
           <S.Name>{nickname}</S.Name>
         </S.Profile>
-        <button onClick={() => addComment()}>등록</button>
+        <button onClick={() => addComment()} type='button'>
+          등록
+        </button>
       </S.InputWrap>
       {comment?.map((comment: any) => (
         <S.Comments key={comment.idx}>

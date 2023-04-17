@@ -12,7 +12,7 @@ import MyPage from './pages/MyPage';
 import MakeChoice from './pages/MakeChoice';
 import Page404 from './pages/Page404';
 import { RecoilRoot } from 'recoil';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { QueryClient, QueryClientProvider } from 'react-query';
 
 function App() {
   const queryClient = new QueryClient();
