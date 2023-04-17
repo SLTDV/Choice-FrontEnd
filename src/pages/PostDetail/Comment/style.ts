@@ -94,3 +94,13 @@ export const Comment = styled.p`
   font-size: 1.5rem;
   margin-left: 6rem;
 `;
+
+export const isNotCommentBox = styled.div`
+  width: 100%;
+  text-align: center;
+  padding: 13rem 0;
+  & p {
+    font-size: 1.5rem;
+    color: #6d6d6d;
+  }
+`;

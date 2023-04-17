@@ -61,6 +61,7 @@ const Comment = ({ comment }: { comment: CommentType[] | undefined }) => {
 
   useEffect(() => {
     getMyProfile();
+    console.log(comment, 's');
   }, []);
 
   return (
@@ -80,22 +81,32 @@ const Comment = ({ comment }: { comment: CommentType[] | undefined }) => {
           등록
         </button>
       </S.InputWrap>
-      {comment?.map((comment: any) => (
-        <S.Comments key={comment.idx}>
-          <S.CommentBox>
-            <S.Profile>
-              <img
-                src={
-                  comment.image ? comment.image : 'svg/DefaultProfileImage.svg'
-                }
-                alt=''
-              />
-              <S.Name>{comment.nickname}</S.Name>
-            </S.Profile>
-            <S.Comment>{comment.content}</S.Comment>
-          </S.CommentBox>
-        </S.Comments>
-      ))}
+      {comment?.length == 0 ? (
+        <S.isNotCommentBox>
+          <p>첫 댓글을 입력해 주세요.</p>
+        </S.isNotCommentBox>
+      ) : (
+        <>
+          {comment?.map((comment: any) => (
+            <S.Comments key={comment.idx}>
+              <S.CommentBox>
+                <S.Profile>
+                  <img
+                    src={
+                      comment.image
+                        ? comment.image
+                        : 'svg/DefaultProfileImage.svg'
+                    }
+                    alt=''
+                  />
+                  <S.Name>{comment.nickname}</S.Name>
+                </S.Profile>
+                <S.Comment>{comment.content}</S.Comment>
+              </S.CommentBox>
+            </S.Comments>
+          ))}
+        </>
+      )}
     </S.CommentLayout>
   );
 };
