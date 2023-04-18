@@ -15,6 +15,14 @@ const Comment = (comment: CommentType) => {
     setRemoveCommentModal(true);
   };
 
+  useEffect(() => {
+    if (commentEditContent.current !== null) {
+      const len = commentEditContent.current?.textLength;
+      commentEditContent.current.focus();
+      commentEditContent.current.setSelectionRange(len, len);
+    }
+  }, [isEditing]);
+
   return (
     <S.Comment key={comment.idx}>
       <S.CommentBox>
