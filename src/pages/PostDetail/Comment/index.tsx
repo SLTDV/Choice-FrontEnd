@@ -104,7 +104,7 @@ const Comment = ({ comment }: { comment: CommentType[] | undefined }) => {
           </S.isNotCommentBox>
         ) : (
           <>
-            {comment?.map((comment: any) => (
+            {comment?.map((comment: CommentType) => (
               <S.Comments key={comment.idx}>
                 <S.CommentBox>
                   <S.Profile>
@@ -121,7 +121,7 @@ const Comment = ({ comment }: { comment: CommentType[] | undefined }) => {
                   <S.Comment>{comment.content}</S.Comment>
                 </S.CommentBox>
                 {comment.isMine && (
-                  <S.EditBox>
+                  <S.EditBox className='editBox'>
                     <S.Edit>
                       <img src='svg/CommentEdit.svg' alt='edit' />
                       <div className='line' />

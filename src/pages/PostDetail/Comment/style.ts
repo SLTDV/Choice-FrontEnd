@@ -78,6 +78,11 @@ export const Comments = styled.section`
   display: flex;
   flex-direction: column;
   position: relative;
+  &:hover {
+    & .editBox {
+      opacity: 1;
+    }
+  }
 `;
 
 export const CommentBox = styled.div`
@@ -112,6 +117,8 @@ export const EditBox = styled.div`
   position: absolute;
   bottom: 0.4rem;
   right: 1.4rem;
+  opacity: 0;
+  transition: 0.2s ease-out;
 `;
 
 export const Edit = styled.div`
