@@ -23,8 +23,8 @@ const Comment = ({ comment }: { comment: CommentType[] | undefined }) => {
   const [commentIdx, setCommentIdx] = useState<CommentIdxType>({
     commentIdx: 0,
   });
-  const queryClient = useQueryClient();
 
+  const queryClient = useQueryClient();
   const getMyProfile = async () => {
     try {
       const res: any = await User.getMiniProfile();
@@ -61,10 +61,10 @@ const Comment = ({ comment }: { comment: CommentType[] | undefined }) => {
       queryClient.setQueryData('post', snapshotOfPreviousData);
     },
     onSuccess: () => {
-      commentContent.current.value = '';
+      queryClient.invalidateQueries('post');
     },
     onSettled: () => {
-      queryClient.invalidateQueries('post');
+      commentContent.current.value = '';
     },
   });
 

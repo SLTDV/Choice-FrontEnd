@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useRecoilState } from 'recoil';
 import * as S from './style';
 import { removeCommentModalAtom } from '../../../atoms';
@@ -52,10 +52,9 @@ const RemoveCommentModal = (commentIdx: CommentIdxType) => {
       queryClient.setQueryData('post', snapshotOfPreviousData);
     },
     onSuccess: () => {
-      setRemoveCommentModal(false);
+      queryClient.invalidateQueries('post');
     },
     onSettled: () => {
-      queryClient.invalidateQueries('post');
       setRemoveCommentModal(false);
     },
   });
