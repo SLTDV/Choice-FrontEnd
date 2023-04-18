@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState, useRef, useEffect } from 'react';
+import TextareaAutosize from 'react-textarea-autosize';
 import { useRecoilState } from 'recoil';
 import { commentIdxAtom, removeCommentModalAtom } from '../../../../atoms';
 import { CommentIdxType, CommentType } from '../../../../types/comment.types';
@@ -6,6 +7,8 @@ import * as S from './style';
 const Comment = (comment: CommentType) => {
   const [, setRemoveCommentModal] = useRecoilState(removeCommentModalAtom);
   const [, setCommentIdx] = useRecoilState<CommentIdxType>(commentIdxAtom);
+  const [isEditing, setIsEditing] = useState(false);
+  const commentEditContent = useRef<HTMLTextAreaElement>(null);
 
   const onRemoveComment = (idx: number) => {
     setCommentIdx({ commentIdx: idx });
@@ -22,11 +25,20 @@ const Comment = (comment: CommentType) => {
           />
           <S.Name>{comment.nickname}</S.Name>
         </S.Profile>
-        <S.Content>{comment.content}</S.Content>
+        {isEditing ? (
+          <TextareaAutosize
+            defaultValue={comment.content}
+            required
+            ref={commentEditContent}
+            autoFocus
+          />
+        ) : (
+          <S.Content>{comment.content}</S.Content>
+        )}
       </S.CommentBox>
       {comment.isMine && (
         <S.EditBox className='editBox'>
-          <S.Edit>
+          <S.Edit onClick={() => setIsEditing(true)}>
             <img src='svg/CommentEdit.svg' alt='edit' />
             <div className='line' />
           </S.Edit>

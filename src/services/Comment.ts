@@ -21,13 +21,26 @@ class CommentApi {
       return instance({
         method: 'DELETE',
         url:
-          process.env.REACT_APP_BASE_URL +
-          '/comment/' +
-          postIdx +
-          '/' +
-          commentIdx,
+          process.env.REACT_APP_BASE_URL + `/comment/${postIdx}/${commentIdx}`,
         headers: {
           Authorization: tokenService.getLocalAccessToken(),
+        },
+      });
+    } catch (error) {
+      return error;
+    }
+  }
+
+  editComment(commentIdx: number, content: string) {
+    try {
+      return instance({
+        method: 'DELETE',
+        url: process.env.REACT_APP_BASE_URL + `comment/${commentIdx}`,
+        headers: {
+          Authorization: tokenService.getLocalAccessToken(),
+        },
+        data: {
+          content: content,
         },
       });
     } catch (error) {

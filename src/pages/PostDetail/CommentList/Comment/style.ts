@@ -37,6 +37,20 @@ export const CommentBox = styled.div`
     background-color: #ffffff;
     margin-left: 2rem;
   }
+  & textarea {
+    margin-left: 5.6rem;
+    width: 84%;
+    height: 8rem;
+    font-size: 1.5rem;
+    padding: 1rem 2rem;
+    border-radius: 20px;
+    border: 1px solid #aaaaaa;
+    resize: none;
+    &:focus {
+      border-color: #000000;
+      outline: none;
+    }
+  }
 `;
 
 export const Content = styled.p`
