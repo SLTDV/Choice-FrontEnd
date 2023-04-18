@@ -9,7 +9,6 @@ import { CommentIdxType } from '../../../types/comment.types';
 
 const RemoveCommentModal = (commentIdx: CommentIdxType) => {
   const [, setRemoveCommentModal] = useRecoilState(removeCommentModalAtom);
-  console.log(commentIdx);
   const queryClient = useQueryClient();
   const postId = useParams() as unknown as { idx: number };
 

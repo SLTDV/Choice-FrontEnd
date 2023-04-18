@@ -5,7 +5,7 @@ import Post from '../../services/Post';
 import { PostDetailType } from '../../types/choice.types';
 import { useParams } from 'react-router-dom';
 import TodaysChoice from './TodaysChoice';
-import Comment from './Comment';
+import CommentList from './CommentList';
 import { useQuery } from 'react-query';
 const PostDetail = () => {
   const postId = useParams() as unknown as { idx: number };
@@ -76,7 +76,7 @@ const PostDetail = () => {
               </S.ButtonWrap>
             </S.VoteBox>
           </S.Detail>
-          <Comment comment={postInfo?.comment} />
+          <CommentList comment={postInfo?.comment} />
         </S.PostDetailSection>
         <TodaysChoice />
       </S.Layout>

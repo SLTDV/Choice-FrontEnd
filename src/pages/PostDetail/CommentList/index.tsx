@@ -6,25 +6,22 @@ import CommentApi from '../../../services/Comment';
 import { CommentIdxType, CommentType } from '../../../types/comment.types';
 import { useParams } from 'react-router-dom';
 import { useMutation, useQueryClient } from 'react-query';
-import { removeCommentModalAtom } from '../../../atoms';
+import { commentIdxAtom, removeCommentModalAtom } from '../../../atoms';
 import { useRecoilState } from 'recoil';
 import RemoveCommentModal from '../../../components/modal/RemoveCommentModal';
+import Comment from './Comment';
 
-const Comment = ({ comment }: { comment: CommentType[] | undefined }) => {
+const CommentList = ({ comment }: { comment: CommentType[] | undefined }) => {
   const [nickname, setNickname] = useState('');
   const postId = useParams() as unknown as { idx: number };
   const commentContent = useRef<any>();
   const [profileImage, setProfileImage] = useState(
     'svg/DefaultProfileImage.svg'
   );
-  const [removeCommentModal, setRemoveCommentModal] = useRecoilState(
-    removeCommentModalAtom
-  );
-  const [commentIdx, setCommentIdx] = useState<CommentIdxType>({
-    commentIdx: 0,
-  });
-
+  const [removeCommentModal] = useRecoilState(removeCommentModalAtom);
+  const [commentIdx] = useRecoilState<CommentIdxType>(commentIdxAtom);
   const queryClient = useQueryClient();
+
   const getMyProfile = async () => {
     try {
       const res: any = await User.getMiniProfile();
@@ -68,11 +65,6 @@ const Comment = ({ comment }: { comment: CommentType[] | undefined }) => {
     },
   });
 
-  const onRemoveComment = (idx: number) => {
-    setCommentIdx({ commentIdx: idx });
-    setRemoveCommentModal(true);
-  };
-
   useEffect(() => {
     getMyProfile();
   }, []);
@@ -105,38 +97,14 @@ const Comment = ({ comment }: { comment: CommentType[] | undefined }) => {
         ) : (
           <>
             {comment?.map((comment: CommentType) => (
-              <S.Comments key={comment.idx}>
-                <S.CommentBox>
-                  <S.Profile>
-                    <img
-                      src={
-                        comment.image
-                          ? comment.image
-                          : 'svg/DefaultProfileImage.svg'
-                      }
-                      alt=''
-                    />
-                    <S.Name>{comment.nickname}</S.Name>
-                  </S.Profile>
-                  <S.Comment>{comment.content}</S.Comment>
-                </S.CommentBox>
-                {comment.isMine && (
-                  <S.EditBox className='editBox'>
-                    <S.Edit>
-                      <img src='svg/CommentEdit.svg' alt='edit' />
-                      <div className='line' />
-                    </S.Edit>
-                    <S.DeleteBox onClick={() => onRemoveComment(comment.idx)}>
-                      <img
-                        src='svg/CommentDeleteTop.svg'
-                        alt=''
-                        className='top'
-                      />
-                      <img src='svg/CommentDelete.svg' alt='delete' />
-                    </S.DeleteBox>
-                  </S.EditBox>
-                )}
-              </S.Comments>
+              <Comment
+                key={comment.idx}
+                idx={comment.idx}
+                image={comment.image}
+                nickname={comment.nickname}
+                content={comment.content}
+                isMine={comment.isMine}
+              />
             ))}
           </>
         )}
@@ -145,4 +113,4 @@ const Comment = ({ comment }: { comment: CommentType[] | undefined }) => {
   );
 };
 
-export default Comment;
+export default CommentList;

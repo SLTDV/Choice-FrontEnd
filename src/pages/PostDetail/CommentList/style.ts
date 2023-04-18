@@ -74,34 +74,6 @@ export const Name = styled.p`
   color: #737373;
 `;
 
-export const Comments = styled.section`
-  display: flex;
-  flex-direction: column;
-  position: relative;
-  &:hover {
-    & .editBox {
-      opacity: 1;
-    }
-  }
-`;
-
-export const CommentBox = styled.div`
-  width: 90%;
-  border-bottom: 1px solid #efefef;
-  position: relative;
-  padding: 3rem 0;
-  padding-right: 10%;
-  & div {
-    background-color: #ffffff;
-    margin-left: 2rem;
-  }
-`;
-
-export const Comment = styled.p`
-  font-size: 1.5rem;
-  margin-left: 6rem;
-`;
-
 export const isNotCommentBox = styled.div`
   width: 100%;
   text-align: center;
@@ -109,51 +81,5 @@ export const isNotCommentBox = styled.div`
   & p {
     font-size: 1.5rem;
     color: #6d6d6d;
-  }
-`;
-
-export const EditBox = styled.div`
-  display: flex;
-  position: absolute;
-  bottom: 0.4rem;
-  right: 1.4rem;
-  opacity: 0;
-  transition: 0.2s ease-out;
-`;
-
-export const Edit = styled.div`
-  margin-top: 0.8rem;
-  cursor: pointer;
-  &:hover {
-    .line {
-      width: 110%;
-    }
-  }
-  & .line {
-    width: 0%;
-    transition: 0.5s ease;
-    height: 1px;
-    border-radius: 0.5px;
-    margin-top: -0.4rem;
-    background-color: #000000;
-  }
-`;
-
-export const DeleteBox = styled.div`
-  position: relative;
-  margin-left: 1.4rem;
-  padding-top: 1.3rem;
-  cursor: pointer;
-  & .top {
-    position: absolute;
-    margin-top: -6px;
-    transition: 0.5s;
-  }
-  &:hover {
-    .top {
-      transform: rotate(-50deg);
-      transform-origin: left bottom;
-      margin-top: -7px;
-    }
   }
 `;

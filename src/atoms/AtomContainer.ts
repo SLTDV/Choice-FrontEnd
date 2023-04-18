@@ -22,3 +22,8 @@ export const removeCommentModalAtom = atom({
   key: 'removeCommentModal',
   default: false,
 });
+
+export const commentIdxAtom = atom({
+  key: 'commentIdx',
+  default: { commentIdx: 0 },
+});
