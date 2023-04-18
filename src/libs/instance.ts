@@ -1,6 +1,4 @@
 import axios from 'axios';
-import { useRecoilState } from 'recoil';
-import { loggedAtom } from '../atoms';
 import TokenService from '../utils/tokenService';
 
 export const instance = axios.create({
@@ -48,13 +46,12 @@ instance.interceptors.response.use(
 let authTokenRequest: any;
 
 function getAuthToken() {
-  const [logged, setLogged] = useRecoilState(loggedAtom);
   if (!authTokenRequest) {
     authTokenRequest = makeActualAuthenticationRequest();
     authTokenRequest
       .catch(function () {
-        setLogged(false);
         TokenService.removeUser();
+        window.location.replace('/signin');
       })
       .then(resetAuthTokenRequest, resetAuthTokenRequest);
   }

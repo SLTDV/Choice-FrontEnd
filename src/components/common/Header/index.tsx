@@ -7,11 +7,13 @@ import User from '../../../services/User';
 import tokenService from '../../../utils/tokenService';
 
 const Header = () => {
-  const [logged] = useRecoilState(loggedAtom);
+  const [logged, setLogged] = useRecoilState(loggedAtom);
   const [nickname, setNickname] = useState();
   const [profileImageUrl, setProfileImageUrl] = useState(
     'svg/DefaultProfileImage.svg'
   );
+  const token = tokenService.getLocalAccessToken();
+
   const getMiniProfile = async () => {
     if (logged) {
       try {
@@ -26,7 +28,11 @@ const Header = () => {
 
   useEffect(() => {
     getMiniProfile();
+    if (!token && logged == true) {
+      setLogged(false);
+    }
   }, []);
+
   return (
     <S.Header>
       <Link to='/'>
