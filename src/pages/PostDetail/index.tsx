@@ -6,13 +6,14 @@ import { PostDetailType } from '../../types/choice.types';
 import { useParams } from 'react-router-dom';
 import TodaysChoice from './TodaysChoice';
 import CommentList from './CommentList';
-import { useQuery } from 'react-query';
+import { useMutation, useQuery, useQueryClient } from 'react-query';
+
 const PostDetail = () => {
   const postId = useParams() as unknown as { idx: number };
   const [postInfo, setPostInfo] = useState<PostDetailType>();
   const [votingState, setvotingState] = useState();
   const [participants, setParticipants] = useState(0);
-
+  const queryClient = useQueryClient();
   const getPostDetail = async () => {
     try {
       const idx: number = postId.idx;
@@ -25,13 +26,20 @@ const PostDetail = () => {
     }
   };
 
-  const vote = async (choice: number) => {
+  const onVote = async (choice: number) => {
     try {
       await Post.vote(postId.idx, choice);
+      console.log(postInfo?.votingState);
     } catch (error: any) {
       console.log(error);
     }
   };
+
+  const { mutate: vote } = useMutation(onVote, {
+    onSettled: () => {
+      queryClient.invalidateQueries('post');
+    },
+  });
 
   useQuery({
     queryKey: 'post',
@@ -90,7 +98,9 @@ const PostDetail = () => {
                 </S.ButtonWrap>
               ) : (
                 <S.ButtonWrap>
-                  <S.VoteButton onClick={() => vote(1)}>
+                  <S.VoteButton
+                    onClick={() => postInfo?.votingState !== 1 && vote(1)}
+                  >
                     <h1>
                       {postInfo &&
                         Math.round(
@@ -100,7 +110,9 @@ const PostDetail = () => {
                     </h1>
                     <p>{postInfo?.firstVotingCount}명</p>
                   </S.VoteButton>
-                  <S.VoteButton onClick={() => vote(2)}>
+                  <S.VoteButton
+                    onClick={() => postInfo?.votingState !== 2 && vote(2)}
+                  >
                     <h1>
                       {postInfo &&
                         Math.round(
