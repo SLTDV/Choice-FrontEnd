@@ -3,7 +3,7 @@ import Header from '../../components/common/Header';
 import * as S from './style';
 import Post from '../../services/Post';
 import { PostDetailType } from '../../types/choice.types';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import TodaysChoice from './TodaysChoice';
 import CommentList from './CommentList';
 import { useMutation, useQuery, useQueryClient } from 'react-query';
@@ -14,6 +14,8 @@ const PostDetail = () => {
   const [votingState, setvotingState] = useState();
   const [participants, setParticipants] = useState(0);
   const queryClient = useQueryClient();
+  const navigate = useNavigate();
+
   const getPostDetail = async () => {
     try {
       const idx: number = postId.idx;
@@ -48,6 +50,7 @@ const PostDetail = () => {
 
   useEffect(() => {
     getPostDetail();
+    !postInfo && navigate('/error/404');
   }, [postId]);
 
   return (
