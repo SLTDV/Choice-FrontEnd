@@ -74,5 +74,22 @@ class Post {
       return error;
     }
   }
+
+  vote(idx: number, choice: number) {
+    try {
+      return instance({
+        method: 'POST',
+        url: process.env.REACT_APP_BASE_URL + '/post/vote/' + idx,
+        headers: {
+          Authorization: tokenService.getLocalAccessToken(),
+        },
+        data: {
+          choice: choice,
+        },
+      });
+    } catch (error) {
+      return error;
+    }
+  }
 }
 export default new Post();
