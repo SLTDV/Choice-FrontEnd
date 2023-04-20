@@ -10,16 +10,29 @@ import { useQuery } from 'react-query';
 const PostDetail = () => {
   const postId = useParams() as unknown as { idx: number };
   const [postInfo, setPostInfo] = useState<PostDetailType>();
+  const [votingState, setvotingState] = useState();
+  const [participants, setParticipants] = useState(0);
 
   const getPostDetail = async () => {
     try {
       const idx: number = postId.idx;
       const res: any = await Post.getPostInfo(idx);
       setPostInfo(res.data);
+      setvotingState(res.data.votingState);
+      setParticipants(res.data.firstVotingCount + res.data.secondVotingCount);
     } catch (error: any) {
       console.log(error);
     }
   };
+
+  const vote = async (choice: number) => {
+    try {
+      await Post.vote(postId.idx, choice);
+    } catch (error: any) {
+      console.log(error);
+    }
+  };
+
   useQuery({
     queryKey: 'post',
     queryFn: getPostDetail,
@@ -27,7 +40,7 @@ const PostDetail = () => {
 
   useEffect(() => {
     getPostDetail();
-  }, []);
+  }, [postId]);
 
   return (
     <>
@@ -66,14 +79,39 @@ const PostDetail = () => {
                   </S.HoverBox>
                 </S.Option>
               </S.OptionBox>
-              <S.ButtonWrap>
-                <S.VoteButton>
-                  <img src='svg/Check.svg' alt='' />
-                </S.VoteButton>
-                <S.VoteButton>
-                  <img src='svg/Check.svg' alt='' />
-                </S.VoteButton>
-              </S.ButtonWrap>
+              {votingState == 0 ? (
+                <S.ButtonWrap>
+                  <S.VoteButton onClick={() => vote(1)}>
+                    <img src='svg/Check.svg' alt='' />
+                  </S.VoteButton>
+                  <S.VoteButton onClick={() => vote(2)}>
+                    <img src='svg/Check.svg' alt='' />
+                  </S.VoteButton>
+                </S.ButtonWrap>
+              ) : (
+                <S.ButtonWrap>
+                  <S.VoteButton onClick={() => vote(1)}>
+                    <h1>
+                      {postInfo &&
+                        Math.round(
+                          (postInfo.firstVotingCount / participants) * 100
+                        )}
+                      %
+                    </h1>
+                    <p>{postInfo?.firstVotingCount}명</p>
+                  </S.VoteButton>
+                  <S.VoteButton onClick={() => vote(2)}>
+                    <h1>
+                      {postInfo &&
+                        Math.round(
+                          (postInfo.secondVotingCount / participants) * 100
+                        )}
+                      %
+                    </h1>
+                    <p>{postInfo?.secondVotingCount}명</p>
+                  </S.VoteButton>
+                </S.ButtonWrap>
+              )}
             </S.VoteBox>
           </S.Detail>
           <CommentList comment={postInfo?.comment} />

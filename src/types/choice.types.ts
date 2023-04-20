@@ -30,5 +30,7 @@ export interface PostDetailType {
   profileImageUrl: string;
   firstVotingOption: string;
   secondVotingOption: string;
+  votingState: number;
+  participants: number;
   comment: CommentType[];
 }

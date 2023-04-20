@@ -135,4 +135,8 @@ export const VoteButton = styled.button`
   &:hover {
     box-shadow: 1px 2px 10px #9f9f9f;
   }
+  & p {
+    font-size: 1.5rem;
+    color: #000000;
+  }
 `;
