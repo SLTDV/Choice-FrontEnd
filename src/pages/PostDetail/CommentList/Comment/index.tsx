@@ -3,16 +3,32 @@ import TextareaAutosize from 'react-textarea-autosize';
 import { useRecoilState } from 'recoil';
 import { commentIdxAtom, removeCommentModalAtom } from '../../../../atoms';
 import { CommentIdxType, CommentType } from '../../../../types/comment.types';
+import { useMutation, useQueryClient } from 'react-query';
+import CommentApi from '../../../../services/Comment';
 import * as S from './style';
+import { useParams } from 'react-router-dom';
+
 const Comment = (comment: CommentType) => {
   const [, setRemoveCommentModal] = useRecoilState(removeCommentModalAtom);
   const [, setCommentIdx] = useRecoilState<CommentIdxType>(commentIdxAtom);
   const [isEditing, setIsEditing] = useState(false);
   const commentEditContent = useRef<HTMLTextAreaElement>(null);
-
+  const postId = useParams() as unknown as { idx: number };
+  const queryClient = useQueryClient();
   const onRemoveComment = (idx: number) => {
     setCommentIdx({ commentIdx: idx });
     setRemoveCommentModal(true);
+  };
+
+  const onEditComment = async () => {
+    if (commentEditContent.current?.value) {
+      setIsEditing(false);
+      await CommentApi.editComment(
+        postId.idx,
+        comment.idx,
+        commentEditContent.current?.value
+      );
+    }
   };
 
   useEffect(() => {
@@ -23,8 +39,18 @@ const Comment = (comment: CommentType) => {
     }
   }, [isEditing]);
 
+  const { mutate: editComment } = useMutation(onEditComment, {
+    onSuccess: () => {
+      queryClient.invalidateQueries('post');
+    },
+    onSettled: () => {
+      queryClient.invalidateQueries('post');
+      setIsEditing(false);
+    },
+  });
+
   return (
-    <S.Comment key={comment.idx}>
+    <S.Comment isEditing={isEditing}>
       <S.CommentBox>
         <S.Profile>
           <img
@@ -38,7 +64,6 @@ const Comment = (comment: CommentType) => {
             defaultValue={comment.content}
             required
             ref={commentEditContent}
-            autoFocus
           />
         ) : (
           <S.Content>{comment.content}</S.Content>
@@ -46,14 +71,20 @@ const Comment = (comment: CommentType) => {
       </S.CommentBox>
       {comment.isMine && (
         <S.EditBox className='editBox'>
-          <S.Edit onClick={() => setIsEditing(true)}>
-            <img src='svg/CommentEdit.svg' alt='edit' />
-            <div className='line' />
-          </S.Edit>
-          <S.DeleteBox onClick={() => onRemoveComment(comment.idx)}>
-            <img src='svg/CommentDeleteTop.svg' alt='' className='top' />
-            <img src='svg/CommentDelete.svg' alt='delete' />
-          </S.DeleteBox>
+          {isEditing ? (
+            <button onClick={() => editComment()}>수정</button>
+          ) : (
+            <>
+              <S.Edit onClick={() => setIsEditing(true)}>
+                <img src='svg/CommentEdit.svg' alt='edit' />
+                <div className='line' />
+              </S.Edit>
+              <S.DeleteBox onClick={() => onRemoveComment(comment.idx)}>
+                <img src='svg/CommentDeleteTop.svg' alt='' className='top' />
+                <img src='svg/CommentDelete.svg' alt='delete' />
+              </S.DeleteBox>
+            </>
+          )}
         </S.EditBox>
       )}
     </S.Comment>

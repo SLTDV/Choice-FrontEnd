@@ -1,9 +1,12 @@
 import styled from '@emotion/styled';
 
-export const Comment = styled.section`
+export const Comment = styled.section<{ isEditing: boolean }>`
   display: flex;
   flex-direction: column;
   position: relative;
+  & .editBox {
+    opacity: ${(props) => (props.isEditing ? '1' : '0')};
+  }
   &:hover {
     & .editBox {
       opacity: 1;
@@ -43,7 +46,7 @@ export const CommentBox = styled.div`
     height: 8rem;
     font-size: 1.5rem;
     padding: 1rem 2rem;
-    border-radius: 20px;
+    border-radius: 16px;
     border: 1px solid #aaaaaa;
     resize: none;
     &:focus {
@@ -75,6 +78,16 @@ export const EditBox = styled.div`
   right: 1.4rem;
   opacity: 0;
   transition: 0.2s ease-out;
+  & button {
+    cursor: pointer;
+    width: 7rem;
+    height: 3rem;
+    border-radius: 1.2rem;
+    font-size: 1.3rem;
+    margin-bottom: 3.7rem;
+    color: #ffffff;
+    background: #000000;
+  }
 `;
 
 export const Edit = styled.div`

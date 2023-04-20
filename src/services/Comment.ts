@@ -31,11 +31,12 @@ class CommentApi {
     }
   }
 
-  editComment(commentIdx: number, content: string) {
+  editComment(postIdx: number, commentIdx: number, content: string) {
     try {
       return instance({
-        method: 'DELETE',
-        url: process.env.REACT_APP_BASE_URL + `comment/${commentIdx}`,
+        method: 'PATCH',
+        url:
+          process.env.REACT_APP_BASE_URL + `/comment/${postIdx}/${commentIdx}`,
         headers: {
           Authorization: tokenService.getLocalAccessToken(),
         },
