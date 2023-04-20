@@ -3,35 +3,34 @@ import Header from '../../components/common/Header';
 import * as S from './style';
 import Post from '../../services/Post';
 import { PostDetailType } from '../../types/choice.types';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import TodaysChoice from './TodaysChoice';
 import CommentList from './CommentList';
 import { useMutation, useQuery, useQueryClient } from 'react-query';
 
 const PostDetail = () => {
-  const postId = useParams() as unknown as { idx: number };
   const [postInfo, setPostInfo] = useState<PostDetailType>();
   const [votingState, setvotingState] = useState();
   const [participants, setParticipants] = useState(0);
   const queryClient = useQueryClient();
   const navigate = useNavigate();
+  const location = useLocation();
+  const idx: number = location.state.idx;
 
   const getPostDetail = async () => {
     try {
-      const idx: number = postId.idx;
       const res: any = await Post.getPostInfo(idx);
       setPostInfo(res.data);
       setvotingState(res.data.votingState);
       setParticipants(res.data.firstVotingCount + res.data.secondVotingCount);
     } catch (error: any) {
-      console.log(error);
+      error.response.status == 404 && navigate('/error/404');
     }
   };
 
   const onVote = async (choice: number) => {
     try {
-      await Post.vote(postId.idx, choice);
-      console.log(postInfo?.votingState);
+      await Post.vote(idx, choice);
     } catch (error: any) {
       console.log(error);
     }
@@ -40,6 +39,7 @@ const PostDetail = () => {
   const { mutate: vote } = useMutation(onVote, {
     onSettled: () => {
       queryClient.invalidateQueries('post');
+      queryClient.invalidateQueries('todaysChoice');
     },
   });
 
@@ -50,8 +50,7 @@ const PostDetail = () => {
 
   useEffect(() => {
     getPostDetail();
-    !postInfo && navigate('/error/404');
-  }, [postId]);
+  }, [postInfo]);
 
   return (
     <>
@@ -102,7 +101,7 @@ const PostDetail = () => {
               ) : (
                 <S.ButtonWrap>
                   <S.VoteButton
-                    onClick={() => postInfo?.votingState !== 1 && vote(1)}
+                    onClick={() => postInfo?.votingState !== 1 && onVote(1)}
                   >
                     <h1>
                       {postInfo &&
@@ -114,7 +113,7 @@ const PostDetail = () => {
                     <p>{postInfo?.firstVotingCount}명</p>
                   </S.VoteButton>
                   <S.VoteButton
-                    onClick={() => postInfo?.votingState !== 2 && vote(2)}
+                    onClick={() => postInfo?.votingState !== 2 && onVote(2)}
                   >
                     <h1>
                       {postInfo &&

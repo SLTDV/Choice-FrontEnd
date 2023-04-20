@@ -11,6 +11,7 @@ export const Post = styled.div<{ imageUrl: string }>`
   position: relative;
   transition: 0.3s ease;
   box-shadow: 0.12rem 0.22rem 2.2rem rgba(109, 109, 109, 0.25);
+  cursor: pointer;
   &:hover {
     transform: scale(1.1);
   }

@@ -3,6 +3,8 @@ import Post from '../../../services/Post';
 import { ChoiceData } from '../../../types/choice.types';
 import Choice from '../../../components/common/Choice';
 import * as S from './style';
+import { useQuery } from 'react-query';
+
 const TodaysChoice = () => {
   const [todaysPostList, setTodaysPostList] = useState<ChoiceData[]>();
 
@@ -14,6 +16,11 @@ const TodaysChoice = () => {
       console.log(error);
     }
   };
+
+  useQuery({
+    queryKey: 'todaysChoice',
+    queryFn: getTodaysPost,
+  });
 
   useEffect(() => {
     getTodaysPost();
