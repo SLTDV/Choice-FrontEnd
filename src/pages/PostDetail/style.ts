@@ -82,7 +82,6 @@ export const Option = styled.div<{ image?: string }>`
   background-size: cover;
   background-position: center;
   position: relative;
-  box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.15);
   z-index: 1;
   &:hover {
     & div {
@@ -115,6 +114,7 @@ export const OptionName = styled.div`
   bottom: -8rem;
   opacity: 0;
   padding: 1rem 2rem;
+  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.25);
   transition: 0.3s ease;
   & p {
     color: #000000 !important;
