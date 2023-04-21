@@ -72,7 +72,7 @@ const PostDetail = () => {
           <S.Detail>
             <S.Description>{postInfo?.content}</S.Description>
             <S.VoteBox>
-              <S.OptionBox>
+              <S.OptionBox votingState={votingState}>
                 <S.Option image={postInfo?.firstImageUrl} className='first'>
                   <S.HoverBox>
                     <S.OptionName>

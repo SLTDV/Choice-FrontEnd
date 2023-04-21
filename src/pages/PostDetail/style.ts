@@ -58,11 +58,19 @@ export const VoteBox = styled.div`
   }
 `;
 
-export const OptionBox = styled.div`
+export const OptionBox = styled.div<{ votingState: number }>`
   display: flex;
   width: 74rem;
   justify-content: space-between;
   margin: 0 auto;
+  & .first {
+    box-shadow: ${(props) =>
+      props.votingState == 1 && '0 0 0 4px #000000 inset'};
+  }
+  & .second {
+    box-shadow: ${(props) =>
+      props.votingState == 2 && '0 0 0 4px #000000 inset'};
+  }
 `;
 
 export const Option = styled.div<{ image?: string }>`
@@ -124,14 +132,14 @@ export const ButtonWrap = styled.div<{ votingState?: number }>`
     background: ${(props) => props.votingState == 0 && '#f3f3f3'};
   }
   & .firstBtn {
-    background: ${(props) => props.votingState == 1 && '#222222'};
+    background: ${(props) => props.votingState == 1 && '#000000'};
     color: ${(props) => props.votingState == 1 && '#ffffff'};
     & p {
       color: ${(props) => props.votingState == 1 && '#ffffff'};
     }
   }
   & .secondBtn {
-    background: ${(props) => props.votingState == 2 && '#222222'};
+    background: ${(props) => props.votingState == 2 && '#000000'};
     color: ${(props) => props.votingState == 2 && '#ffffff'};
     & p {
       color: ${(props) => props.votingState == 2 && '#ffffff'};
