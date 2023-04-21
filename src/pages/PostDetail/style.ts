@@ -114,22 +114,38 @@ export const OptionName = styled.div`
     line-height: 6rem;
   }
 `;
-export const ButtonWrap = styled.div`
+export const ButtonWrap = styled.div<{ votingState?: number }>`
   display: flex;
   width: 61rem;
   margin: 0 auto;
   padding-top: 2.8rem;
   justify-content: space-between;
+  & button {
+    background: ${(props) => props.votingState == 0 && '#f3f3f3'};
+  }
+  & .firstBtn {
+    background: ${(props) => props.votingState == 1 && '#222222'};
+    color: ${(props) => props.votingState == 1 && '#ffffff'};
+    & p {
+      color: ${(props) => props.votingState == 1 && '#ffffff'};
+    }
+  }
+  & .secondBtn {
+    background: ${(props) => props.votingState == 2 && '#222222'};
+    color: ${(props) => props.votingState == 2 && '#ffffff'};
+    & p {
+      color: ${(props) => props.votingState == 2 && '#ffffff'};
+    }
+  }
 `;
 
 export const VoteButton = styled.button`
   width: 17rem;
   height: 11rem;
-  background-color: #f3f3f3;
+  background-color: '#f3f3f3';
   border-radius: 20px;
   border: none;
   box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.15);
-  transition: 0.3s ease;
   z-index: 20;
   cursor: pointer;
   &:hover {

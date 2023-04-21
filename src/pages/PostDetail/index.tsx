@@ -10,7 +10,7 @@ import { useMutation, useQuery, useQueryClient } from 'react-query';
 
 const PostDetail = () => {
   const [postInfo, setPostInfo] = useState<PostDetailType>();
-  const [votingState, setvotingState] = useState();
+  const [votingState, setvotingState] = useState(0);
   const [participants, setParticipants] = useState(0);
   const queryClient = useQueryClient();
   const navigate = useNavigate();
@@ -99,9 +99,10 @@ const PostDetail = () => {
                   </S.VoteButton>
                 </S.ButtonWrap>
               ) : (
-                <S.ButtonWrap>
+                <S.ButtonWrap votingState={votingState}>
                   <S.VoteButton
                     onClick={() => postInfo?.votingState !== 1 && onVote(1)}
+                    className='firstBtn'
                   >
                     <h1>
                       {postInfo &&
@@ -114,6 +115,7 @@ const PostDetail = () => {
                   </S.VoteButton>
                   <S.VoteButton
                     onClick={() => postInfo?.votingState !== 2 && onVote(2)}
+                    className='secondBtn'
                   >
                     <h1>
                       {postInfo &&
