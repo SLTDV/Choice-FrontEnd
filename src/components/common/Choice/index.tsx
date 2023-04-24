@@ -4,16 +4,18 @@ import { ChoiceData } from '../../../types/choice.types';
 import * as S from './style';
 const Choice = (data: ChoiceData) => {
   const navigate = useNavigate();
-  const hi = () => {
-    navigate('/' + data.idx, {
-      state: {
-        idx: data.idx,
-      },
-    });
-  };
 
   return (
-    <S.Post imageUrl={data.imageUrl} onClick={() => hi()}>
+    <S.Post
+      imageUrl={data.imageUrl}
+      onClick={() =>
+        navigate('/' + data.idx, {
+          state: {
+            idx: data.idx,
+          },
+        })
+      }
+    >
       <S.InfoBox>
         <h1>{data.title}</h1>
         <p>
