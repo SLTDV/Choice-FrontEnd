@@ -20,11 +20,8 @@ const TodaysChoice = () => {
   useQuery({
     queryKey: 'todaysChoice',
     queryFn: getTodaysPost,
+    refetchOnWindowFocus: false,
   });
-
-  useEffect(() => {
-    getTodaysPost();
-  }, []);
 
   return (
     <S.TodaysChoice>

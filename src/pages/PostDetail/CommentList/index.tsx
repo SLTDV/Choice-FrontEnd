@@ -32,9 +32,9 @@ const CommentList = ({ comment }: { comment: CommentType[] | undefined }) => {
     }
   };
 
-  const onAddComment = async () => {
+  const onAddComment = async (idx: number) => {
     try {
-      await CommentApi.addComment(postId.idx, commentContent.current.value);
+      await CommentApi.addComment(idx, commentContent.current.value);
     } catch (error: any) {
       console.log(error);
     }
@@ -61,6 +61,7 @@ const CommentList = ({ comment }: { comment: CommentType[] | undefined }) => {
       queryClient.invalidateQueries('post');
     },
     onSettled: () => {
+      queryClient.invalidateQueries('post');
       commentContent.current.value = '';
     },
   });
@@ -86,7 +87,7 @@ const CommentList = ({ comment }: { comment: CommentType[] | undefined }) => {
             <img src={profileImage} alt='' />
             <S.Name>{nickname}</S.Name>
           </S.Profile>
-          <button onClick={() => addComment()} type='button'>
+          <button onClick={() => addComment(postId.idx)} type='button'>
             등록
           </button>
         </S.InputWrap>
