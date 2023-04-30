@@ -12,14 +12,10 @@ const usePercentAnimation = (start: number, end: number) => {
       if (result > end) return setNum(end);
       setNum(result);
       ref.current = result;
-    } else if (ref.current > end) {
-      const result = Math.ceil(ref.current - accumulator);
-      if (result < end) return setNum(end);
-      setNum(result);
-      ref.current = result;
     }
-    setTimeout(updateCounterState, 50);
+    setTimeout(updateCounterState, 40);
   };
+
   useEffect(() => {
     let isMounted = true;
     if (isMounted) {
