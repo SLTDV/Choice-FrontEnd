@@ -7,8 +7,6 @@ import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import TodaysChoice from './TodaysChoice';
 import CommentList from './CommentList';
 import { useMutation, useQuery, useQueryClient } from 'react-query';
-import usePercentAnimation from '../../hooks/usePercentAnimation';
-import Counter from '../../components/Counter';
 
 const PostDetail = () => {
   const [postInfo, setPostInfo] = useState<PostDetailType>();
@@ -16,14 +14,12 @@ const PostDetail = () => {
   const navigate = useNavigate();
   const postId = useParams() as unknown as { idx: number };
   const [participants, setParticipants] = useState(0);
-  const [firstOptionPercent, setFirstOptionPercent] = useState(0);
-  const [secondOptionPercent, setScondOptionPercent] = useState(0);
+
   const getPostDetail = async (postId: number) => {
     try {
       const res: any = await Post.getPostInfo(postId);
       setPostInfo(res.data);
       setParticipants(res.data.firstVotingCount + res.data.secondVotingCount);
-      console.log(res.data);
     } catch (error: any) {
       if (error) navigate('/error/404');
     }
@@ -63,17 +59,6 @@ const PostDetail = () => {
   useQuery(['post', postId.idx], () => getPostDetail(postId.idx), {
     refetchOnWindowFocus: false,
   });
-
-  useEffect(() => {
-    if (postInfo) {
-      setFirstOptionPercent(
-        Math.round((postInfo?.firstVotingCount / participants) * 100)
-      );
-      setScondOptionPercent(
-        Math.round((postInfo?.secondVotingCount / participants) * 100)
-      );
-    }
-  }, [postInfo?.votingState]);
 
   return (
     <>
@@ -127,15 +112,26 @@ const PostDetail = () => {
                     onClick={() => postInfo?.votingState !== 1 && vote(1)}
                     className='firstBtn'
                   >
-                    <Counter start={0} end={firstOptionPercent} />
-
+                    <h1>
+                      {postInfo &&
+                        Math.round(
+                          (postInfo.firstVotingCount / participants) * 100
+                        )}
+                      %
+                    </h1>
                     <p>{postInfo?.firstVotingCount}명</p>
                   </S.VoteButton>
                   <S.VoteButton
                     onClick={() => postInfo?.votingState !== 2 && vote(2)}
                     className='secondBtn'
                   >
-                    <Counter start={0} end={secondOptionPercent} />
+                    <h1>
+                      {postInfo &&
+                        Math.round(
+                          (postInfo.secondVotingCount / participants) * 100
+                        )}
+                      %
+                    </h1>
                     <p>{postInfo?.secondVotingCount}명</p>
                   </S.VoteButton>
                 </S.ButtonWrap>
