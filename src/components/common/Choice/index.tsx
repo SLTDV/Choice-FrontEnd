@@ -1,13 +1,10 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import { ChoiceData } from '../../../types/choice.types';
 import * as S from './style';
 const Choice = (data: ChoiceData) => {
-  useEffect(() => {
-    console.log(data.imageUrl);
-  }, []);
   return (
-    <Link to='/post'>
+    <Link to={`/` + data.idx}>
       <S.Post imageUrl={data.imageUrl}>
         <S.InfoBox>
           <h1>{data.title}</h1>

@@ -1,72 +1,146 @@
-import React, { useState } from 'react';
-import TextareaAutosize from 'react-textarea-autosize';
+import React, { useEffect, useState } from 'react';
 import Header from '../../components/common/Header';
-import Post from '../../components/common/Choice';
 import * as S from './style';
+import Post from '../../services/Post';
+import { PostDetailType } from '../../types/choice.types';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import TodaysChoice from './TodaysChoice';
+import CommentList from './CommentList';
+import { useMutation, useQuery, useQueryClient } from 'react-query';
+
 const PostDetail = () => {
+  const [postInfo, setPostInfo] = useState<PostDetailType>();
+  const queryClient = useQueryClient();
+  const navigate = useNavigate();
+  const postId = useParams() as unknown as { idx: number };
+  const [participants, setParticipants] = useState(0);
+
+  const getPostDetail = async (postId: number) => {
+    try {
+      const res: any = await Post.getPostInfo(postId);
+      setPostInfo(res.data);
+      setParticipants(res.data.firstVotingCount + res.data.secondVotingCount);
+    } catch (error: any) {
+      if (error) navigate('/error/404');
+    }
+  };
+
+  const onVote = async (choice: number) => {
+    return await Post.vote(postId.idx, choice);
+  };
+
+  const { mutate: vote } = useMutation(onVote, {
+    onMutate: async (newData) => {
+      await queryClient.cancelQueries('post');
+      const snapshotOfPreviousData = queryClient.getQueryData('post');
+      queryClient.setQueryData('post', (oldData: any) => ({
+        newData,
+        ...oldData,
+      }));
+
+      return {
+        snapshotOfPreviousData,
+      };
+    },
+
+    onError: ({ snapshotOfPreviousData }) => {
+      queryClient.setQueryData('post', snapshotOfPreviousData);
+    },
+    onSuccess: async () => {
+      await queryClient.invalidateQueries('todaysChoice');
+      await queryClient.invalidateQueries('post');
+    },
+    onSettled: async () => {
+      await queryClient.invalidateQueries('todaysChoice');
+      await queryClient.invalidateQueries('post');
+    },
+  });
+
+  useQuery(['post', postId.idx], () => getPostDetail(postId.idx), {
+    refetchOnWindowFocus: false,
+  });
+
   return (
     <>
       <Header />
       <S.Layout>
         <S.PostDetailSection>
-          <h1>오늘 저녁 메뉴</h1>
+          <S.ProfileBox>
+            <img
+              src={
+                postInfo?.profileImageUrl
+                  ? postInfo.profileImageUrl
+                  : 'svg/DefaultProfileImage.svg'
+              }
+              alt='프로필 이미지'
+            />
+            <p>{postInfo?.writer}</p>
+          </S.ProfileBox>
+          <h1>{postInfo?.title}</h1>
           <S.Detail>
-            <S.Description>
-              오늘 저녁 메뉴를 골라주세요! 썸녀랑 첫 데이트 나왔는데 뭐가 더
-              좋을까요?????? 오늘 저녁 골라줘
-            </S.Description>
+            <S.Description>{postInfo?.content}</S.Description>
             <S.VoteBox>
-              <S.OptionBox>
-                <S.Option className='first'>
+              <S.OptionBox votingState={Number(postInfo?.votingState)}>
+                <S.Option image={postInfo?.firstImageUrl} className='first'>
                   <S.HoverBox>
                     <S.OptionName>
-                      <p>스테이크</p>
+                      <p>{postInfo?.firstVotingOption}</p>
                     </S.OptionName>
                   </S.HoverBox>
                 </S.Option>
                 <p>VS</p>
-                <S.Option className='second'>
+                <S.Option image={postInfo?.secondImageUrl} className='second'>
                   <S.HoverBox>
                     <S.OptionName>
-                      <p>스테이크</p>
+                      <p>{postInfo?.secondVotingOption}</p>
                     </S.OptionName>
                   </S.HoverBox>
                 </S.Option>
               </S.OptionBox>
-              <S.ButtonWrap>
-                <S.VoteButton>
-                  <img src='svg/Check.svg' alt='' />
-                </S.VoteButton>
-                <S.VoteButton>
-                  <img src='svg/Check.svg' alt='' />
-                </S.VoteButton>
-              </S.ButtonWrap>
+              {postInfo?.votingState === 0 ? (
+                <S.ButtonWrap>
+                  <S.VoteButton onClick={() => vote(1)}>
+                    <img src='svg/Check.svg' alt='' />
+                  </S.VoteButton>
+                  <S.VoteButton onClick={() => vote(2)}>
+                    <img src='svg/Check.svg' alt='' />
+                  </S.VoteButton>
+                </S.ButtonWrap>
+              ) : (
+                <S.ButtonWrap votingState={postInfo?.votingState}>
+                  <S.VoteButton
+                    onClick={() => postInfo?.votingState !== 1 && vote(1)}
+                    className='firstBtn'
+                  >
+                    <h1>
+                      {postInfo &&
+                        Math.round(
+                          (postInfo.firstVotingCount / participants) * 100
+                        )}
+                      %
+                    </h1>
+                    <p>{postInfo?.firstVotingCount}명</p>
+                  </S.VoteButton>
+                  <S.VoteButton
+                    onClick={() => postInfo?.votingState !== 2 && vote(2)}
+                    className='secondBtn'
+                  >
+                    <h1>
+                      {postInfo &&
+                        Math.round(
+                          (postInfo.secondVotingCount / participants) * 100
+                        )}
+                      %
+                    </h1>
+                    <p>{postInfo?.secondVotingCount}명</p>
+                  </S.VoteButton>
+                </S.ButtonWrap>
+              )}
             </S.VoteBox>
           </S.Detail>
-          <S.CommentSection>
-            <h1>댓글</h1>
-            <S.InputWrap>
-              <TextareaAutosize placeholder='댓글을 작성해주세요.' />
-              <S.Profile>
-                <img src='svg/Vote.svg' alt='' />
-                <S.Name>강민제</S.Name>
-              </S.Profile>
-              <button>등록</button>
-            </S.InputWrap>
-            <S.Comments>
-              <S.CommentBox>
-                <S.Profile>
-                  <img src='svg/Vote.svg' alt='' />
-                  <S.Name>강민제</S.Name>
-                </S.Profile>
-                <S.Comment>dansfbasnd</S.Comment>
-              </S.CommentBox>
-            </S.Comments>
-          </S.CommentSection>
+          <CommentList comment={postInfo?.comment} />
         </S.PostDetailSection>
-        <S.AnotherPosts>
-          <S.Todays>오늘의 Choice</S.Todays>
-        </S.AnotherPosts>
+        <TodaysChoice />
       </S.Layout>
     </>
   );

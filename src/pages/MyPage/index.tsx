@@ -9,14 +9,14 @@ import {
 import EditProfileModal from '../../components/modal/EditProfileModal';
 import Choice from '../../components/common/Choice';
 import User from '../../services/User';
-import { myInfoType } from '../../types/user.type';
+import { MyInfoType } from '../../types/user.type';
 import { ChoiceData } from '../../types/choice.types';
 import { Link, useNavigate } from 'react-router-dom';
 import Auth from '../../services/Auth';
 import UserWithdrawalModal from '../../components/modal/UserWithdrawalModal/inde';
 
 const MyPage = () => {
-  const [myInfo, setMyInfo] = useState<myInfoType>();
+  const [myInfo, setMyInfo] = useState<MyInfoType>();
   const [myPostList, setMyPostList] = useState<ChoiceData[]>();
   const [optionModal, setOptionModal] = useState(false);
   const [userWithdrawalModal, setUserWithdrawalModal] = useRecoilState(

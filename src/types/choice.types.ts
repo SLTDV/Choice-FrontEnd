@@ -1,3 +1,5 @@
+import { CommentType } from './comment.types';
+
 export interface ChoiceData {
   idx: number;
   imageUrl: string;
@@ -15,4 +17,20 @@ export interface MakeChoiceData {
   secondVotingOption: string; // 1 ~ 8
   firstImageUrl: string;
   secondImageUrl: string;
+}
+
+export interface PostDetailType {
+  title: string;
+  content: string;
+  firstImageUrl: string;
+  secondImageUrl: string;
+  firstVotingCount: number;
+  secondVotingCount: number;
+  writer: string;
+  profileImageUrl: string;
+  firstVotingOption: string;
+  secondVotingOption: string;
+  votingState: number;
+  participants: number;
+  comment: CommentType[];
 }
