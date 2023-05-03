@@ -59,9 +59,11 @@ const CommentList = ({ comment }: { comment: CommentType[] | undefined }) => {
     },
     onSuccess: () => {
       queryClient.invalidateQueries('post');
+      queryClient.invalidateQueries('todaysChoice');
     },
     onSettled: () => {
       queryClient.invalidateQueries('post');
+      queryClient.invalidateQueries('todaysChoice');
       commentContent.current.value = '';
     },
   });
