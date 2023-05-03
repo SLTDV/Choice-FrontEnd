@@ -14,12 +14,15 @@ const PostDetail = () => {
   const navigate = useNavigate();
   const postId = useParams() as unknown as { idx: number };
   const [participants, setParticipants] = useState(0);
+  const [comment, setComment] = useState([]);
+  const [page, setPage] = useState(0);
 
   const getPostDetail = async (postId: number) => {
     try {
-      const res: any = await Post.getPostInfo(postId);
+      const res: any = await Post.getPostInfo(postId, page, 10);
       setPostInfo(res.data);
       setParticipants(res.data.firstVotingCount + res.data.secondVotingCount);
+      setComment(res.data.comment);
     } catch (error: any) {
       if (error) navigate('/error/404');
     }
@@ -138,7 +141,7 @@ const PostDetail = () => {
               )}
             </S.VoteBox>
           </S.Detail>
-          <CommentList comment={postInfo?.comment} />
+          <CommentList comment={comment} />
         </S.PostDetailSection>
         <TodaysChoice />
       </S.Layout>
