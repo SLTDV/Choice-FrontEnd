@@ -185,7 +185,7 @@ export const spin = keyframes`
 `;
 
 export const Spinner = styled.div<{ isLoading: boolean }>`
-  display: ${(props) => (props.isLoading ? 'block' : 'block')};
+  display: ${(props) => (props.isLoading ? 'block' : 'none')};
   width: 3rem;
   height: 3rem;
   border-radius: 50%;
