@@ -61,11 +61,13 @@ class Post {
     }
   }
 
-  getPostInfo(idx: number) {
+  getPostInfo(idx: number, page: number, size: number) {
     try {
       return instance({
         method: 'GET',
-        url: process.env.REACT_APP_BASE_URL + '/post/web/' + idx,
+        url:
+          process.env.REACT_APP_BASE_URL +
+          `/post/web/${idx}?page=${page}&size=${size}`,
         headers: {
           Authorization: tokenService.getLocalAccessToken(),
         },

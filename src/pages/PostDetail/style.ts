@@ -1,15 +1,21 @@
+import { keyframes } from '@emotion/react';
 import styled from '@emotion/styled';
 
 export const Layout = styled.section`
   padding-top: 17rem;
-  width: 66vw;
+  width: 100%;
   display: flex;
   margin: auto;
+  justify-content: space-around;
+  & span {
+    display: flex;
+  }
 `;
 
 export const PostDetailSection = styled.section`
   width: 85rem;
   text-align: center;
+  margin-left: -8rem;
   & h1 {
     font-size: 3rem;
   }
@@ -163,4 +169,28 @@ export const VoteButton = styled.button`
     font-size: 1.5rem;
     color: #000000;
   }
+`;
+
+export const LastCommentLine = styled.div<{ hidden: boolean }>`
+  display: ${(props) => (props.hidden ? 'none' : 'block')};
+`;
+
+export const spin = keyframes`
+  0%{ 
+    transform: rotate(0deg) ;
+    border-right-color: transparent;
+    border-bottom-color: transparent;
+  }
+  100%{ transform: rotate(360deg); }
+`;
+
+export const Spinner = styled.div<{ isLoading: boolean }>`
+  display: ${(props) => (props.isLoading ? 'block' : 'none')};
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+  margin: -3rem 0 5rem 50%;
+  border: 2px solid #333333;
+  border-top-color: transparent;
+  animation: ${spin} 1s infinite;
 `;
