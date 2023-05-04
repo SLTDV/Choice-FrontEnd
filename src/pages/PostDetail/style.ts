@@ -3,15 +3,19 @@ import styled from '@emotion/styled';
 
 export const Layout = styled.section`
   padding-top: 17rem;
-  width: 66vw;
+  width: 100%;
   display: flex;
   margin: auto;
-  background: #333333;
+  justify-content: space-around;
+  & span {
+    display: flex;
+  }
 `;
 
 export const PostDetailSection = styled.section`
   width: 85rem;
   text-align: center;
+  margin-left: -8rem;
   & h1 {
     font-size: 3rem;
   }
@@ -168,7 +172,6 @@ export const VoteButton = styled.button`
 `;
 
 export const LastCommentLine = styled.div<{ hidden: boolean }>`
-  margin-top: -10rem;
   display: ${(props) => (props.hidden ? 'none' : 'block')};
 `;
 
@@ -183,11 +186,11 @@ export const spin = keyframes`
 
 export const Spinner = styled.div<{ isLoading: boolean }>`
   display: ${(props) => (props.isLoading ? 'block' : 'block')};
-  width: 3.6rem;
-  height: 3.6rem;
+  width: 3rem;
+  height: 3rem;
   border-radius: 50%;
-  margin-bottom: 4rem;
-  border: 4px solid #333333;
+  margin: -3rem 0 5rem 50%;
+  border: 2px solid #333333;
   border-top-color: transparent;
   animation: ${spin} 1s infinite;
 `;
