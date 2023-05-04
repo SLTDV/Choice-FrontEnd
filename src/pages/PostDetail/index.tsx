@@ -174,6 +174,7 @@ const PostDetail = () => {
             comment={comment.length == 0 ? postInfo?.comment : comment}
           />
           <S.LastCommentLine ref={observerTargetEl} hidden={!hasMore} />
+          <S.Spinner isLoading={isLoading} />
         </S.PostDetailSection>
         <TodaysChoice />
       </S.Layout>

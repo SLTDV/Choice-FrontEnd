@@ -1,3 +1,4 @@
+import { keyframes } from '@emotion/react';
 import styled from '@emotion/styled';
 
 export const Layout = styled.section`
@@ -5,6 +6,7 @@ export const Layout = styled.section`
   width: 66vw;
   display: flex;
   margin: auto;
+  background: #333333;
 `;
 
 export const PostDetailSection = styled.section`
@@ -166,5 +168,26 @@ export const VoteButton = styled.button`
 `;
 
 export const LastCommentLine = styled.div<{ hidden: boolean }>`
+  margin-top: -10rem;
   display: ${(props) => (props.hidden ? 'none' : 'block')};
+`;
+
+export const spin = keyframes`
+  0%{ 
+    transform: rotate(0deg) ;
+    border-right-color: transparent;
+    border-bottom-color: transparent;
+  }
+  100%{ transform: rotate(360deg); }
+`;
+
+export const Spinner = styled.div<{ isLoading: boolean }>`
+  display: ${(props) => (props.isLoading ? 'block' : 'block')};
+  width: 3.6rem;
+  height: 3.6rem;
+  border-radius: 50%;
+  margin-bottom: 4rem;
+  border: 4px solid #333333;
+  border-top-color: transparent;
+  animation: ${spin} 1s infinite;
 `;
