@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import Header from '../../components/common/Header';
 import * as S from './style';
 import Post from '../../services/Post';
@@ -16,23 +16,30 @@ const PostDetail = () => {
   const postId = useParams() as unknown as { idx: number };
   const [participants, setParticipants] = useState(0);
   const [comment, setComment] = useState<CommentType[]>([]);
-  const [page, setPage] = useState(0);
-  const [hasMore, setHasMore] = useState(false);
+  const page = useRef(0);
+  const [hasMore, setHasMore] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
+  const observerTargetEl = useRef<HTMLDivElement>(null);
 
-  const getPostDetail = async (postId: number) => {
+  const getComments = useCallback(async () => {
     setIsLoading(true);
+    const res: any = await Post.getPostInfo(postId.idx, page.current, 10);
+    setComment((prevComments: CommentType[]) => [
+      ...prevComments,
+      ...res.data.comment,
+    ]);
+    setHasMore(res.data.comment.length === 10);
+    setIsLoading(false);
+    if (res.data.comment.length) {
+      page.current += 1;
+    }
+  }, []);
+
+  const getPostDetail = async () => {
     try {
-      const res: any = await Post.getPostInfo(postId, page, 10);
+      const res: any = await Post.getPostInfo(postId.idx, 0, 10);
       setPostInfo(res.data);
       setParticipants(res.data.firstVotingCount + res.data.secondVotingCount);
-      setComment((prevComments: CommentType[]) => [
-        ...prevComments,
-        ...res.data.comment,
-      ]);
-      setHasMore(res.data.comment.length === 10);
-      setPage((prevPage) => prevPage + 1);
-      setIsLoading(false);
     } catch (error: any) {
       if (error) navigate('/error/404');
     }
@@ -69,9 +76,21 @@ const PostDetail = () => {
     },
   });
 
-  useQuery(['post', postId.idx], () => getPostDetail(postId.idx), {
+  useQuery(['post', postId.idx], () => getPostDetail(), {
     refetchOnWindowFocus: false,
   });
+
+  useEffect(() => {
+    if (!observerTargetEl.current || !hasMore) return;
+    const io = new IntersectionObserver((entries) => {
+      if (entries[0].isIntersecting && !isLoading) {
+        getComments();
+      }
+    });
+
+    io.observe(observerTargetEl.current);
+    return () => io.disconnect();
+  }, [hasMore, getComments, !isLoading]);
 
   return (
     <>
@@ -151,7 +170,10 @@ const PostDetail = () => {
               )}
             </S.VoteBox>
           </S.Detail>
-          <CommentList comment={comment} />
+          <CommentList
+            comment={comment.length == 0 ? postInfo?.comment : comment}
+          />
+          <S.LastCommentLine ref={observerTargetEl} hidden={!hasMore} />
         </S.PostDetailSection>
         <TodaysChoice />
       </S.Layout>

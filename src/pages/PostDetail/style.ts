@@ -164,3 +164,7 @@ export const VoteButton = styled.button`
     color: #000000;
   }
 `;
+
+export const LastCommentLine = styled.div<{ hidden: boolean }>`
+  display: ${(props) => (props.hidden ? 'none' : 'block')};
+`;
