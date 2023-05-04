@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import Header from '../../components/common/Header';
 import * as S from './style';
 import Post from '../../services/Post';
@@ -7,6 +7,7 @@ import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import TodaysChoice from './TodaysChoice';
 import CommentList from './CommentList';
 import { useMutation, useQuery, useQueryClient } from 'react-query';
+import { CommentType } from '../../types/comment.types';
 
 const PostDetail = () => {
   const [postInfo, setPostInfo] = useState<PostDetailType>();
@@ -14,15 +15,24 @@ const PostDetail = () => {
   const navigate = useNavigate();
   const postId = useParams() as unknown as { idx: number };
   const [participants, setParticipants] = useState(0);
-  const [comment, setComment] = useState([]);
+  const [comment, setComment] = useState<CommentType[]>([]);
   const [page, setPage] = useState(0);
+  const [hasMore, setHasMore] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const getPostDetail = async (postId: number) => {
+    setIsLoading(true);
     try {
       const res: any = await Post.getPostInfo(postId, page, 10);
       setPostInfo(res.data);
       setParticipants(res.data.firstVotingCount + res.data.secondVotingCount);
-      setComment(res.data.comment);
+      setComment((prevComments: CommentType[]) => [
+        ...prevComments,
+        ...res.data.comment,
+      ]);
+      setHasMore(res.data.comment.length === 10);
+      setPage((prevPage) => prevPage + 1);
+      setIsLoading(false);
     } catch (error: any) {
       if (error) navigate('/error/404');
     }
