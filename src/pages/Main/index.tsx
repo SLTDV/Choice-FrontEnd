@@ -5,14 +5,17 @@ import Choice from '../../components/common/Choice';
 import { Link } from 'react-router-dom';
 import Post from '../../services/Post';
 import { ChoiceData } from '../../types/choice.types';
+
 const Main = () => {
   const [choiceList, setChoiceList] = useState<ChoiceData[]>();
+  const [popularChoiceList, setPopularChoiceList] = useState<ChoiceData[]>();
   const [category, setCategory] = useState<'latest' | 'popularity'>('latest');
+
   const getPost = async () => {
     try {
       setCategory('latest');
       const res: any = await Post.getPost();
-      setChoiceList(res.data);
+      setChoiceList(res.data.posts);
     } catch (error: any) {
       console.log(error);
     }
@@ -22,7 +25,7 @@ const Main = () => {
     try {
       setCategory('popularity');
       const res: any = await Post.getPopularPost();
-      setChoiceList(res.data);
+      setPopularChoiceList(res.data.posts);
     } catch (error: any) {
       console.log(error);
     }
@@ -53,20 +56,37 @@ const Main = () => {
             </S.CategoryModal>
           </S.Category>
         </S.Nav>
-        <S.PostLayout>
-          {choiceList?.map((choice) => (
-            <Choice
-              key={choice.idx}
-              idx={choice.idx}
-              imageUrl={choice.imageUrl}
-              title={choice.title}
-              participants={choice.participants}
-              commentCount={choice.commentCount}
-              firstVotingOption={choice.firstVotingOption}
-              secondVotingOption={choice.secondVotingOption}
-            />
-          ))}
-        </S.PostLayout>
+        {category == 'latest' ? (
+          <S.PostLayout>
+            {choiceList?.map((choice) => (
+              <Choice
+                key={choice.idx}
+                idx={choice.idx}
+                imageUrl={choice.imageUrl}
+                title={choice.title}
+                participants={choice.participants}
+                commentCount={choice.commentCount}
+                firstVotingOption={choice.firstVotingOption}
+                secondVotingOption={choice.secondVotingOption}
+              />
+            ))}
+          </S.PostLayout>
+        ) : (
+          <S.PostLayout>
+            {popularChoiceList?.map((choice) => (
+              <Choice
+                key={choice.idx}
+                idx={choice.idx}
+                imageUrl={choice.imageUrl}
+                title={choice.title}
+                participants={choice.participants}
+                commentCount={choice.commentCount}
+                firstVotingOption={choice.firstVotingOption}
+                secondVotingOption={choice.secondVotingOption}
+              />
+            ))}
+          </S.PostLayout>
+        )}
       </div>
     </S.Layout>
   );
