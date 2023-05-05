@@ -1,9 +1,8 @@
 import styled from '@emotion/styled';
 
 export const Layout = styled.section`
-  width: 100vw;
+  width: 100%;
   margin-top: 13.5rem;
-  width: 100vw;
   display: flex;
   justify-content: space-around;
 `;

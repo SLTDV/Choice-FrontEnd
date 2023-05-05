@@ -4,7 +4,6 @@ import * as S from './style';
 import Choice from '../../components/common/Choice';
 import { Link } from 'react-router-dom';
 import Post from '../../services/Post';
-import tokenService from '../../utils/tokenService';
 import { ChoiceData } from '../../types/choice.types';
 const Main = () => {
   const [choiceList, setChoiceList] = useState<ChoiceData[]>();
