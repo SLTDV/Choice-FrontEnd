@@ -1,4 +1,3 @@
-import { keyframes } from '@emotion/react';
 import styled from '@emotion/styled';
 
 export const OptionBox = styled.div<{ modalState: boolean }>`
@@ -100,6 +99,7 @@ export const PostLayout = styled.section`
   grid-template-columns: 30rem 30rem 30rem;
   justify-content: space-between;
   gap: 6rem;
+  padding-bottom: 6rem;
 `;
 
 export const NonePost = styled.div`
