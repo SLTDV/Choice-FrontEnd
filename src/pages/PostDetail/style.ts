@@ -173,6 +173,7 @@ export const VoteButton = styled.button`
 
 export const LastCommentLine = styled.div<{ hidden: boolean }>`
   display: ${(props) => (props.hidden ? 'none' : 'block')};
+  margin-top: -5rem;
 `;
 
 export const spin = keyframes`

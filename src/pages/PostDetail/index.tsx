@@ -40,6 +40,9 @@ const PostDetail = () => {
       const res: any = await Post.getPostInfo(postId.idx, 0, 10);
       setPostInfo(res.data);
       setParticipants(res.data.firstVotingCount + res.data.secondVotingCount);
+      if (res.data.comment.length !== 10) {
+        setHasMore(false);
+      }
     } catch (error: any) {
       if (error) navigate('/error/404');
     }
