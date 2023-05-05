@@ -3,22 +3,26 @@ import { MakeChoiceData } from '../types/choice.types';
 import tokenService from '../utils/tokenService';
 
 class Post {
-  getPost() {
+  getPost(page: number, size: number) {
     try {
       return instance({
         method: 'GET',
-        url: process.env.REACT_APP_BASE_URL + '/post/web',
+        url:
+          process.env.REACT_APP_BASE_URL +
+          `/post/web?page=${page}&size=${size}`,
       });
     } catch (error) {
       return error;
     }
   }
 
-  getPopularPost() {
+  getPopularPost(page: number, size: number) {
     try {
       return instance({
         method: 'GET',
-        url: process.env.REACT_APP_BASE_URL + '/post/list/web',
+        url:
+          process.env.REACT_APP_BASE_URL +
+          `/post/list/web?page=${page}&size=${size}`,
       });
     } catch (error) {
       return error;

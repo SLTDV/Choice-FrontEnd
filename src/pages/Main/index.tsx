@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import Header from '../../components/common/Header';
 import * as S from './style';
 import Choice from '../../components/common/Choice';
@@ -10,22 +10,24 @@ const Main = () => {
   const [choiceList, setChoiceList] = useState<ChoiceData[]>();
   const [popularChoiceList, setPopularChoiceList] = useState<ChoiceData[]>();
   const [category, setCategory] = useState<'latest' | 'popularity'>('latest');
+  const [hasMoreChoice, setHasMoreCoice] = useState(true);
+  const latestPage = useRef(0);
+  const popularPage = useRef(0);
+  const [isLoading, setIsLoading] = useState(false);
 
   const getPost = async () => {
+    setIsLoading(true);
     try {
-      setCategory('latest');
-      const res: any = await Post.getPost();
-      setChoiceList(res.data.posts);
-    } catch (error: any) {
-      console.log(error);
-    }
-  };
-
-  const getPopularPost = async () => {
-    try {
-      setCategory('popularity');
-      const res: any = await Post.getPopularPost();
-      setPopularChoiceList(res.data.posts);
+      if (category == 'latest') {
+        const res: any = await Post.getPost(latestPage.current, 12);
+        setChoiceList(res.data.posts);
+        if (res.data.posts.length !== 12) setHasMoreCoice(false);
+      } else if (category == 'popularity') {
+        const res: any = await Post.getPopularPost(popularPage.current, 12);
+        setPopularChoiceList(res.data.posts);
+        if (res.data.posts.length !== 12) setHasMoreCoice(false);
+      }
+      setIsLoading(false);
     } catch (error: any) {
       console.log(error);
     }
@@ -33,7 +35,7 @@ const Main = () => {
 
   useEffect(() => {
     getPost();
-  }, []);
+  }, [category]);
 
   return (
     <S.Layout>
@@ -47,10 +49,13 @@ const Main = () => {
             <img src='svg/Category.svg' alt='' />
             <p>{category == 'latest' ? '최신순' : '인기순'}</p>
             <S.CategoryModal>
-              <S.Latest mode={category} onClick={getPost}>
+              <S.Latest mode={category} onClick={() => setCategory('latest')}>
                 최신순
               </S.Latest>
-              <S.popularity mode={category} onClick={getPopularPost}>
+              <S.popularity
+                mode={category}
+                onClick={() => setCategory('popularity')}
+              >
                 인기순
               </S.popularity>
             </S.CategoryModal>
