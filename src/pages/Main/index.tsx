@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState, useRef, useCallback } from 'react';
 import Header from '../../components/common/Header';
 import * as S from './style';
 import Choice from '../../components/common/Choice';
@@ -7,35 +7,47 @@ import Post from '../../services/Post';
 import { ChoiceData } from '../../types/choice.types';
 
 const Main = () => {
-  const [choiceList, setChoiceList] = useState<ChoiceData[]>();
-  const [popularChoiceList, setPopularChoiceList] = useState<ChoiceData[]>();
+  const [choiceList, setChoiceList] = useState<ChoiceData[]>([]);
+  const [popularChoiceList, setPopularChoiceList] = useState<ChoiceData[]>([]);
   const [category, setCategory] = useState<'latest' | 'popularity'>('latest');
   const [hasMoreChoice, setHasMoreCoice] = useState(true);
+  const [hasMorePopularChoice, setHasMorePopularChoice] = useState(true);
   const latestPage = useRef(0);
   const popularPage = useRef(0);
   const [isLoading, setIsLoading] = useState(false);
+  const observerTargetEl = useRef<HTMLDivElement>(null);
 
-  const getPost = async () => {
+  const getPost = useCallback(async () => {
     setIsLoading(true);
     try {
       if (category == 'latest') {
         const res: any = await Post.getPost(latestPage.current, 12);
-        setChoiceList(res.data.posts);
-        if (res.data.posts.length !== 12) setHasMoreCoice(false);
+        setChoiceList((prevChoice) => [...prevChoice, ...res.data.posts]);
+        if (res.data.postList.length !== 12) setHasMoreCoice(false);
+        latestPage.current += 1;
       } else if (category == 'popularity') {
         const res: any = await Post.getPopularPost(popularPage.current, 12);
-        setPopularChoiceList(res.data.posts);
-        if (res.data.posts.length !== 12) setHasMoreCoice(false);
+        setPopularChoiceList((prevChoice) => [
+          ...prevChoice,
+          ...res.data.posts,
+        ]);
+        if (res.data.postList.length !== 12) setHasMorePopularChoice(false);
+        popularPage.current += 1;
       }
       setIsLoading(false);
     } catch (error: any) {
       console.log(error);
     }
-  };
+  }, []);
 
   useEffect(() => {
-    getPost();
-  }, [category]);
+    if (!observerTargetEl.current) return;
+    const io = new IntersectionObserver((entries) => {
+      if (entries[0].isIntersecting && !isLoading) getPost();
+    });
+    io.observe(observerTargetEl.current);
+    return () => io.disconnect();
+  }, [hasMoreChoice, hasMorePopularChoice, getPost, isLoading]);
 
   return (
     <S.Layout>
@@ -75,6 +87,10 @@ const Main = () => {
                 secondVotingOption={choice.secondVotingOption}
               />
             ))}
+            <S.LatestChoiceLastLine
+              ref={observerTargetEl}
+              hidden={!hasMoreChoice}
+            />
           </S.PostLayout>
         ) : (
           <S.PostLayout>
@@ -90,6 +106,10 @@ const Main = () => {
                 secondVotingOption={choice.secondVotingOption}
               />
             ))}
+            <S.PopularityChoiceLastLine
+              ref={observerTargetEl}
+              hidden={!hasMorePopularChoice}
+            />
           </S.PostLayout>
         )}
       </div>

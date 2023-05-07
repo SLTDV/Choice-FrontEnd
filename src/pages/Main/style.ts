@@ -77,4 +77,15 @@ export const PostLayout = styled.section`
   justify-content: space-between;
   flex-flow: row wrap;
   row-gap: 6rem;
+  padding-bottom: 6rem;
+`;
+
+export const LatestChoiceLastLine = styled.div<{ hidden: boolean }>`
+  display: ${(props) => (props.hidden ? 'none' : 'block')};
+  margin-top: -20rem;
+`;
+
+export const PopularityChoiceLastLine = styled.div<{ hidden: boolean }>`
+  display: ${(props) => (props.hidden ? 'none' : 'block')};
+  margin-top: -20rem;
 `;
