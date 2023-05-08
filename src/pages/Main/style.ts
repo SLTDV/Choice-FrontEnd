@@ -1,9 +1,8 @@
 import styled from '@emotion/styled';
 
 export const Layout = styled.section`
-  width: 100vw;
+  width: 100%;
   margin-top: 13.5rem;
-  width: 100vw;
   display: flex;
   justify-content: space-around;
 `;
@@ -78,4 +77,15 @@ export const PostLayout = styled.section`
   justify-content: space-between;
   flex-flow: row wrap;
   row-gap: 6rem;
+  padding-bottom: 6rem;
+`;
+
+export const LatestChoiceLastLine = styled.div<{ hidden: boolean }>`
+  display: ${(props) => (props.hidden ? 'none' : 'block')};
+  margin-top: -20rem;
+`;
+
+export const PopularityChoiceLastLine = styled.div<{ hidden: boolean }>`
+  display: ${(props) => (props.hidden ? 'none' : 'block')};
+  margin-top: -20rem;
 `;

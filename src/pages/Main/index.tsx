@@ -1,36 +1,63 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef, useCallback } from 'react';
 import Header from '../../components/common/Header';
 import * as S from './style';
 import Choice from '../../components/common/Choice';
 import { Link } from 'react-router-dom';
 import Post from '../../services/Post';
-import tokenService from '../../utils/tokenService';
 import { ChoiceData } from '../../types/choice.types';
-const Main = () => {
-  const [choiceList, setChoiceList] = useState<ChoiceData[]>();
-  const [category, setCategory] = useState<'latest' | 'popularity'>('latest');
-  const getPost = async () => {
-    try {
-      setCategory('latest');
-      const res: any = await Post.getPost();
-      setChoiceList(res.data);
-    } catch (error: any) {
-      console.log(error);
-    }
-  };
+import MainSkeleton from './Skeleton';
 
-  const getPopularPost = async () => {
+const Main = () => {
+  const [choiceList, setChoiceList] = useState<ChoiceData[]>([]);
+  const [popularChoiceList, setPopularChoiceList] = useState<ChoiceData[]>([]);
+  const [category, setCategory] = useState<'latest' | 'popularity'>('latest');
+  const [hasMoreChoice, setHasMoreCoice] = useState(true);
+  const [hasMorePopularChoice, setHasMorePopularChoice] = useState(true);
+  const latestPage = useRef(0);
+  const popularPage = useRef(0);
+  const [isLoading, setIsLoading] = useState(false);
+  const observerTargetEl = useRef<HTMLDivElement>(null);
+  const skeletonArr = [0, 1, 2, 3, 4, 5];
+
+  const getPost = useCallback(async () => {
+    setIsLoading(true);
     try {
-      setCategory('popularity');
-      const res: any = await Post.getPopularPost();
-      setChoiceList(res.data);
+      if (category == 'latest') {
+        const res: any = await Post.getPost(latestPage.current, 12);
+        setChoiceList((prevChoice) => [...prevChoice, ...res.data.posts]);
+        setHasMoreCoice(res.data.posts.length == 12);
+        latestPage.current += 1;
+      } else if (category == 'popularity') {
+        const res: any = await Post.getPopularPost(popularPage.current, 12);
+        setPopularChoiceList((prevChoice) => [
+          ...prevChoice,
+          ...res.data.posts,
+        ]);
+        setHasMorePopularChoice(res.data.posts.length == 12);
+        popularPage.current += 1;
+      }
+      setIsLoading(false);
     } catch (error: any) {
       console.log(error);
     }
-  };
+  }, []);
 
   useEffect(() => {
-    getPost();
+    if (!observerTargetEl.current) return;
+    const io = new IntersectionObserver((entries) => {
+      if (entries[0].isIntersecting && !isLoading) getPost();
+    });
+    io.observe(observerTargetEl.current);
+    return () => io.disconnect();
+  }, [hasMoreChoice, hasMorePopularChoice, getPost, isLoading]);
+
+  useEffect(() => {
+    async function getPopularPost() {
+      const res: any = await Post.getPopularPost(popularPage.current, 12);
+      setPopularChoiceList(res.data.posts);
+      popularPage.current += 1;
+    }
+    getPopularPost();
   }, []);
 
   return (
@@ -45,29 +72,59 @@ const Main = () => {
             <img src='svg/Category.svg' alt='' />
             <p>{category == 'latest' ? '최신순' : '인기순'}</p>
             <S.CategoryModal>
-              <S.Latest mode={category} onClick={getPost}>
+              <S.Latest mode={category} onClick={() => setCategory('latest')}>
                 최신순
               </S.Latest>
-              <S.popularity mode={category} onClick={getPopularPost}>
+              <S.popularity
+                mode={category}
+                onClick={() => setCategory('popularity')}
+              >
                 인기순
               </S.popularity>
             </S.CategoryModal>
           </S.Category>
         </S.Nav>
-        <S.PostLayout>
-          {choiceList?.map((choice) => (
-            <Choice
-              key={choice.idx}
-              idx={choice.idx}
-              imageUrl={choice.imageUrl}
-              title={choice.title}
-              participants={choice.participants}
-              commentCount={choice.commentCount}
-              firstVotingOption={choice.firstVotingOption}
-              secondVotingOption={choice.secondVotingOption}
+        {category == 'latest' ? (
+          <S.PostLayout>
+            {choiceList?.map((choice) => (
+              <Choice
+                key={choice.idx}
+                idx={choice.idx}
+                imageUrl={choice.imageUrl}
+                title={choice.title}
+                participants={choice.participants}
+                commentCount={choice.commentCount}
+                firstVotingOption={choice.firstVotingOption}
+                secondVotingOption={choice.secondVotingOption}
+              />
+            ))}
+            {isLoading && skeletonArr.map((idx) => <MainSkeleton key={idx} />)}
+            <S.LatestChoiceLastLine
+              ref={observerTargetEl}
+              hidden={!hasMoreChoice}
             />
-          ))}
-        </S.PostLayout>
+          </S.PostLayout>
+        ) : (
+          <S.PostLayout>
+            {popularChoiceList?.map((choice) => (
+              <Choice
+                key={choice.idx}
+                idx={choice.idx}
+                imageUrl={choice.imageUrl}
+                title={choice.title}
+                participants={choice.participants}
+                commentCount={choice.commentCount}
+                firstVotingOption={choice.firstVotingOption}
+                secondVotingOption={choice.secondVotingOption}
+              />
+            ))}{' '}
+            {isLoading && skeletonArr.map((idx) => <MainSkeleton key={idx} />)}
+            <S.PopularityChoiceLastLine
+              ref={observerTargetEl}
+              hidden={!hasMorePopularChoice}
+            />
+          </S.PostLayout>
+        )}
       </div>
     </S.Layout>
   );
