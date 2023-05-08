@@ -5,6 +5,7 @@ import Choice from '../../components/common/Choice';
 import { Link } from 'react-router-dom';
 import Post from '../../services/Post';
 import { ChoiceData } from '../../types/choice.types';
+import MainSkeleton from './Skeleton';
 
 const Main = () => {
   const [choiceList, setChoiceList] = useState<ChoiceData[]>([]);
@@ -16,6 +17,7 @@ const Main = () => {
   const popularPage = useRef(0);
   const [isLoading, setIsLoading] = useState(false);
   const observerTargetEl = useRef<HTMLDivElement>(null);
+  const skeletonArr = [0, 1, 2, 3, 4, 5];
 
   const getPost = useCallback(async () => {
     setIsLoading(true);
@@ -23,7 +25,7 @@ const Main = () => {
       if (category == 'latest') {
         const res: any = await Post.getPost(latestPage.current, 12);
         setChoiceList((prevChoice) => [...prevChoice, ...res.data.posts]);
-        if (res.data.postList.length !== 12) setHasMoreCoice(false);
+        setHasMoreCoice(res.data.posts.length == 12);
         latestPage.current += 1;
       } else if (category == 'popularity') {
         const res: any = await Post.getPopularPost(popularPage.current, 12);
@@ -31,7 +33,7 @@ const Main = () => {
           ...prevChoice,
           ...res.data.posts,
         ]);
-        if (res.data.postList.length !== 12) setHasMorePopularChoice(false);
+        setHasMorePopularChoice(res.data.posts.length == 12);
         popularPage.current += 1;
       }
       setIsLoading(false);
@@ -48,6 +50,15 @@ const Main = () => {
     io.observe(observerTargetEl.current);
     return () => io.disconnect();
   }, [hasMoreChoice, hasMorePopularChoice, getPost, isLoading]);
+
+  useEffect(() => {
+    async function getPopularPost() {
+      const res: any = await Post.getPopularPost(popularPage.current, 12);
+      setPopularChoiceList(res.data.posts);
+      popularPage.current += 1;
+    }
+    getPopularPost();
+  }, []);
 
   return (
     <S.Layout>
@@ -87,6 +98,7 @@ const Main = () => {
                 secondVotingOption={choice.secondVotingOption}
               />
             ))}
+            {isLoading && skeletonArr.map((idx) => <MainSkeleton key={idx} />)}
             <S.LatestChoiceLastLine
               ref={observerTargetEl}
               hidden={!hasMoreChoice}
@@ -105,7 +117,8 @@ const Main = () => {
                 firstVotingOption={choice.firstVotingOption}
                 secondVotingOption={choice.secondVotingOption}
               />
-            ))}
+            ))}{' '}
+            {isLoading && skeletonArr.map((idx) => <MainSkeleton key={idx} />)}
             <S.PopularityChoiceLastLine
               ref={observerTargetEl}
               hidden={!hasMorePopularChoice}
