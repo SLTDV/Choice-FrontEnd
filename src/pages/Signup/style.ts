@@ -63,7 +63,7 @@ export const SignupWrap = styled.div`
 `;
 
 export const LabelWrap = styled.div`
-  height: 48rem;
+  height: 38rem;
   text-align: center;
   display: flex;
   flex-direction: column;

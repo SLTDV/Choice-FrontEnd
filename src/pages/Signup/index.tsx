@@ -55,8 +55,7 @@ const Signup = () => {
       <S.SignupLayout>
         <S.SignupWrap>
           <S.LabelWrap>
-            <S.Label aniDuration={1.2}>닉네임</S.Label>
-            <S.Label aniDuration={0.9}>이메일</S.Label>
+            <S.Label aniDuration={1}>닉네임</S.Label>
             <S.Label aniDuration={0.6}>비밀번호</S.Label>
             <S.Label aniDuration={0.3}>비밀번호 확인</S.Label>
           </S.LabelWrap>
@@ -81,23 +80,6 @@ const Signup = () => {
                 })}
                 type='text'
                 placeholder='2~6자'
-                isError={isError}
-              />
-            </div>
-            <div>
-              <S.ErrorText isError={isError}>
-                {isError && errors.email?.message}
-              </S.ErrorText>
-              <S.Input
-                {...register('email', {
-                  required: '이메일을 입력해주세요.',
-                  pattern: {
-                    message: '올바른 이메일을 입력해주세요',
-                    value:
-                      /[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/,
-                  },
-                })}
-                type='text'
                 isError={isError}
               />
             </div>
