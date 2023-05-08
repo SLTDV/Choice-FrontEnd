@@ -61,6 +61,7 @@ export const SignupLayout = styled.section`
   flex-direction: column;
   justify-content: space-around;
   height: 100vh;
+  width: 70rem;
 `;
 
 export const Label = styled.label<{ aniDuration: number }>`
@@ -121,6 +122,7 @@ export const ErrorText = styled.p<{ isError: boolean }>`
   color: #e10000;
   font-size: 1.2rem;
   margin: 1.6rem 0 0 2.3rem;
+  transform: translateX(15rem);
 `;
 
 export const Button = styled.button`
