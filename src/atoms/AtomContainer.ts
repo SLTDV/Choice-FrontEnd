@@ -27,3 +27,8 @@ export const commentIdxAtom = atom({
   key: 'commentIdx',
   default: { commentIdx: 0 },
 });
+
+export const certifiedPhoneNumberAtom = atom({
+  key: 'isCertifiedPhoneNumber',
+  default: false,
+});
