@@ -26,6 +26,10 @@ export const Layout = styled.section`
   width: 100vw;
   height: 100vh;
   display: flex;
+  justify-content: space-around;
+  & .layout {
+    display: flex;
+  }
 `;
 
 export const LogoLayout = styled.section`
@@ -33,7 +37,8 @@ export const LogoLayout = styled.section`
   display: flex;
   flex-direction: column;
   justify-content: space-around;
-  padding: 0 18.23%;
+  margin-left: -14%;
+  margin-right: 30%;
 `;
 
 export const LogoWrap = styled.div`
@@ -58,23 +63,14 @@ export const SignupLayout = styled.section`
   height: 100vh;
 `;
 
-export const SignupWrap = styled.div`
-  display: flex;
-`;
-
-export const LabelWrap = styled.div`
-  height: 38rem;
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-evenly;
-  margin: 7.8rem 3.3rem 0 0;
-`;
-
 export const Label = styled.label<{ aniDuration: number }>`
+  text-align: right;
+  width: 10rem;
+  margin-right: 5rem;
   font-style: normal;
   font-weight: 400;
   font-size: 1.8rem;
+  transform: translateY(2.8rem);
   animation: ${placeholdeFadeIn} ${(props) => props.aniDuration}s;
 `;
 
@@ -86,12 +82,17 @@ export const SignupForm = styled.form`
     font-weight: 200;
     font-size: 5rem;
     font-family: AppleSDGothicNeoUL;
+    transform: translateX(7.8rem);
   }
   h3 {
+    transform: translateX(7.8rem);
     font-weight: 300;
     font-size: 1.4rem;
     line-height: 17px;
     margin: -1.2rem 0 5rem 0;
+  }
+  & div {
+    display: flex;
   }
 `;
 
@@ -132,4 +133,5 @@ export const Button = styled.button`
   text-align: center;
   font-size: 24px;
   cursor: pointer;
+  transform: translateX(15rem);
 `;

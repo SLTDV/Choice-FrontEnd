@@ -5,10 +5,13 @@ import { SignupInterface } from '../../types/auth.types';
 import Auth from '../../services/Auth';
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
+import { useRecoilState } from 'recoil';
+import { certifiedPhoneNumberAtom } from '../../atoms';
 
 const Signup = () => {
   const [isError, setIsError] = useState(false);
   const navigate = useNavigate();
+  const [isCertifiedPhoneNumber] = useRecoilState(certifiedPhoneNumberAtom);
   const {
     register,
     handleSubmit,
@@ -46,19 +49,14 @@ const Signup = () => {
 
   return (
     <S.Layout>
-      <S.LogoLayout>
-        <S.LogoWrap>
-          <img src='svg/Logo.svg' alt='' />
-          <p>선택의 고민을 한 번에</p>
-        </S.LogoWrap>
-      </S.LogoLayout>
-      <S.SignupLayout>
-        <S.SignupWrap>
-          <S.LabelWrap>
-            <S.Label aniDuration={1}>닉네임</S.Label>
-            <S.Label aniDuration={0.6}>비밀번호</S.Label>
-            <S.Label aniDuration={0.3}>비밀번호 확인</S.Label>
-          </S.LabelWrap>
+      <div className='layout'>
+        <S.LogoLayout>
+          <S.LogoWrap>
+            <img src='svg/Logo.svg' alt='' />
+            <p>선택의 고민을 한 번에</p>
+          </S.LogoWrap>
+        </S.LogoLayout>
+        <S.SignupLayout>
           <S.SignupForm onSubmit={handleSubmit(onValid, inValid)}>
             <h1>SIGN UP</h1>
             <h3>Choice 회원가입</h3>
@@ -66,6 +64,7 @@ const Signup = () => {
               <S.ErrorText isError={isError}>
                 {isError && errors.nickname?.message}
               </S.ErrorText>
+              <S.Label aniDuration={1}>닉네임</S.Label>
               <S.Input
                 {...register('nickname', {
                   required: '닉네임을 입력해주세요.',
@@ -87,6 +86,7 @@ const Signup = () => {
               <S.ErrorText isError={isError}>
                 {isError && errors.password?.message}
               </S.ErrorText>
+              <S.Label aniDuration={0.6}>비밀번호</S.Label>
               <S.Input
                 {...register('password', {
                   required: '비밀번호를 입력해주세요.',
@@ -105,6 +105,7 @@ const Signup = () => {
               <S.ErrorText isError={isError}>
                 {isError && errors.passwordCheck?.message}
               </S.ErrorText>
+              <S.Label aniDuration={0.3}>비밀번호 확인</S.Label>
               <S.Input
                 {...register('passwordCheck', {
                   required: '비밀번호를 다시 입력해주세요.',
@@ -115,8 +116,8 @@ const Signup = () => {
             </div>
             <S.Button>회원가입</S.Button>
           </S.SignupForm>
-        </S.SignupWrap>
-      </S.SignupLayout>
+        </S.SignupLayout>
+      </div>
     </S.Layout>
   );
 };
