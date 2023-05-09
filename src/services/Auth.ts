@@ -45,6 +45,18 @@ class Auth {
       return error;
     }
   }
+  getAuthenticationNumber(phoneNumber: string) {
+    try {
+      return instance({
+        method: 'POST',
+        url:
+          process.env.REACT_APP_BASE_URL +
+          `/auth/phone?phoneNumber=${phoneNumber}`,
+      });
+    } catch (error) {
+      return error;
+    }
+  }
 }
 
 export default new Auth();
