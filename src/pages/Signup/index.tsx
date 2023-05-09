@@ -25,7 +25,7 @@ const Signup = () => {
     if (data.password === data.passwordCheck) {
       try {
         setIsError(false);
-        await Auth.signup(data);
+        await Auth.signup(phoneNumber, data);
         navigate('/signin');
         toast.success('회원가입이 완료되었습니다!', {
           autoClose: 2000,
@@ -46,8 +46,6 @@ const Signup = () => {
     }
   };
   const inValid = (error: any) => {
-    console.log(phoneNumber);
-
     error && setIsError(true);
   };
 

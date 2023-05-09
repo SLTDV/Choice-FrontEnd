@@ -3,14 +3,14 @@ import { SigninInterface, SignupInterface } from '../types/auth.types';
 import tokenService from '../utils/tokenService';
 
 class Auth {
-  signup(data: SignupInterface) {
+  signup(phoneNumber: string, data: SignupInterface) {
     try {
       return instance({
         method: 'POST',
         url: process.env.REACT_APP_BASE_URL + '/auth/signup',
         data: {
+          phoneNumber: phoneNumber,
           nickname: data.nickname,
-          email: data.email,
           password: data.password,
         },
       });
