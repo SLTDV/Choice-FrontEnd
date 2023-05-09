@@ -11,6 +11,7 @@ import PhoneNumber from './PhoneNumber';
 
 const Signup = () => {
   const [isError, setIsError] = useState(false);
+  const [phoneNumber, setPhoneNumber] = useState('');
   const navigate = useNavigate();
   const [isCertifiedPhoneNumber] = useRecoilState(certifiedPhoneNumberAtom);
   const {
@@ -45,6 +46,8 @@ const Signup = () => {
     }
   };
   const inValid = (error: any) => {
+    console.log(phoneNumber);
+
     error && setIsError(true);
   };
 
@@ -119,7 +122,7 @@ const Signup = () => {
               <S.Button>회원가입</S.Button>
             </S.SignupForm>
           ) : (
-            <PhoneNumber />
+            <PhoneNumber setPhoneNumber={setPhoneNumber} />
           )}
         </S.SignupLayout>
       </div>
