@@ -103,7 +103,7 @@ const CommentList = ({ comment }: { comment: CommentType[] | undefined }) => {
               <Comment
                 key={comment.idx}
                 idx={comment.idx}
-                image={comment.image}
+                profileImageUrl={comment.profileImageUrl}
                 nickname={comment.nickname}
                 content={comment.content}
                 isMine={comment.isMine}

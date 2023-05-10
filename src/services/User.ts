@@ -19,7 +19,7 @@ class User {
     try {
       return instance({
         method: 'GET',
-        url: process.env.REACT_APP_BASE_URL + '/user',
+        url: process.env.REACT_APP_BASE_URL + '/user/my',
         headers: {
           Authorization: 'Bearer ' + tokenService.getLocalAccessToken(),
         },

@@ -9,7 +9,7 @@ class Post {
         method: 'GET',
         url:
           process.env.REACT_APP_BASE_URL +
-          `/post/web?page=${page}&size=${size}`,
+          `/post/latested?page=${page}&size=${size}`,
       });
     } catch (error) {
       return error;
@@ -22,7 +22,7 @@ class Post {
         method: 'GET',
         url:
           process.env.REACT_APP_BASE_URL +
-          `/post/list/web?page=${page}&size=${size}`,
+          `/post/popularity?page=${page}&size=${size}`,
       });
     } catch (error) {
       return error;
@@ -71,7 +71,7 @@ class Post {
         method: 'GET',
         url:
           process.env.REACT_APP_BASE_URL +
-          `/post/web/${idx}?page=${page}&size=${size}`,
+          `/post/detail/${idx}?page=${page}&size=${size}`,
         headers: {
           Authorization: tokenService.getLocalAccessToken(),
         },

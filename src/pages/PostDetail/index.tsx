@@ -15,7 +15,7 @@ const PostDetail = () => {
   const navigate = useNavigate();
   const postId = useParams() as unknown as { idx: number };
   const [participants, setParticipants] = useState(0);
-  const [comment, setComment] = useState<CommentType[]>([]);
+  const [commentList, setCommentList] = useState<CommentType[]>([]);
   const page = useRef(0);
   const [hasMore, setHasMore] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
@@ -24,13 +24,13 @@ const PostDetail = () => {
   const getComments = useCallback(async () => {
     setIsLoading(true);
     const res: any = await Post.getPostInfo(postId.idx, page.current, 10);
-    setComment((prevComments: CommentType[]) => [
-      ...prevComments,
-      ...res.data.comment,
+    setCommentList((prevCommentList: CommentType[]) => [
+      ...prevCommentList,
+      ...res.data.commentList,
     ]);
-    setHasMore(res.data.comment.length === 10);
+    setHasMore(res.data.commentList.length === 10);
     setIsLoading(false);
-    if (res.data.comment.length) {
+    if (res.data.commentList.length) {
       page.current += 1;
     }
   }, []);
@@ -40,9 +40,9 @@ const PostDetail = () => {
       const res: any = await Post.getPostInfo(postId.idx, 0, 10);
       setPostInfo(res.data);
       setParticipants(res.data.firstVotingCount + res.data.secondVotingCount);
-      setComment(res.data.comment);
+      setCommentList(res.data.commentList);
       page.current += 1;
-      if (res.data.comment.length !== 10) {
+      if (res.data.commentList.length !== 10) {
         setHasMore(false);
       }
     } catch (error: any) {
@@ -177,7 +177,9 @@ const PostDetail = () => {
               </S.VoteBox>
             </S.Detail>
             <CommentList
-              comment={comment.length == 0 ? postInfo?.comment : comment}
+              comment={
+                commentList.length == 0 ? postInfo?.commentList : commentList
+              }
             />
             <S.LastCommentLine ref={observerTargetEl} hidden={!hasMore} />
             <S.Spinner isLoading={isLoading} />
