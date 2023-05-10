@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import * as S from './style';
 import { useForm } from 'react-hook-form';
 import { SignupInterface } from '../../types/auth.types';
@@ -64,9 +64,7 @@ const Signup = () => {
               <h1>SIGN UP</h1>
               <h3>Choice 회원가입</h3>
               <div>
-                <S.ErrorText isError={isError}>
-                  {isError && errors.nickname?.message}
-                </S.ErrorText>
+                <S.ErrorText>{isError && errors.nickname?.message}</S.ErrorText>
                 <S.Label aniDuration={1}>닉네임</S.Label>
                 <S.Input
                   {...register('nickname', {
@@ -86,9 +84,7 @@ const Signup = () => {
                 />
               </div>
               <div>
-                <S.ErrorText isError={isError}>
-                  {isError && errors.password?.message}
-                </S.ErrorText>
+                <S.ErrorText>{isError && errors.password?.message}</S.ErrorText>
                 <S.Label aniDuration={0.6}>비밀번호</S.Label>
                 <S.Input
                   {...register('password', {
@@ -105,7 +101,7 @@ const Signup = () => {
                 />
               </div>
               <div>
-                <S.ErrorText isError={isError}>
+                <S.ErrorText>
                   {isError && errors.passwordCheck?.message}
                 </S.ErrorText>
                 <S.Label aniDuration={0.3}>비밀번호 확인</S.Label>

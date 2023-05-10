@@ -117,7 +117,7 @@ export const Input = styled.input<{ isError?: boolean }>`
   }
 `;
 
-export const ErrorText = styled.p<{ isError: boolean }>`
+export const ErrorText = styled.p`
   position: absolute;
   color: #e10000;
   font-size: 1.2rem;
