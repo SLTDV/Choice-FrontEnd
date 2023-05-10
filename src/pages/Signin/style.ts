@@ -16,6 +16,10 @@ export const Layout = styled.section`
   width: 100vw;
   height: 100vh;
   display: flex;
+  justify-content: space-around;
+  & .layout {
+    display: flex;
+  }
 `;
 
 export const LogoLayout = styled.section`
@@ -23,7 +27,7 @@ export const LogoLayout = styled.section`
   display: flex;
   flex-direction: column;
   justify-content: space-around;
-  padding: 0 18.23%;
+  margin-right: 38rem;
 `;
 
 export const LogoWrap = styled.div`
