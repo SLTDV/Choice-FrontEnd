@@ -4,7 +4,7 @@ import { useForm } from 'react-hook-form';
 import { SignupInterface } from '../../types/auth.types';
 import Auth from '../../services/Auth';
 import { toast } from 'react-toastify';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 import { certifiedPhoneNumberAtom } from '../../atoms';
 import PhoneNumber from './PhoneNumber';
@@ -54,7 +54,9 @@ const Signup = () => {
       <div className='layout'>
         <S.LogoLayout>
           <S.LogoWrap>
-            <img src='svg/Logo.svg' alt='' />
+            <Link to='/'>
+              <img src='svg/Logo.svg' alt='' />
+            </Link>
             <p>선택의 고민을 한 번에</p>
           </S.LogoWrap>
         </S.LogoLayout>

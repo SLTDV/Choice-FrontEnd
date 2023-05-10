@@ -39,7 +39,9 @@ const Signin = () => {
     <S.Layout>
       <S.LogoLayout>
         <S.LogoWrap>
-          <img src='svg/Logo.svg' alt='' />
+          <Link to='/'>
+            <img src='svg/Logo.svg' alt='' />
+          </Link>
           <p>선택의 고민을 한 번에</p>
         </S.LogoWrap>
       </S.LogoLayout>
