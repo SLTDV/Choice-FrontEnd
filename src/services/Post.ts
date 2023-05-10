@@ -71,7 +71,7 @@ class Post {
         method: 'GET',
         url:
           process.env.REACT_APP_BASE_URL +
-          `/post/web/${idx}?page=${page}&size=${size}`,
+          `/post/detail/${idx}?page=${page}&size=${size}`,
         headers: {
           Authorization: tokenService.getLocalAccessToken(),
         },
