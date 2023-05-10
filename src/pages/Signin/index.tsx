@@ -55,9 +55,9 @@ const Signin = () => {
                 required
                 type='text'
                 autoComplete='new-password'
-                {...register('email')}
+                {...register('phoneNumber')}
               />
-              <div className='label'>이메일</div>
+              <div className='label'>전화번호</div>
             </S.LoginInput>
             <S.LoginInput isError={isError}>
               <input

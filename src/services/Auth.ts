@@ -24,7 +24,7 @@ class Auth {
         method: 'POST',
         url: process.env.REACT_APP_BASE_URL + '/auth/signin',
         data: {
-          email: data.email,
+          phoneNumber: data.phoneNumber,
           password: data.password,
         },
       });

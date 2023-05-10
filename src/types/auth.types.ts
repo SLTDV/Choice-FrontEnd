@@ -5,6 +5,6 @@ export interface SignupInterface {
 }
 
 export interface SigninInterface {
-  email: string;
+  phoneNumber: string;
   password: string;
 }
