@@ -54,7 +54,11 @@ const Comment = (comment: CommentType) => {
       <S.CommentBox>
         <S.Profile>
           <img
-            src={comment.image ? comment.image : 'svg/DefaultProfileImage.svg'}
+            src={
+              comment.profileImageUrl
+                ? comment.profileImageUrl
+                : 'svg/DefaultProfileImage.svg'
+            }
             alt=''
           />
           <S.Name>{comment.nickname}</S.Name>
