@@ -31,9 +31,13 @@ export const Layout = styled.section`
   }
 `;
 
-export const InputWrap = styled.div`
+export const InputWrap = styled.form`
   display: flex;
   margin-top: 2rem;
+  div {
+    display: flex;
+    padding-bottom: 22.5rem;
+  }
 `;
 
 export const Input = styled.input<{ width?: string; isError?: boolean }>`
@@ -45,6 +49,7 @@ export const Input = styled.input<{ width?: string; isError?: boolean }>`
   border-radius: 2rem;
   font-size: 1.8rem;
   padding-left: 2rem;
+  transition: 0.2s;
   &:focus {
     background: #f3f3f3;
     outline: none;
@@ -77,16 +82,17 @@ export const Button = styled.button`
 `;
 
 export const NextButton = styled.button`
+  position: absolute;
   width: 47.6rem;
   height: 7.6rem;
-  background: #bbbbbb;
+  background: #000000;
   border-radius: 20px;
   color: #ffffff;
   margin-top: 15rem;
   font-size: 24px;
   border: none;
   cursor: pointer;
-  transform: translateX(15rem);
+  transform: translate(15rem, 8rem);
 `;
 
 export const ErrorText = styled.p`

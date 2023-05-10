@@ -19,8 +19,6 @@ const PhoneNumber = ({ setPhoneNumber }: Props) => {
   const authenticationNumber = useRef<HTMLInputElement>(null);
 
   const getAuthenticationNumber = async () => {
-    console.log(phoneNumber.current?.value.length);
-
     try {
       if (
         phoneNumber.current?.value.length == 11 &&
@@ -57,22 +55,37 @@ const PhoneNumber = ({ setPhoneNumber }: Props) => {
     }
   };
 
+  const handleSubmit = (event: any) => {
+    event.preventDefault();
+  };
+
   return (
     <S.Layout>
       <h1>SIGN UP</h1>
       <h3>Choice 회원가입</h3>
-      <S.InputWrap>
+      <S.InputWrap onSubmit={handleSubmit}>
         {phoneNumError && <S.ErrorText>전화번호를 확인해주세요.</S.ErrorText>}
         <S.Label aniDuration={1}>전화번호</S.Label>
-        <S.Input width='30rem' ref={phoneNumber} isError={phoneNumError} />
+        <S.Input
+          maxLength={11}
+          width='30rem'
+          ref={phoneNumber}
+          isError={phoneNumError}
+        />
         <S.Button onClick={getAuthenticationNumber}>전송</S.Button>
       </S.InputWrap>
-      <S.InputWrap>
-        {authNumError && <S.ErrorText>인증번호를 확인해주세요.</S.ErrorText>}
-        <S.Label aniDuration={0.5}>인증번호</S.Label>
-        <S.Input ref={authenticationNumber} isError={authNumError} />
+      <S.InputWrap onSubmit={handleSubmit}>
+        <div>
+          {authNumError && <S.ErrorText>인증번호를 확인해주세요.</S.ErrorText>}
+          <S.Label aniDuration={0.5}>인증번호</S.Label>
+          <S.Input
+            maxLength={4}
+            ref={authenticationNumber}
+            isError={authNumError}
+          />
+        </div>
+        <S.NextButton onClick={checkAuthenticationNumber}>다음</S.NextButton>
       </S.InputWrap>
-      <S.NextButton onClick={checkAuthenticationNumber}>다음</S.NextButton>
     </S.Layout>
   );
 };
