@@ -36,18 +36,20 @@ export const InputWrap = styled.div`
   margin-top: 2rem;
 `;
 
-export const Input = styled.input<{ width?: string }>`
+export const Input = styled.input<{ width?: string; isError?: boolean }>`
   width: ${(props) => (props.width ? props.width : '44.8rem')};
   height: 7.5rem;
-  border: 2px solid #737373;
-  box-shadow: none;
+  border: ${(props) =>
+    props.isError ? '2px solid #ffffff' : '2px solid #737373'};
+  box-shadow: ${(props) => (props.isError ? '0px 2px 10px #e10000' : 'none')};
   border-radius: 2rem;
   font-size: 1.8rem;
   padding-left: 2rem;
   &:focus {
     background: #f3f3f3;
     outline: none;
-    border: 2px solid #000000;
+    border: ${(props) =>
+      props.isError ? '2px solid #ffffff' : '2px solid #000000'};
   }
 `;
 
@@ -84,5 +86,13 @@ export const NextButton = styled.button`
   font-size: 24px;
   border: none;
   cursor: pointer;
+  transform: translateX(15rem);
+`;
+
+export const ErrorText = styled.p`
+  position: absolute;
+  color: #e10000;
+  font-size: 1.2rem;
+  margin: 1.2rem 0 0 2.3rem;
   transform: translateX(15rem);
 `;

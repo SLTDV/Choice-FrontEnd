@@ -60,7 +60,7 @@ class Auth {
   checkAuthenticationNumber(phoneNumber: string, authCode: string) {
     try {
       return instance({
-        method: 'POST',
+        method: 'GET',
         url:
           process.env.REACT_APP_BASE_URL +
           `/auth/phone?phoneNumber=${phoneNumber}&authCode=${authCode}`,
