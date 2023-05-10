@@ -72,7 +72,12 @@ const EditProfileModal = (data: EditProfileType) => {
           defaultValue={data.nickname}
           ref={nicknameRef}
         />
-        <img src='svg/Edit.svg' alt='' className='edit' />
+        <img
+          src='svg/Edit.svg'
+          alt=''
+          className='edit'
+          onClick={() => nicknameRef.current.focus()}
+        />
         <S.ErrorMessage isError={isError}>
           닉네임은 2~6글자 입니다.
         </S.ErrorMessage>

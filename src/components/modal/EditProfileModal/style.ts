@@ -68,6 +68,9 @@ export const Modal = styled.div`
     width: 2rem;
     height: 2rem;
   }
+  & img {
+    cursor: pointer;
+  }
 `;
 
 export const NicknameInput = styled.input`
