@@ -29,7 +29,7 @@ const MyPage = () => {
   const getMyPost = async () => {
     try {
       const res: any = await User.getMyPost();
-      console.log(res);
+      console.log(res.data);
       setMyInfo(res.data);
       setMyPostList(res.data.postList);
     } catch (error: any) {
@@ -57,7 +57,11 @@ const MyPage = () => {
       {editProfileModal && (
         <EditProfileModal
           nickname={myInfo?.nickname}
-          image={myInfo?.image ? myInfo.image : 'svg/DefaultProfileImage.svg'}
+          image={
+            myInfo?.profileImageUrl
+              ? myInfo.profileImageUrl
+              : 'svg/DefaultProfileImage.svg'
+          }
         />
       )}
       {userWithdrawalModal && <UserWithdrawalModal />}
@@ -67,7 +71,11 @@ const MyPage = () => {
         <div>
           <S.ProfileBox>
             <img
-              src={myInfo?.image ? myInfo.image : 'svg/DefaultProfileImage.svg'}
+              src={
+                myInfo?.profileImageUrl
+                  ? myInfo.profileImageUrl
+                  : 'svg/DefaultProfileImage.svg'
+              }
               alt='profile image'
               className='profileImage'
             />

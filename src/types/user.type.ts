@@ -1,6 +1,6 @@
 export interface MyInfoType {
   nickname: string;
-  image: string;
+  profileImageUrl: string;
   postList: [];
 }
 
