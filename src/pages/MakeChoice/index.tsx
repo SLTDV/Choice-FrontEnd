@@ -1,4 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { useMutation, useQueryClient } from 'react-query';
+import { useNavigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 import Header from '../../components/common/Header';
 import IsMaking from '../../components/IsMaking';
@@ -11,6 +13,8 @@ const MakeChoice = () => {
   const [image2, setImage2] = useState('');
   const image1Ref = useRef<any>();
   const image2Ref = useRef<any>();
+  const queryClient = useQueryClient();
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     title: '',
     content: '',
@@ -23,17 +27,15 @@ const MakeChoice = () => {
   const saveImage1 = (e: any) => {
     setImage1(URL.createObjectURL(e.target.files[0]));
   };
-
   const saveImage2 = (e: any) => {
     setImage2(URL.createObjectURL(e.target.files[0]));
   };
-
   const eventHandler = (e: any) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
 
-  const makeChoice = async () => {
+  const setChoiceData = async () => {
     try {
       setIsMaking(true);
       const imageData = new FormData();
@@ -52,11 +54,40 @@ const MakeChoice = () => {
     }
   };
 
-  useEffect(() => {
+  const onMakeChoice = async () => {
     if (formData.secondImageUrl && formData.firstImageUrl) {
       Post.makeChoice(formData);
-      setIsMaking(false);
     }
+  };
+
+  const { mutate: makeChoice } = useMutation(onMakeChoice, {
+    onMutate: async (newPost) => {
+      await queryClient.cancelQueries('post');
+      const snapshotOfPreviousData = queryClient.getQueryData('post');
+      queryClient.setQueryData('post', (oldPostList: any) => ({
+        newPost,
+        ...oldPostList,
+      }));
+
+      return {
+        snapshotOfPreviousData,
+      };
+    },
+
+    onError: ({ snapshotOfPreviousData }) => {
+      queryClient.setQueryData('post', snapshotOfPreviousData);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries('post');
+      setIsMaking(false);
+      if (formData.secondImageUrl && formData.firstImageUrl) {
+        navigate('/');
+      }
+    },
+  });
+
+  useEffect(() => {
+    makeChoice();
   }, [formData]);
 
   return (
@@ -118,7 +149,7 @@ const MakeChoice = () => {
               />
             </S.OptionName>
           </S.OptionBox>
-          <S.Button type='button' onClick={() => makeChoice()}>
+          <S.Button type='button' onClick={() => setChoiceData()}>
             초이스 만들기
           </S.Button>
         </S.UploadForm>
