@@ -24,16 +24,16 @@ const Main = () => {
     try {
       if (category == 'latest') {
         const res: any = await Post.getPost(latestPage.current, 12);
-        setChoiceList((prevChoice) => [...prevChoice, ...res.data.posts]);
-        setHasMoreCoice(res.data.posts.length == 12);
+        setChoiceList((prevChoice) => [...prevChoice, ...res.data.postList]);
+        setHasMoreCoice(res.data.postList.length == 12);
         latestPage.current += 1;
       } else if (category == 'popularity') {
         const res: any = await Post.getPopularPost(popularPage.current, 12);
         setPopularChoiceList((prevChoice) => [
           ...prevChoice,
-          ...res.data.posts,
+          ...res.data.postList,
         ]);
-        setHasMorePopularChoice(res.data.posts.length == 12);
+        setHasMorePopularChoice(res.data.postList.length == 12);
         popularPage.current += 1;
       }
       setIsLoading(false);
@@ -54,7 +54,7 @@ const Main = () => {
   useEffect(() => {
     async function getPopularPost() {
       const res: any = await Post.getPopularPost(popularPage.current, 12);
-      setPopularChoiceList(res.data.posts);
+      setPopularChoiceList(res.data.postList);
       popularPage.current += 1;
     }
     getPopularPost();
