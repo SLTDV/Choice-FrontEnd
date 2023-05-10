@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import * as S from './style';
 import { useRecoilState } from 'recoil';
 import { editProfileModalAtom } from '../../../atoms/AtomContainer';
@@ -12,6 +12,19 @@ const EditProfileModal = (data: EditProfileType) => {
   const nicknameRef = useRef<any>();
   const [profileImage, setProfileImage] = useState(data.image ?? '');
   const [isError, setIsError] = useState(false);
+
+  useEffect(() => {
+    document.body.style.cssText = `
+      position: fixed; 
+      top: -${window.scrollY}px;
+      overflow-y: scroll;
+      width: 100%;`;
+    return () => {
+      const scrollY = document.body.style.top;
+      document.body.style.cssText = '';
+      window.scrollTo(0, parseInt(scrollY || '0', 10) * -1);
+    };
+  }, []);
 
   const saveImage = async (e: any) => {
     try {

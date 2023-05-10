@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 import { userWithdrawalModalAtom } from '../../../atoms';
@@ -7,6 +7,19 @@ import * as S from './style';
 const UserWithdrawalModal = () => {
   const navigate = useNavigate();
   const [, setUserWithdrawalModal] = useRecoilState(userWithdrawalModalAtom);
+
+  useEffect(() => {
+    document.body.style.cssText = `
+      position: fixed; 
+      top: -${window.scrollY}px;
+      overflow-y: scroll;
+      width: 100%;`;
+    return () => {
+      const scrollY = document.body.style.top;
+      document.body.style.cssText = '';
+      window.scrollTo(0, parseInt(scrollY || '0', 10) * -1);
+    };
+  }, []);
 
   const withdrawal = async () => {
     try {
