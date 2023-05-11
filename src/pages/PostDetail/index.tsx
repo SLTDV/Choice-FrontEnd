@@ -97,6 +97,8 @@ const PostDetail = () => {
     return () => io.disconnect();
   }, [hasMore, getComments, !isLoading]);
 
+  useEffect(() => setCommentList([]), []);
+
   return (
     <>
       <Header />
