@@ -75,10 +75,6 @@ const PostDetail = () => {
       await queryClient.invalidateQueries('todaysChoice');
       await queryClient.invalidateQueries('post');
     },
-    onSettled: async () => {
-      await queryClient.invalidateQueries('todaysChoice');
-      await queryClient.invalidateQueries('post');
-    },
   });
 
   useQuery(['post', postId.idx], () => getPostDetail(), {
