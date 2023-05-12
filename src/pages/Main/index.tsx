@@ -13,6 +13,7 @@ const Main = () => {
   const [category, setCategory] = useState<'latest' | 'popularity'>('latest');
   const [hasMoreChoice, setHasMoreCoice] = useState(true);
   const [hasMorePopularChoice, setHasMorePopularChoice] = useState(true);
+
   const latestPage = useRef(0);
   const popularPage = useRef(0);
   const [isLoading, setIsLoading] = useState(false);
@@ -40,25 +41,21 @@ const Main = () => {
     } catch (error: any) {
       console.log(error);
     }
-  }, []);
+  }, [category]);
 
   useEffect(() => {
-    if (!observerTargetEl.current) return;
+    if (
+      !observerTargetEl.current ||
+      (category == 'latest' && !hasMoreChoice) ||
+      (category == 'popularity' && !hasMorePopularChoice)
+    )
+      return;
     const io = new IntersectionObserver((entries) => {
       if (entries[0].isIntersecting && !isLoading) getPost();
     });
     io.observe(observerTargetEl.current);
     return () => io.disconnect();
-  }, [hasMoreChoice, hasMorePopularChoice, getPost, isLoading]);
-
-  useEffect(() => {
-    async function getPopularPost() {
-      const res: any = await Post.getPopularPost(popularPage.current, 12);
-      setPopularChoiceList(res.data.postList);
-      popularPage.current += 1;
-    }
-    getPopularPost();
-  }, []);
+  }, [hasMoreChoice, getPost, isLoading, category]);
 
   return (
     <S.Layout>
@@ -99,10 +96,6 @@ const Main = () => {
               />
             ))}
             {isLoading && skeletonArr.map((idx) => <MainSkeleton key={idx} />)}
-            <S.LatestChoiceLastLine
-              ref={observerTargetEl}
-              hidden={!hasMoreChoice}
-            />
           </S.PostLayout>
         ) : (
           <S.PostLayout>
@@ -117,14 +110,11 @@ const Main = () => {
                 firstVotingOption={choice.firstVotingOption}
                 secondVotingOption={choice.secondVotingOption}
               />
-            ))}{' '}
+            ))}
             {isLoading && skeletonArr.map((idx) => <MainSkeleton key={idx} />)}
-            <S.PopularityChoiceLastLine
-              ref={observerTargetEl}
-              hidden={!hasMorePopularChoice}
-            />
           </S.PostLayout>
         )}
+        <S.LastChoiceLine ref={observerTargetEl} />
       </div>
     </S.Layout>
   );

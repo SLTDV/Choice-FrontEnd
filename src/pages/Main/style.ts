@@ -80,12 +80,6 @@ export const PostLayout = styled.section`
   padding-bottom: 6rem;
 `;
 
-export const LatestChoiceLastLine = styled.div<{ hidden: boolean }>`
-  display: ${(props) => (props.hidden ? 'none' : 'block')};
-  margin-top: -20rem;
-`;
-
-export const PopularityChoiceLastLine = styled.div<{ hidden: boolean }>`
-  display: ${(props) => (props.hidden ? 'none' : 'block')};
-  margin-top: -20rem;
+export const LastChoiceLine = styled.div`
+  margin-top: -10rem;
 `;
