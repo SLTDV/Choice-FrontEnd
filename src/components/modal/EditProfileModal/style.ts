@@ -10,7 +10,7 @@ const modal = keyframes`
 `;
 
 export const Layout = styled.section`
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   width: 100%;

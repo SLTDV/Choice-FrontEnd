@@ -4,6 +4,7 @@ import * as S from './style';
 import { useRecoilState } from 'recoil';
 import {
   editProfileModalAtom,
+  logoutModalAtom,
   userWithdrawalModalAtom,
 } from '../../atoms/AtomContainer';
 import EditProfileModal from '../../components/modal/EditProfileModal';
@@ -13,8 +14,9 @@ import { MyInfoType } from '../../types/user.type';
 import { ChoiceData } from '../../types/choice.types';
 import { Link, useNavigate } from 'react-router-dom';
 import Auth from '../../services/Auth';
-import UserWithdrawalModal from '../../components/modal/UserWithdrawalModal/inde';
+import UserWithdrawalModal from '../../components/modal/UserWithdrawalModal/index';
 import ChoiceList from '../../components/common/ChoiceList';
+import LogoutModal from '../../components/modal/LogoutModal';
 
 const MyPage = () => {
   const [myInfo, setMyInfo] = useState<MyInfoType>();
@@ -23,7 +25,7 @@ const MyPage = () => {
   const [userWithdrawalModal, setUserWithdrawalModal] = useRecoilState(
     userWithdrawalModalAtom
   );
-  const navigate = useNavigate();
+  const [logoutModal, setLogoutModal] = useRecoilState(logoutModalAtom);
   const [editProfileModal, setEditProfileModal] =
     useRecoilState(editProfileModalAtom);
 
@@ -33,17 +35,6 @@ const MyPage = () => {
       console.log(res.data);
       setMyInfo(res.data);
       setMyPostList(res.data.postList);
-    } catch (error: any) {
-      console.log(error);
-    }
-  };
-
-  const logout = async () => {
-    try {
-      await Auth.logout();
-      window.localStorage.clear();
-      navigate('/', { replace: true });
-      window.location.reload();
     } catch (error: any) {
       console.log(error);
     }
@@ -66,6 +57,7 @@ const MyPage = () => {
         />
       )}
       {userWithdrawalModal && <UserWithdrawalModal />}
+      {logoutModal && <LogoutModal />}
       <Header />
 
       <S.Layout>
@@ -105,7 +97,7 @@ const MyPage = () => {
       </S.Layout>
       <S.OptionBox modalState={optionModal}>
         <S.OptionModal modalState={optionModal}>
-          <p onClick={() => logout()}>로그아웃</p>
+          <p onClick={() => setLogoutModal(true)}>로그아웃</p>
           <p
             className='withdrawal'
             onClick={() => setUserWithdrawalModal(true)}
