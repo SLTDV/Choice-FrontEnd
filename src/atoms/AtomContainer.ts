@@ -18,6 +18,11 @@ export const userWithdrawalModalAtom = atom({
   default: false,
 });
 
+export const logoutModalAtom = atom({
+  key: 'logoutModal',
+  default: false,
+});
+
 export const removeCommentModalAtom = atom({
   key: 'removeCommentModal',
   default: false,
