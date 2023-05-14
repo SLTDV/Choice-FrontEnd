@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import { useRecoilState } from 'recoil';
 import { userWithdrawalModalAtom } from '../../../atoms';
 import User from '../../../services/User';
@@ -24,9 +25,10 @@ const UserWithdrawalModal = () => {
   const withdrawal = async () => {
     try {
       await User.userWithdrawal();
-      window.localStorage.clear();
       navigate('/', { replace: true });
-      window.location.reload();
+      window.localStorage.clear();
+      toast.success('회원탈퇴 되었습니다.');
+      setUserWithdrawalModal(false);
     } catch (error: any) {
       console.log(error);
     }
