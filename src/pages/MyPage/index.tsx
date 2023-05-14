@@ -14,6 +14,7 @@ import { ChoiceData } from '../../types/choice.types';
 import { Link, useNavigate } from 'react-router-dom';
 import Auth from '../../services/Auth';
 import UserWithdrawalModal from '../../components/modal/UserWithdrawalModal/inde';
+import ChoiceList from '../../components/common/ChoiceList';
 
 const MyPage = () => {
   const [myInfo, setMyInfo] = useState<MyInfoType>();
@@ -97,18 +98,7 @@ const MyPage = () => {
             </S.NonePost>
           ) : (
             <S.PostLayout>
-              {myPostList?.map((choice) => (
-                <Choice
-                  key={choice.idx}
-                  idx={choice.idx}
-                  imageUrl={choice.imageUrl}
-                  title={choice.title}
-                  participants={choice.participants}
-                  commentCount={choice.commentCount}
-                  firstVotingOption={choice.firstVotingOption}
-                  secondVotingOption={choice.secondVotingOption}
-                />
-              ))}
+              <ChoiceList choiceList={myPostList} />
             </S.PostLayout>
           )}
         </div>

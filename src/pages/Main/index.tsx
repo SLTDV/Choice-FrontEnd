@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 import Post from '../../services/Post';
 import { ChoiceData } from '../../types/choice.types';
 import MainSkeleton from './Skeleton';
+import ChoiceList from '../../components/common/ChoiceList';
 
 const Main = () => {
   const [choiceList, setChoiceList] = useState<ChoiceData[]>([]);
@@ -83,34 +84,12 @@ const Main = () => {
         </S.Nav>
         {category == 'latest' ? (
           <S.PostLayout>
-            {choiceList?.map((choice) => (
-              <Choice
-                key={choice.idx}
-                idx={choice.idx}
-                imageUrl={choice.imageUrl}
-                title={choice.title}
-                participants={choice.participants}
-                commentCount={choice.commentCount}
-                firstVotingOption={choice.firstVotingOption}
-                secondVotingOption={choice.secondVotingOption}
-              />
-            ))}
+            <ChoiceList choiceList={choiceList} />
             {isLoading && skeletonArr.map((idx) => <MainSkeleton key={idx} />)}
           </S.PostLayout>
         ) : (
           <S.PostLayout>
-            {popularChoiceList?.map((choice) => (
-              <Choice
-                key={choice.idx}
-                idx={choice.idx}
-                imageUrl={choice.imageUrl}
-                title={choice.title}
-                participants={choice.participants}
-                commentCount={choice.commentCount}
-                firstVotingOption={choice.firstVotingOption}
-                secondVotingOption={choice.secondVotingOption}
-              />
-            ))}
+            <ChoiceList choiceList={popularChoiceList} />
             {isLoading && skeletonArr.map((idx) => <MainSkeleton key={idx} />)}
           </S.PostLayout>
         )}
