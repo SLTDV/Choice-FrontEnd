@@ -21,7 +21,7 @@ export const Modal = styled.div`
   top: 50%;
   transform: translateY(-10rem);
   & h1 {
-    font-size: 2.2rem;
+    font-size: 2rem;
     margin-top: 3.5rem;
     margin-bottom: 0.5rem;
   }

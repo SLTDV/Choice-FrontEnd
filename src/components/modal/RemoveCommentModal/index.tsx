@@ -51,8 +51,8 @@ const RemoveCommentModal = (commentIdx: CommentIdxType) => {
       <S.Modal>
         <h1>댓글 삭제</h1>
         <p>정말 댓글을 삭제할까요?</p>
-        <button onClick={() => setRemoveCommentModal(false)}>취소</button>
         <button onClick={() => removeComment()}>확인</button>
+        <button onClick={() => setRemoveCommentModal(false)}>취소</button>
       </S.Modal>
     </Layout>
   );
