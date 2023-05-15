@@ -5,6 +5,7 @@ import { useRecoilState } from 'recoil';
 import {
   editProfileModalAtom,
   logoutModalAtom,
+  RemoveChoiceModalAtom,
   userWithdrawalModalAtom,
 } from '../../atoms/AtomContainer';
 import EditProfileModal from '../../components/modal/EditProfileModal';
@@ -17,6 +18,7 @@ import Auth from '../../services/Auth';
 import UserWithdrawalModal from '../../components/modal/UserWithdrawalModal/index';
 import ChoiceList from '../../components/common/ChoiceList';
 import LogoutModal from '../../components/modal/LogoutModal';
+import RemoveChoiceModal from '../../components/modal/RemoveChoiceModal';
 
 const MyPage = () => {
   const [myInfo, setMyInfo] = useState<MyInfoType>();
@@ -25,6 +27,7 @@ const MyPage = () => {
   const [userWithdrawalModal, setUserWithdrawalModal] = useRecoilState(
     userWithdrawalModalAtom
   );
+  const [removeChoiceModal] = useRecoilState(RemoveChoiceModalAtom);
   const [logoutModal, setLogoutModal] = useRecoilState(logoutModalAtom);
   const [editProfileModal, setEditProfileModal] =
     useRecoilState(editProfileModalAtom);
@@ -58,6 +61,7 @@ const MyPage = () => {
       )}
       {userWithdrawalModal && <UserWithdrawalModal />}
       {logoutModal && <LogoutModal />}
+      {removeChoiceModal && <RemoveChoiceModal />}
       <Header />
 
       <S.Layout>

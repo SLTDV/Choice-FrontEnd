@@ -5,3 +5,4 @@ export { logoutModalAtom } from './AtomContainer';
 export { removeCommentModalAtom } from './AtomContainer';
 export { commentIdxAtom } from './AtomContainer';
 export { certifiedPhoneNumberAtom } from './AtomContainer';
+export { RemoveChoiceModalAtom } from './AtomContainer';
