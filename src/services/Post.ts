@@ -97,5 +97,19 @@ class Post {
       return error;
     }
   }
+
+  removeChoice(idx: number) {
+    try {
+      return instance({
+        method: 'DELETE',
+        url: process.env.REACT_APP_BASE_URL + '/post/' + idx,
+        headers: {
+          Authorization: tokenService.getLocalAccessToken(),
+        },
+      });
+    } catch (error) {
+      return error;
+    }
+  }
 }
 export default new Post();

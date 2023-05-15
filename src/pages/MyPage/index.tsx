@@ -27,7 +27,7 @@ const MyPage = () => {
   const [userWithdrawalModal, setUserWithdrawalModal] = useRecoilState(
     userWithdrawalModalAtom
   );
-  const [removeChoiceModal] = useRecoilState(RemoveChoiceModalAtom);
+  const [{ onModal }] = useRecoilState(RemoveChoiceModalAtom);
   const [logoutModal, setLogoutModal] = useRecoilState(logoutModalAtom);
   const [editProfileModal, setEditProfileModal] =
     useRecoilState(editProfileModalAtom);
@@ -61,7 +61,7 @@ const MyPage = () => {
       )}
       {userWithdrawalModal && <UserWithdrawalModal />}
       {logoutModal && <LogoutModal />}
-      {removeChoiceModal && <RemoveChoiceModal />}
+      {onModal && <RemoveChoiceModal />}
       <Header />
 
       <S.Layout>

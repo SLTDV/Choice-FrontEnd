@@ -40,5 +40,8 @@ export const certifiedPhoneNumberAtom = atom({
 
 export const RemoveChoiceModalAtom = atom({
   key: 'removeChoiceModal',
-  default: false,
+  default: {
+    onModal: false,
+    choiceIdx: 0,
+  },
 });

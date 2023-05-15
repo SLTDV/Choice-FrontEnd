@@ -29,7 +29,14 @@ const ChoiceList = ({
           />
 
           {isMine && (
-            <S.DeleteChoice onClick={() => setRemoveChoiceModalAtom(true)}>
+            <S.DeleteChoice
+              onClick={() =>
+                setRemoveChoiceModalAtom({
+                  onModal: true,
+                  choiceIdx: choice.idx,
+                })
+              }
+            >
               <img src='svg/ChoiceDelete.svg' alt='삭제' />
             </S.DeleteChoice>
           )}
