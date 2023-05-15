@@ -90,7 +90,7 @@ const MyPage = () => {
             </S.NonePost>
           ) : (
             <S.PostLayout>
-              <ChoiceList choiceList={myPostList} />
+              <ChoiceList choiceList={myPostList} isMine={true} />
             </S.PostLayout>
           )}
         </div>
