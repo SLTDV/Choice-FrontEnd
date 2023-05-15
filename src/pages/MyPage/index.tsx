@@ -19,6 +19,7 @@ import UserWithdrawalModal from '../../components/modal/UserWithdrawalModal/inde
 import ChoiceList from '../../components/common/ChoiceList';
 import LogoutModal from '../../components/modal/LogoutModal';
 import RemoveChoiceModal from '../../components/modal/RemoveChoiceModal';
+import PostSkeleton from '../../components/common/PostSkeleton';
 
 const MyPage = () => {
   const [myInfo, setMyInfo] = useState<MyInfoType>();
@@ -27,17 +28,21 @@ const MyPage = () => {
   const [userWithdrawalModal, setUserWithdrawalModal] = useRecoilState(
     userWithdrawalModalAtom
   );
+  const [isLoading, setIsLodaing] = useState(false);
+  const skeletonArr = [0, 1, 2, 3, 4, 5];
   const [{ onModal }] = useRecoilState(RemoveChoiceModalAtom);
   const [logoutModal, setLogoutModal] = useRecoilState(logoutModalAtom);
   const [editProfileModal, setEditProfileModal] =
     useRecoilState(editProfileModalAtom);
 
   const getMyPost = async () => {
+    setIsLodaing(true);
     try {
       const res: any = await User.getMyPost();
       console.log(res.data);
       setMyInfo(res.data);
       setMyPostList(res.data.postList);
+      setIsLodaing(false);
     } catch (error: any) {
       console.log(error);
     }
@@ -95,6 +100,8 @@ const MyPage = () => {
           ) : (
             <S.PostLayout>
               <ChoiceList choiceList={myPostList} isMine={true} />
+              {isLoading &&
+                skeletonArr.map((idx) => <PostSkeleton key={idx} />)}
             </S.PostLayout>
           )}
         </div>

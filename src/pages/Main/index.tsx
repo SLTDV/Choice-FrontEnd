@@ -5,7 +5,7 @@ import Choice from '../../components/common/Choice';
 import { Link } from 'react-router-dom';
 import Post from '../../services/Post';
 import { ChoiceData } from '../../types/choice.types';
-import MainSkeleton from './Skeleton';
+import PostSkeleton from '../../components/common/PostSkeleton';
 import ChoiceList from '../../components/common/ChoiceList';
 
 const Main = () => {
@@ -85,12 +85,12 @@ const Main = () => {
         {category == 'latest' ? (
           <S.PostLayout>
             <ChoiceList choiceList={choiceList} />
-            {isLoading && skeletonArr.map((idx) => <MainSkeleton key={idx} />)}
+            {isLoading && skeletonArr.map((idx) => <PostSkeleton key={idx} />)}
           </S.PostLayout>
         ) : (
           <S.PostLayout>
             <ChoiceList choiceList={popularChoiceList} />
-            {isLoading && skeletonArr.map((idx) => <MainSkeleton key={idx} />)}
+            {isLoading && skeletonArr.map((idx) => <PostSkeleton key={idx} />)}
           </S.PostLayout>
         )}
         <S.LastChoiceLine ref={observerTargetEl} />
