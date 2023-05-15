@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useRecoilState } from 'recoil';
 import * as S from './style';
 import { removeCommentModalAtom } from '../../../atoms';
@@ -6,24 +6,12 @@ import { useMutation, useQueryClient } from 'react-query';
 import CommentApi from '../../../services/Comment';
 import { useParams } from 'react-router';
 import { CommentIdxType } from '../../../types/comment.types';
+import Layout from '../Layout';
 
 const RemoveCommentModal = (commentIdx: CommentIdxType) => {
   const [, setRemoveCommentModal] = useRecoilState(removeCommentModalAtom);
   const queryClient = useQueryClient();
   const postId = useParams() as unknown as { idx: number };
-
-  useEffect(() => {
-    document.body.style.cssText = `
-      position: fixed; 
-      top: -${window.scrollY}px;
-      overflow-y: scroll;
-      width: 100%;`;
-    return () => {
-      const scrollY = document.body.style.top;
-      document.body.style.cssText = '';
-      window.scrollTo(0, parseInt(scrollY || '0', 10) * -1);
-    };
-  }, []);
 
   const onRemoveComment = async () => {
     try {
@@ -58,7 +46,7 @@ const RemoveCommentModal = (commentIdx: CommentIdxType) => {
     },
   });
   return (
-    <S.Layout>
+    <Layout>
       <S.ModalBg onClick={() => setRemoveCommentModal(false)} />
       <S.Modal>
         <h1>댓글 삭제</h1>
@@ -66,7 +54,7 @@ const RemoveCommentModal = (commentIdx: CommentIdxType) => {
         <button onClick={() => setRemoveCommentModal(false)}>취소</button>
         <button onClick={() => removeComment()}>확인</button>
       </S.Modal>
-    </S.Layout>
+    </Layout>
   );
 };
 

@@ -1,10 +1,11 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import * as S from './style';
 import { useRecoilState } from 'recoil';
 import { editProfileModalAtom } from '../../../atoms/AtomContainer';
 import { EditProfileType } from '../../../types/user.type';
 import User from '../../../services/User';
 import Image from '../../../services/Image';
+import Layout from '../Layout';
 
 const EditProfileModal = (data: EditProfileType) => {
   const [editProfileModal, setEditProfileModal] =
@@ -12,19 +13,6 @@ const EditProfileModal = (data: EditProfileType) => {
   const nicknameRef = useRef<any>();
   const [profileImage, setProfileImage] = useState(data.image ?? '');
   const [isError, setIsError] = useState(false);
-
-  useEffect(() => {
-    document.body.style.cssText = `
-      position: fixed; 
-      top: -${window.scrollY}px;
-      overflow-y: scroll;
-      width: 100%;`;
-    return () => {
-      const scrollY = document.body.style.top;
-      document.body.style.cssText = '';
-      window.scrollTo(0, parseInt(scrollY || '0', 10) * -1);
-    };
-  }, []);
 
   const saveImage = async (e: any) => {
     try {
@@ -56,7 +44,7 @@ const EditProfileModal = (data: EditProfileType) => {
   };
 
   return (
-    <S.Layout>
+    <Layout>
       <S.ModalBg onClick={() => setEditProfileModal(!editProfileModal)} />
       <S.Modal>
         <h1>프로필 수정</h1>
@@ -83,7 +71,7 @@ const EditProfileModal = (data: EditProfileType) => {
         </S.ErrorMessage>
         <button onClick={() => editPropfile()}>수정 완료</button>
       </S.Modal>
-    </S.Layout>
+    </Layout>
   );
 };
 

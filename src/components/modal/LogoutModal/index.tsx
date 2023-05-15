@@ -1,26 +1,14 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useNavigate } from 'react-router';
 import { toast } from 'react-toastify';
 import { useRecoilState } from 'recoil';
 import { logoutModalAtom } from '../../../atoms';
 import Auth from '../../../services/Auth';
+import Layout from '../Layout';
 import * as S from './style';
 const LogoutModal = () => {
   const navigate = useNavigate();
   const [, setLogoutModal] = useRecoilState(logoutModalAtom);
-
-  useEffect(() => {
-    document.body.style.cssText = `
-      position: fixed; 
-      top: -${window.scrollY}px;
-      overflow-y: scroll;
-      width: 100%;`;
-    return () => {
-      const scrollY = document.body.style.top;
-      document.body.style.cssText = '';
-      window.scrollTo(0, parseInt(scrollY || '0', 10) * -1);
-    };
-  }, []);
 
   const logout = async () => {
     try {
@@ -35,7 +23,7 @@ const LogoutModal = () => {
   };
 
   return (
-    <S.Layout>
+    <Layout>
       <S.ModalBg onClick={() => setLogoutModal(false)} />
       <S.Modal>
         <h3>로그아웃</h3>
@@ -43,7 +31,7 @@ const LogoutModal = () => {
         <S.Button onClick={() => logout()}>확인</S.Button>
         <S.Button onClick={() => setLogoutModal(false)}>취소</S.Button>
       </S.Modal>
-    </S.Layout>
+    </Layout>
   );
 };
 
