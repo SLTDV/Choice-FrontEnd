@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import Header from '../../components/common/Header';
 import * as S from './style';
 import { useRecoilState } from 'recoil';
@@ -27,7 +27,7 @@ const MyPage = () => {
   const [userWithdrawalModal, setUserWithdrawalModal] = useRecoilState(
     userWithdrawalModalAtom
   );
-  const [isLoading, setIsLodaing] = useState(false);
+  const [isLoading, setIsLodaing] = useState(true);
   const skeletonArr = [0, 1, 2, 3, 4, 5];
   const [{ onModal }] = useRecoilState(RemoveChoiceModalAtom);
   const [logoutModal, setLogoutModal] = useRecoilState(logoutModalAtom);
@@ -37,7 +37,6 @@ const MyPage = () => {
   const getMyPost = async () => {
     try {
       const res: any = await User.getMyPost();
-      console.log(res.data);
       setMyInfo(res.data);
       setMyPostList(res.data.postList);
       setIsLodaing(false);
