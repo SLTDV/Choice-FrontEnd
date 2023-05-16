@@ -18,6 +18,11 @@ export const userWithdrawalModalAtom = atom({
   default: false,
 });
 
+export const logoutModalAtom = atom({
+  key: 'logoutModal',
+  default: false,
+});
+
 export const removeCommentModalAtom = atom({
   key: 'removeCommentModal',
   default: false,
@@ -31,4 +36,12 @@ export const commentIdxAtom = atom({
 export const certifiedPhoneNumberAtom = atom({
   key: 'isCertifiedPhoneNumber',
   default: false,
+});
+
+export const RemoveChoiceModalAtom = atom({
+  key: 'removeChoiceModal',
+  default: {
+    onModal: false,
+    choiceIdx: 0,
+  },
 });

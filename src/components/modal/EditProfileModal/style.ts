@@ -9,18 +9,6 @@ const modal = keyframes`
     }
 `;
 
-export const Layout = styled.section`
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 9999;
-  background-color: rgba(0, 0, 0, 0.4);
-  display: flex;
-  justify-content: space-around;
-`;
-
 export const ModalBg = styled.div`
   position: absolute;
   top: 0;

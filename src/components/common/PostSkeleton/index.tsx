@@ -1,6 +1,6 @@
 import React from 'react';
 import * as S from './style';
-const MainSkeleton = () => {
+const PostSkeleton = () => {
   return (
     <S.Skeleton>
       <S.InfoBox>
@@ -15,4 +15,4 @@ const MainSkeleton = () => {
   );
 };
 
-export default MainSkeleton;
+export default PostSkeleton;
