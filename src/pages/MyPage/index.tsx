@@ -9,12 +9,11 @@ import {
   userWithdrawalModalAtom,
 } from '../../atoms/AtomContainer';
 import EditProfileModal from '../../components/modal/EditProfileModal';
-import Choice from '../../components/common/Choice';
 import User from '../../services/User';
 import { MyInfoType } from '../../types/user.type';
 import { ChoiceData } from '../../types/choice.types';
-import { Link, useNavigate } from 'react-router-dom';
-import Auth from '../../services/Auth';
+import { Link } from 'react-router-dom';
+import { useQuery } from 'react-query';
 import UserWithdrawalModal from '../../components/modal/UserWithdrawalModal/index';
 import ChoiceList from '../../components/common/ChoiceList';
 import LogoutModal from '../../components/modal/LogoutModal';
@@ -36,7 +35,6 @@ const MyPage = () => {
     useRecoilState(editProfileModalAtom);
 
   const getMyPost = async () => {
-    setIsLodaing(true);
     try {
       const res: any = await User.getMyPost();
       console.log(res.data);
@@ -48,9 +46,11 @@ const MyPage = () => {
     }
   };
 
-  useEffect(() => {
-    getMyPost();
-  }, []);
+  useQuery({
+    queryKey: 'myPost',
+    queryFn: getMyPost,
+    refetchOnWindowFocus: false,
+  });
 
   return (
     <>
