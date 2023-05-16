@@ -16,6 +16,7 @@ export const OptionBox = styled.div<{ modalState: boolean }>`
 `;
 
 export const OptionModal = styled.div<{ modalState: boolean }>`
+  background: #ffffff;
   text-align: center;
   display: flex;
   flex-direction: column;
