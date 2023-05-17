@@ -11,6 +11,11 @@ export const TodaysChoiceLayout = styled.div`
   row-gap: 5rem;
 `;
 
+export const NotPost = styled.p`
+  font-size: 1.6rem;
+  width: 30rem;
+`;
+
 export const Todays = styled.h1`
   width: 13rem;
   font-size: 2.2rem;
