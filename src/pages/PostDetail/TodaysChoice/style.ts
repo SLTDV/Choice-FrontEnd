@@ -2,6 +2,7 @@ import styled from '@emotion/styled';
 
 export const TodaysChoice = styled.section`
   margin-left: 10%;
+  margin-right: 8rem;
   padding-bottom: 8rem;
 `;
 

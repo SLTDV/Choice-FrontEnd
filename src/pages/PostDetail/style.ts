@@ -15,7 +15,6 @@ export const Layout = styled.section`
 export const PostDetailSection = styled.section`
   width: 85rem;
   text-align: center;
-  margin-left: -8rem;
   & h1 {
     font-size: 3rem;
   }
