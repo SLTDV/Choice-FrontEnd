@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState, useContext } from 'react';
 import * as S from './style';
 import TextareaAutosize from 'react-textarea-autosize';
 import User from '../../../services/User';
@@ -10,6 +10,7 @@ import { commentIdxAtom, removeCommentModalAtom } from '../../../atoms';
 import { useRecoilState } from 'recoil';
 import RemoveCommentModal from '../../../components/modal/RemoveCommentModal';
 import Comment from './Comment';
+import CommentContext, { CommentContextProps } from './CommentContext';
 
 const CommentList = ({ comment }: { comment: CommentType[] | undefined }) => {
   const [nickname, setNickname] = useState('');
@@ -20,6 +21,9 @@ const CommentList = ({ comment }: { comment: CommentType[] | undefined }) => {
   );
   const [removeCommentModal] = useRecoilState(removeCommentModalAtom);
   const [commentIdx] = useRecoilState<CommentIdxType>(commentIdxAtom);
+  const { commentList, setCommentList } = useContext<CommentContextProps>(
+    CommentContext as React.Context<CommentContextProps>
+  );
   const queryClient = useQueryClient();
 
   const getMyProfile = async () => {
@@ -34,7 +38,12 @@ const CommentList = ({ comment }: { comment: CommentType[] | undefined }) => {
 
   const onAddComment = async (idx: number) => {
     try {
-      await CommentApi.addComment(idx, commentContent.current.value);
+      const res: any = await CommentApi.addComment(
+        idx,
+        commentContent.current.value
+      );
+      const newCommentData = await res.json();
+      setCommentList([...commentList, newCommentData]);
     } catch (error: any) {
       console.log(error);
     }
@@ -99,7 +108,7 @@ const CommentList = ({ comment }: { comment: CommentType[] | undefined }) => {
           </S.isNotCommentBox>
         ) : (
           <>
-            {comment?.map((comment: CommentType) => (
+            {commentList?.map((comment: CommentType) => (
               <Comment
                 key={comment.idx}
                 idx={comment.idx}
