@@ -1,20 +1,13 @@
-import React, {
-  createContext,
-  useCallback,
-  useEffect,
-  useRef,
-  useState,
-} from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import Header from '../../components/common/Header';
 import * as S from './style';
 import Post from '../../services/Post';
 import { PostDetailType } from '../../types/choice.types';
-import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import TodaysChoice from './TodaysChoice';
 import CommentList from './CommentList';
 import { useMutation, useQuery, useQueryClient } from 'react-query';
 import { CommentType } from '../../types/comment.types';
-import CommentContext from './CommentList/CommentContext';
 
 const PostDetail = () => {
   const [postInfo, setPostInfo] = useState<PostDetailType>();
@@ -47,7 +40,6 @@ const PostDetail = () => {
       const res: any = await Post.getPostInfo(postId.idx, page.current, 10);
       setPostInfo(res.data);
       setParticipants(res.data.firstVotingCount + res.data.secondVotingCount);
-      setCommentList((prevCommentList: CommentType[]) => prevCommentList);
     } catch (error: any) {
       if (error) navigate('/error/404');
     }
@@ -99,7 +91,7 @@ const PostDetail = () => {
   useEffect(() => setCommentList([]), []);
 
   return (
-    <CommentContext.Provider value={{ commentList, setCommentList }}>
+    <>
       <Header />
       <S.Layout>
         <span>
@@ -188,7 +180,7 @@ const PostDetail = () => {
           <TodaysChoice />
         </span>
       </S.Layout>
-    </CommentContext.Provider>
+    </>
   );
 };
 
