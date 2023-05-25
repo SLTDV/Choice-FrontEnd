@@ -5,7 +5,3 @@ export interface CommentType {
   profileImageUrl: string;
   isMine: boolean;
 }
-
-export interface CommentIdxType {
-  commentIdx: number;
-}

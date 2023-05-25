@@ -23,23 +23,27 @@ const PostDetail = () => {
 
   const getComments = useCallback(async () => {
     setIsLoading(true);
-    const res: any = await Post.getPostInfo(postId.idx, page.current, 10);
+    const { data }: any = await Post.getPostInfo(postId.idx, page.current, 10);
     setCommentList((prevCommentList: CommentType[]) => [
       ...prevCommentList,
-      ...res.data.commentList,
+      ...data.commentList,
     ]);
-    setHasMore(res.data.commentList.length === 10);
+    setHasMore(data.commentList.length === 10);
     setIsLoading(false);
-    if (res.data.commentList.length) {
+    if (data.commentList.length) {
       page.current += 1;
     }
   }, []);
 
   const getPostDetail = async () => {
     try {
-      const res: any = await Post.getPostInfo(postId.idx, page.current, 10);
-      setPostInfo(res.data);
-      setParticipants(res.data.firstVotingCount + res.data.secondVotingCount);
+      const { data }: any = await Post.getPostInfo(
+        postId.idx,
+        page.current,
+        10
+      );
+      setPostInfo(data);
+      setParticipants(data.firstVotingCount + data.secondVotingCount);
     } catch (error: any) {
       if (error) navigate('/error/404');
     }
@@ -88,7 +92,7 @@ const PostDetail = () => {
     return () => io.disconnect();
   }, [hasMore, getComments, !isLoading]);
 
-  useEffect(() => setCommentList([]), []);
+  // useEffect(() => setCommentList([]), []);
 
   return (
     <>
@@ -170,9 +174,10 @@ const PostDetail = () => {
               </S.VoteBox>
             </S.Detail>
             <CommentList
-              comment={
+              commentList={
                 commentList.length == 0 ? postInfo?.commentList : commentList
               }
+              setCommentList={setCommentList}
             />
             <S.LastCommentLine ref={observerTargetEl} hidden={!hasMore} />
             <S.Spinner isLoading={isLoading} />

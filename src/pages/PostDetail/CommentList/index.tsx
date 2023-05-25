@@ -1,9 +1,15 @@
-import React, { useEffect, useRef, useState, useContext } from 'react';
+import React, {
+  useEffect,
+  useRef,
+  useState,
+  Dispatch,
+  SetStateAction,
+} from 'react';
 import * as S from './style';
 import TextareaAutosize from 'react-textarea-autosize';
 import User from '../../../services/User';
 import CommentApi from '../../../services/Comment';
-import { CommentIdxType, CommentType } from '../../../types/comment.types';
+import { CommentType } from '../../../types/comment.types';
 import { useParams } from 'react-router-dom';
 import { useMutation, useQueryClient } from 'react-query';
 import { commentIdxAtom, removeCommentModalAtom } from '../../../atoms';
@@ -11,7 +17,12 @@ import { useRecoilState } from 'recoil';
 import RemoveCommentModal from '../../../components/modal/RemoveCommentModal';
 import Comment from './Comment';
 
-const CommentList = ({ comment }: { comment: CommentType[] | undefined }) => {
+interface CommentListProps {
+  commentList?: CommentType[];
+  setCommentList: Dispatch<SetStateAction<CommentType[]>>;
+}
+
+const CommentList = ({ commentList, setCommentList }: CommentListProps) => {
   const [nickname, setNickname] = useState('');
   const postId = useParams() as unknown as { idx: number };
   const commentContent = useRef<any>();
@@ -19,14 +30,13 @@ const CommentList = ({ comment }: { comment: CommentType[] | undefined }) => {
     'svg/DefaultProfileImage.svg'
   );
   const [removeCommentModal] = useRecoilState(removeCommentModalAtom);
-  const [commentIdx] = useRecoilState<CommentIdxType>(commentIdxAtom);
   const queryClient = useQueryClient();
 
   const getMyProfile = async () => {
     try {
-      const res: any = await User.getMiniProfile();
-      setNickname(res.data.nickname);
-      res.data.image && setProfileImage(res.data.image);
+      const { data }: any = await User.getMiniProfile();
+      setNickname(data.nickname);
+      data.image && setProfileImage(data.image);
     } catch (error: any) {
       console.log(error);
     }
@@ -73,7 +83,7 @@ const CommentList = ({ comment }: { comment: CommentType[] | undefined }) => {
   return (
     <>
       {removeCommentModal && (
-        <RemoveCommentModal commentIdx={commentIdx.commentIdx} />
+        <RemoveCommentModal setCommentList={setCommentList} />
       )}
       <S.CommentLayout>
         <h1>댓글</h1>
@@ -91,13 +101,13 @@ const CommentList = ({ comment }: { comment: CommentType[] | undefined }) => {
             등록
           </button>
         </S.InputWrap>
-        {comment?.length == 0 ? (
+        {commentList?.length == 0 ? (
           <S.isNotCommentBox>
             <p>첫 댓글을 입력해 주세요.</p>
           </S.isNotCommentBox>
         ) : (
           <>
-            {comment?.map((comment: CommentType) => (
+            {commentList?.map((comment: CommentType) => (
               <Comment
                 key={comment.idx}
                 idx={comment.idx}

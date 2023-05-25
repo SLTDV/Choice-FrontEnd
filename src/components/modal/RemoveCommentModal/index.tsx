@@ -1,51 +1,43 @@
-import React from 'react';
+import React, { Dispatch, SetStateAction } from 'react';
 import { useRecoilState } from 'recoil';
 import * as S from './style';
-import { removeCommentModalAtom } from '../../../atoms';
+import { commentIdxAtom, removeCommentModalAtom } from '../../../atoms';
 import { useMutation, useQueryClient } from 'react-query';
 import CommentApi from '../../../services/Comment';
 import { useParams } from 'react-router';
-import { CommentIdxType } from '../../../types/comment.types';
+import { CommentType } from '../../../types/comment.types';
 import Layout from '../Layout';
 
-const RemoveCommentModal = (commentIdx: CommentIdxType) => {
+interface RemoveCommentModalProps {
+  setCommentList: Dispatch<SetStateAction<CommentType[]>>;
+}
+
+const RemoveCommentModal = ({ setCommentList }: RemoveCommentModalProps) => {
   const [, setRemoveCommentModal] = useRecoilState(removeCommentModalAtom);
+  const [commentIdx] = useRecoilState(commentIdxAtom);
   const queryClient = useQueryClient();
   const postId = useParams() as unknown as { idx: number };
 
   const onRemoveComment = async () => {
     try {
-      await CommentApi.removeComment(postId.idx, commentIdx.commentIdx);
+      await CommentApi.removeComment(postId.idx, commentIdx);
+      setCommentList((prev) =>
+        prev.filter((value) => value.idx !== commentIdx)
+      );
     } catch (error: any) {
       console.log(error);
     }
   };
 
   const { mutate: removeComment } = useMutation(onRemoveComment, {
-    onMutate: async (newComment) => {
-      await queryClient.cancelQueries('post');
-      const snapshotOfPreviousData = queryClient.getQueryData('post');
-      queryClient.setQueryData('post', (oldComment: any) => ({
-        newComment,
-        ...oldComment,
-      }));
-
-      return {
-        snapshotOfPreviousData,
-      };
-    },
-
-    onError: ({ snapshotOfPreviousData }) => {
-      queryClient.setQueryData('post', snapshotOfPreviousData);
-    },
     onSuccess: async () => {
-      await queryClient.invalidateQueries('post');
       await queryClient.invalidateQueries('todaysChoice');
     },
     onSettled: () => {
       setRemoveCommentModal(false);
     },
   });
+
   return (
     <Layout>
       <S.ModalBg onClick={() => setRemoveCommentModal(false)} />

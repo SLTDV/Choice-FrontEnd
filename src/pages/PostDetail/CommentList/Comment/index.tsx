@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import TextareaAutosize from 'react-textarea-autosize';
 import { useRecoilState } from 'recoil';
 import { commentIdxAtom, removeCommentModalAtom } from '../../../../atoms';
-import { CommentIdxType, CommentType } from '../../../../types/comment.types';
+import { CommentType } from '../../../../types/comment.types';
 import { useMutation, useQueryClient } from 'react-query';
 import CommentApi from '../../../../services/Comment';
 import * as S from './style';
@@ -10,13 +10,13 @@ import { useParams } from 'react-router-dom';
 
 const Comment = (comment: CommentType) => {
   const [, setRemoveCommentModal] = useRecoilState(removeCommentModalAtom);
-  const [, setCommentIdx] = useRecoilState<CommentIdxType>(commentIdxAtom);
+  const [, setCommentIdx] = useRecoilState<number>(commentIdxAtom);
   const [isEditing, setIsEditing] = useState(false);
   const commentEditContent = useRef<HTMLTextAreaElement>(null);
   const postId = useParams() as unknown as { idx: number };
   const queryClient = useQueryClient();
   const onRemoveComment = (idx: number) => {
-    setCommentIdx({ commentIdx: idx });
+    setCommentIdx(idx);
     setRemoveCommentModal(true);
   };
 

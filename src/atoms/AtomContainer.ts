@@ -30,7 +30,7 @@ export const removeCommentModalAtom = atom({
 
 export const commentIdxAtom = atom({
   key: 'commentIdx',
-  default: { commentIdx: 0 },
+  default: 0,
 });
 
 export const certifiedPhoneNumberAtom = atom({
