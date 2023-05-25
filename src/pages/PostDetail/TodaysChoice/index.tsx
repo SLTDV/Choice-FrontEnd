@@ -12,7 +12,6 @@ const TodaysChoice = () => {
     try {
       const res: any = await Post.getTodaysPost();
       setTodaysPostList(res.data.todayPostList);
-      console.log(res.data.todayPostList.length);
     } catch (error: any) {
       console.log(error);
     }
