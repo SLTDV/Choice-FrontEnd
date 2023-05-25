@@ -12,7 +12,7 @@ import CommentApi from '../../../services/Comment';
 import { CommentType } from '../../../types/comment.types';
 import { useParams } from 'react-router-dom';
 import { useMutation, useQueryClient } from 'react-query';
-import { commentIdxAtom, removeCommentModalAtom } from '../../../atoms';
+import { removeCommentModalAtom } from '../../../atoms';
 import { useRecoilState } from 'recoil';
 import RemoveCommentModal from '../../../components/modal/RemoveCommentModal';
 import Comment from './Comment';
@@ -31,7 +31,6 @@ const CommentList = ({ commentList, setCommentList }: CommentListProps) => {
   );
   const [removeCommentModal] = useRecoilState(removeCommentModalAtom);
   const queryClient = useQueryClient();
-
   const getMyProfile = async () => {
     try {
       const { data }: any = await User.getMiniProfile();
@@ -51,27 +50,11 @@ const CommentList = ({ commentList, setCommentList }: CommentListProps) => {
   };
 
   const { mutate: addComment } = useMutation(onAddComment, {
-    onMutate: async (newComment) => {
-      await queryClient.cancelQueries('post');
-      const snapshotOfPreviousData = queryClient.getQueryData('post');
-      queryClient.setQueryData('post', (oldComment: any) => ({
-        newComment,
-        ...oldComment,
-      }));
-
-      return {
-        snapshotOfPreviousData,
-      };
-    },
-
-    onError: ({ snapshotOfPreviousData }) => {
-      queryClient.setQueryData('post', snapshotOfPreviousData);
-    },
     onSuccess: () => {
-      queryClient.invalidateQueries('post');
+      queryClient.invalidateQueries('todaysChoice');
+      queryClient.invalidateQueries('comment');
     },
     onSettled: () => {
-      queryClient.invalidateQueries('todaysChoice');
       commentContent.current.value = '';
     },
   });

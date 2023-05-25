@@ -16,7 +16,7 @@ const PostDetail = () => {
   const postId = useParams() as unknown as { idx: number };
   const [participants, setParticipants] = useState(0);
   const [commentList, setCommentList] = useState<CommentType[]>([]);
-  const page = useRef(0);
+  const page = useRef(1);
   const [hasMore, setHasMore] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
   const observerTargetEl = useRef<HTMLDivElement>(null);
@@ -76,7 +76,18 @@ const PostDetail = () => {
     },
   });
 
+  const setComments = async () => {
+    const { data }: any = await Post.getPostInfo(postId.idx, 0, 10);
+    setCommentList(data.commentList);
+    setHasMore(data.commentList.length === 10);
+    page.current = 1;
+  };
+
   useQuery(['post', postId.idx], () => getPostDetail(), {
+    refetchOnWindowFocus: false,
+  });
+
+  useQuery(['comment', postId.idx], () => setComments(), {
     refetchOnWindowFocus: false,
   });
 
@@ -91,8 +102,6 @@ const PostDetail = () => {
     io.observe(observerTargetEl.current);
     return () => io.disconnect();
   }, [hasMore, getComments, !isLoading]);
-
-  // useEffect(() => setCommentList([]), []);
 
   return (
     <>
