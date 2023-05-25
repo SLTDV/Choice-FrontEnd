@@ -38,8 +38,9 @@ const RemoveCommentModal = (commentIdx: CommentIdxType) => {
     onError: ({ snapshotOfPreviousData }) => {
       queryClient.setQueryData('post', snapshotOfPreviousData);
     },
-    onSuccess: () => {
-      queryClient.invalidateQueries('post');
+    onSuccess: async () => {
+      await queryClient.invalidateQueries('post');
+      await queryClient.invalidateQueries('todaysChoice');
     },
     onSettled: () => {
       setRemoveCommentModal(false);
