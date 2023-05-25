@@ -93,11 +93,9 @@ const CommentList = ({ commentList, setCommentList }: CommentListProps) => {
             {commentList?.map((comment: CommentType) => (
               <Comment
                 key={comment.idx}
-                idx={comment.idx}
-                profileImageUrl={comment.profileImageUrl}
-                nickname={comment.nickname}
-                content={comment.content}
-                isMine={comment.isMine}
+                commentInfo={comment}
+                commentList={commentList}
+                setCommentList={setCommentList}
               />
             ))}
           </>

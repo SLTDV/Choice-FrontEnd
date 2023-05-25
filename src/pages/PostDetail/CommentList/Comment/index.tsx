@@ -1,4 +1,10 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, {
+  useState,
+  useRef,
+  useEffect,
+  Dispatch,
+  SetStateAction,
+} from 'react';
 import TextareaAutosize from 'react-textarea-autosize';
 import { useRecoilState } from 'recoil';
 import { commentIdxAtom, removeCommentModalAtom } from '../../../../atoms';
@@ -8,7 +14,17 @@ import CommentApi from '../../../../services/Comment';
 import * as S from './style';
 import { useParams } from 'react-router-dom';
 
-const Comment = (comment: CommentType) => {
+interface CommentProps {
+  commentInfo: CommentType;
+  commentList?: CommentType[];
+  setCommentList: any;
+}
+
+const Comment = ({
+  commentInfo,
+  commentList,
+  setCommentList,
+}: CommentProps) => {
   const [, setRemoveCommentModal] = useRecoilState(removeCommentModalAtom);
   const [, setCommentIdx] = useRecoilState<number>(commentIdxAtom);
   const [isEditing, setIsEditing] = useState(false);
@@ -22,11 +38,15 @@ const Comment = (comment: CommentType) => {
 
   const onEditComment = async () => {
     if (commentEditContent.current?.value) {
+      const editedComment = commentEditContent.current.value;
       setIsEditing(false);
-      await CommentApi.editComment(
-        postId.idx,
-        comment.idx,
-        commentEditContent.current?.value
+      await CommentApi.editComment(postId.idx, commentInfo.idx, editedComment);
+      setCommentList(
+        commentList?.map((comment) =>
+          comment.idx === commentInfo.idx
+            ? { ...comment, content: editedComment }
+            : comment
+        )
       );
     }
   };
@@ -55,25 +75,25 @@ const Comment = (comment: CommentType) => {
         <S.Profile>
           <img
             src={
-              comment.profileImageUrl
-                ? comment.profileImageUrl
+              commentInfo.profileImageUrl
+                ? commentInfo.profileImageUrl
                 : 'svg/DefaultProfileImage.svg'
             }
             alt=''
           />
-          <S.Name>{comment.nickname}</S.Name>
+          <S.Name>{commentInfo.nickname}</S.Name>
         </S.Profile>
         {isEditing ? (
           <TextareaAutosize
-            defaultValue={comment.content}
+            defaultValue={commentInfo.content}
             required
             ref={commentEditContent}
           />
         ) : (
-          <S.Content>{comment.content}</S.Content>
+          <S.Content>{commentInfo.content}</S.Content>
         )}
       </S.CommentBox>
-      {comment.isMine && (
+      {commentInfo.isMine && (
         <S.EditBox className='editBox'>
           {isEditing ? (
             <button onClick={() => editComment()}>수정</button>
@@ -83,7 +103,7 @@ const Comment = (comment: CommentType) => {
                 <img src='svg/CommentEdit.svg' alt='edit' />
                 <div className='line' />
               </S.Edit>
-              <S.DeleteBox onClick={() => onRemoveComment(comment.idx)}>
+              <S.DeleteBox onClick={() => onRemoveComment(commentInfo.idx)}>
                 <img src='svg/CommentDeleteTop.svg' alt='' className='top' />
                 <img src='svg/CommentDelete.svg' alt='delete' />
               </S.DeleteBox>

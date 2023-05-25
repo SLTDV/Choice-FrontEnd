@@ -22,7 +22,7 @@ const RemoveCommentModal = ({ setCommentList }: RemoveCommentModalProps) => {
     try {
       await CommentApi.removeComment(postId.idx, commentIdx);
       setCommentList((prev) =>
-        prev.filter((value) => value.idx !== commentIdx)
+        prev.filter((element) => element.idx !== commentIdx)
       );
     } catch (error: any) {
       console.log(error);
