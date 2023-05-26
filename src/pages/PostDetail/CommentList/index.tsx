@@ -12,19 +12,15 @@ import CommentApi from '../../../services/Comment';
 import { CommentType } from '../../../types/comment.types';
 import { useParams } from 'react-router-dom';
 import { useMutation, useQueryClient } from 'react-query';
-import { removeCommentModalAtom } from '../../../atoms';
+import { commentListAtom, removeCommentModalAtom } from '../../../atoms';
 import { useRecoilState } from 'recoil';
 import RemoveCommentModal from '../../../components/modal/RemoveCommentModal';
 import Comment from './Comment';
 
-interface CommentListProps {
-  commentList?: CommentType[];
-  setCommentList: Dispatch<SetStateAction<CommentType[]>>;
-}
-
-const CommentList = ({ commentList, setCommentList }: CommentListProps) => {
+const CommentList = () => {
   const [nickname, setNickname] = useState('');
   const postId = useParams() as unknown as { idx: number };
+  const [commentList, setCommentList] = useRecoilState(commentListAtom);
   const commentContent = useRef<any>();
   const [profileImage, setProfileImage] = useState(
     'svg/DefaultProfileImage.svg'
@@ -65,9 +61,7 @@ const CommentList = ({ commentList, setCommentList }: CommentListProps) => {
 
   return (
     <>
-      {removeCommentModal && (
-        <RemoveCommentModal setCommentList={setCommentList} />
-      )}
+      {removeCommentModal && <RemoveCommentModal />}
       <S.CommentLayout>
         <h1>댓글</h1>
         <S.InputWrap>
@@ -93,9 +87,11 @@ const CommentList = ({ commentList, setCommentList }: CommentListProps) => {
             {commentList?.map((comment: CommentType) => (
               <Comment
                 key={comment.idx}
-                commentInfo={comment}
-                commentList={commentList}
-                setCommentList={setCommentList}
+                idx={comment.idx}
+                content={comment.content}
+                nickname={comment.nickname}
+                profileImageUrl={comment.profileImageUrl}
+                isMine={comment.isMine}
               />
             ))}
           </>

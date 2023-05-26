@@ -1,5 +1,6 @@
 import { atom } from 'recoil';
 import { recoilPersist } from 'recoil-persist';
+import { CommentType } from '../types/comment.types';
 const { persistAtom } = recoilPersist();
 
 export const loggedAtom = atom({
@@ -44,4 +45,9 @@ export const RemoveChoiceModalAtom = atom({
     onModal: false,
     choiceIdx: 0,
   },
+});
+
+export const commentListAtom = atom<CommentType[]>({
+  key: 'commentList',
+  default: [],
 });

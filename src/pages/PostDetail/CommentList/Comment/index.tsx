@@ -7,25 +7,20 @@ import React, {
 } from 'react';
 import TextareaAutosize from 'react-textarea-autosize';
 import { useRecoilState } from 'recoil';
-import { commentIdxAtom, removeCommentModalAtom } from '../../../../atoms';
+import {
+  commentIdxAtom,
+  commentListAtom,
+  removeCommentModalAtom,
+} from '../../../../atoms';
 import { CommentType } from '../../../../types/comment.types';
 import { useMutation, useQueryClient } from 'react-query';
 import CommentApi from '../../../../services/Comment';
 import * as S from './style';
 import { useParams } from 'react-router-dom';
 
-interface CommentProps {
-  commentInfo: CommentType;
-  commentList?: CommentType[];
-  setCommentList: any;
-}
-
-const Comment = ({
-  commentInfo,
-  commentList,
-  setCommentList,
-}: CommentProps) => {
+const Comment = (commentInfo: CommentType) => {
   const [, setRemoveCommentModal] = useRecoilState(removeCommentModalAtom);
+  const [commentList, setCommentList] = useRecoilState(commentListAtom);
   const [, setCommentIdx] = useRecoilState<number>(commentIdxAtom);
   const [isEditing, setIsEditing] = useState(false);
   const commentEditContent = useRef<HTMLTextAreaElement>(null);

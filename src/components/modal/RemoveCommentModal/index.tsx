@@ -1,19 +1,20 @@
 import React, { Dispatch, SetStateAction } from 'react';
 import { useRecoilState } from 'recoil';
 import * as S from './style';
-import { commentIdxAtom, removeCommentModalAtom } from '../../../atoms';
+import {
+  commentIdxAtom,
+  commentListAtom,
+  removeCommentModalAtom,
+} from '../../../atoms';
 import { useMutation, useQueryClient } from 'react-query';
 import CommentApi from '../../../services/Comment';
 import { useParams } from 'react-router';
 import { CommentType } from '../../../types/comment.types';
 import Layout from '../Layout';
 
-interface RemoveCommentModalProps {
-  setCommentList: Dispatch<SetStateAction<CommentType[]>>;
-}
-
-const RemoveCommentModal = ({ setCommentList }: RemoveCommentModalProps) => {
+const RemoveCommentModal = () => {
   const [, setRemoveCommentModal] = useRecoilState(removeCommentModalAtom);
+  const [, setCommentList] = useRecoilState(commentListAtom);
   const [commentIdx] = useRecoilState(commentIdxAtom);
   const queryClient = useQueryClient();
   const postId = useParams() as unknown as { idx: number };

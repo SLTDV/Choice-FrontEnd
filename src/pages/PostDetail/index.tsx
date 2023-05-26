@@ -8,6 +8,8 @@ import TodaysChoice from './TodaysChoice';
 import CommentList from './CommentList';
 import { useMutation, useQuery, useQueryClient } from 'react-query';
 import { CommentType } from '../../types/comment.types';
+import { useRecoilState } from 'recoil';
+import { commentListAtom } from '../../atoms';
 
 const PostDetail = () => {
   const [postInfo, setPostInfo] = useState<PostDetailType>();
@@ -15,7 +17,7 @@ const PostDetail = () => {
   const navigate = useNavigate();
   const postId = useParams() as unknown as { idx: number };
   const [participants, setParticipants] = useState(0);
-  const [commentList, setCommentList] = useState<CommentType[]>([]);
+  const [commentList, setCommentList] = useRecoilState(commentListAtom);
   const page = useRef(1);
   const [hasMore, setHasMore] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
@@ -182,12 +184,7 @@ const PostDetail = () => {
                 )}
               </S.VoteBox>
             </S.Detail>
-            <CommentList
-              commentList={
-                commentList.length == 0 ? postInfo?.commentList : commentList
-              }
-              setCommentList={setCommentList}
-            />
+            <CommentList />
             <S.LastCommentLine ref={observerTargetEl} hidden={!hasMore} />
             <S.Spinner isLoading={isLoading} />
           </S.PostDetailSection>
