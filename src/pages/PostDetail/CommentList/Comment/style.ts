@@ -49,6 +49,7 @@ export const CommentBox = styled.div`
     border-radius: 16px;
     border: 1px solid #aaaaaa;
     resize: none;
+    white-space: pre;
     &:focus {
       border-color: #000000;
       outline: none;
@@ -59,6 +60,7 @@ export const CommentBox = styled.div`
 export const Content = styled.p`
   font-size: 1.5rem;
   margin-left: 6rem;
+  white-space: pre;
 `;
 
 export const isNotCommentBox = styled.div`
