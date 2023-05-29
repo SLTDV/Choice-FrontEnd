@@ -10,6 +10,7 @@ import { useMutation, useQuery, useQueryClient } from 'react-query';
 import { CommentType } from '../../types/comment.types';
 import { useRecoilState } from 'recoil';
 import { commentListAtom } from '../../atoms';
+import { toast } from 'react-toastify';
 
 const PostDetail = () => {
   const [postInfo, setPostInfo] = useState<PostDetailType>();
@@ -47,7 +48,11 @@ const PostDetail = () => {
       setPostInfo(data);
       setParticipants(data.firstVotingCount + data.secondVotingCount);
     } catch (error: any) {
-      if (error) navigate('/error/404');
+      if (error.response.status === 400) {
+        navigate('/signin');
+        toast.error('로그인 후 이용해주세요.');
+      }
+      if (error.response.status === 404) navigate('/error/404');
     }
   };
 
