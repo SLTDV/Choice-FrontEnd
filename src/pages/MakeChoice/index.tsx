@@ -1,18 +1,17 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useMutation, useQueryClient } from 'react-query';
 import { useNavigate } from 'react-router-dom';
-import { useRecoilState } from 'recoil';
 import Header from '../../components/common/Header';
 import IsMaking from '../../components/IsMaking';
 import Image from '../../services/Image';
 import Post from '../../services/Post';
 import * as S from './style';
 const MakeChoice = () => {
-  const [isMaking, setIsMaking] = useState(false);
-  const [image1, setImage1] = useState('');
-  const [image2, setImage2] = useState('');
-  const image1Ref = useRef<any>();
-  const image2Ref = useRef<any>();
+  const [isMaking, setIsMaking] = useState<boolean>(false);
+  const [image1, setImage1] = useState<string>('');
+  const [image2, setImage2] = useState<string>('');
+  const image1Ref = useRef<HTMLInputElement>(null);
+  const image2Ref = useRef<HTMLInputElement>(null);
   const queryClient = useQueryClient();
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
@@ -36,7 +35,7 @@ const MakeChoice = () => {
   };
 
   const setChoiceData = async () => {
-    try {
+    if (image1Ref.current?.files && image2Ref.current?.files) {
       setIsMaking(true);
       const imageData = new FormData();
       imageData.append('firstImage', image1Ref.current.files[0]);
@@ -49,8 +48,6 @@ const MakeChoice = () => {
           secondImageUrl: res.data.secondUploadImageUrl,
         };
       });
-    } catch (error: any) {
-      console.log(error);
     }
   };
 
