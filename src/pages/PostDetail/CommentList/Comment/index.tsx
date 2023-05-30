@@ -1,10 +1,4 @@
-import React, {
-  useState,
-  useRef,
-  useEffect,
-  Dispatch,
-  SetStateAction,
-} from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import TextareaAutosize from 'react-textarea-autosize';
 import { useRecoilState } from 'recoil';
 import {
@@ -13,7 +7,6 @@ import {
   removeCommentModalAtom,
 } from '../../../../atoms';
 import { CommentType } from '../../../../types/comment.types';
-import { useMutation, useQueryClient } from 'react-query';
 import CommentApi from '../../../../services/Comment';
 import * as S from './style';
 import { useParams } from 'react-router-dom';
@@ -25,13 +18,12 @@ const Comment = (commentInfo: CommentType) => {
   const [isEditing, setIsEditing] = useState(false);
   const commentEditContent = useRef<HTMLTextAreaElement>(null);
   const postId = useParams() as unknown as { idx: number };
-  const queryClient = useQueryClient();
   const onRemoveComment = (idx: number) => {
     setCommentIdx(idx);
     setRemoveCommentModal(true);
   };
 
-  const onEditComment = async () => {
+  const editComment = async () => {
     if (commentEditContent.current?.value) {
       const editedComment = commentEditContent.current.value;
       setIsEditing(false);
@@ -53,16 +45,6 @@ const Comment = (commentInfo: CommentType) => {
       commentEditContent.current.setSelectionRange(len, len);
     }
   }, [isEditing]);
-
-  const { mutate: editComment } = useMutation(onEditComment, {
-    onSuccess: () => {
-      queryClient.invalidateQueries('post');
-    },
-    onSettled: () => {
-      queryClient.invalidateQueries('post');
-      setIsEditing(false);
-    },
-  });
 
   return (
     <S.Comment isEditing={isEditing}>
