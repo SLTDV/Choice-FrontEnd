@@ -43,4 +43,7 @@ export const Modal = styled.div`
     background-color: #333333;
     color: #ffffff;
   }
+  & div {
+    margin-left: 15.4rem;
+  }
 `;
