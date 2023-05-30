@@ -105,10 +105,9 @@ const MakeChoice = () => {
             onChange={eventHandler}
           />
           <S.Content
-            placeholder='내용 (2~100자)'
+            placeholder='내용 (최대 100자)'
             maxLength={100}
             minLength={2}
-            required
             name='content'
             onChange={eventHandler}
           />

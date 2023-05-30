@@ -3,7 +3,7 @@ import styled from '@emotion/styled';
 export const Layout = styled.section`
   display: flex;
   justify-content: space-around;
-  margin-top: 20rem;
+  margin-top: 15rem;
 `;
 
 export const UploadForm = styled.form`
@@ -21,40 +21,40 @@ export const UploadForm = styled.form`
 `;
 
 export const Title = styled.input`
-  width: 100rem;
+  width: 90rem;
   border: none;
   border-bottom: 2px solid #f0f0f0;
   outline: none;
-  font-size: 3rem;
+  font-size: 2.8rem;
   text-align: center;
   font-weight: bold;
-  padding-bottom: 2.8rem;
+  padding-bottom: 2.4rem;
   &::placeholder {
     color: #939393;
   }
   &:focus {
     border-bottom: 2px solid #737373;
-    transition: 0.5s;
+    transition: 0.3s;
   }
 `;
 
 export const Content = styled.textarea`
   margin: 0 auto;
-  width: 74rem;
-  height: 12rem;
+  width: 70rem;
+  height: 11rem;
   padding: 2rem 3rem;
   border: 2px solid #f0f0f0;
   line-height: 3.2rem;
   outline: none;
   border-radius: 2rem;
-  font-size: 2rem;
+  font-size: 1.8rem;
   resize: none;
   &::-webkit-scrollbar {
     display: none;
   }
   &:focus {
     border: 2px solid #737373;
-    transition: 0.5s ease;
+    transition: 0.3s ease;
   }
 `;
 
@@ -81,8 +81,8 @@ export const Image = styled.input<{ image: string | undefined }>`
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
-  width: 26rem;
-  height: 26rem;
+  width: 25rem;
+  height: 25rem;
   background-color: #f3f3f3;
   border: none;
   cursor: pointer;
@@ -109,7 +109,7 @@ export const OptionName = styled.section`
   & input {
     text-align: center;
     width: 23.6rem;
-    height: 7rem;
+    height: 6rem;
     padding: 1rem;
     font-size: 2rem;
     border-radius: 2rem;
@@ -123,8 +123,8 @@ export const OptionName = styled.section`
 `;
 
 export const Button = styled.button`
-  margin: 4rem auto;
-  width: 80.4rem;
+  margin: 2rem auto;
+  width: 80rem;
   height: 6.7rem;
   background-color: #f3f3f3;
   color: #898989;
