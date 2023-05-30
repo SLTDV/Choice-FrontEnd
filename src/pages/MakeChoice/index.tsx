@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useMutation, useQueryClient } from 'react-query';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import Header from '../../components/common/Header';
 import IsMaking from '../../components/IsMaking';
 import Image from '../../services/Image';
@@ -82,6 +83,13 @@ const MakeChoice = () => {
       }
     },
   });
+
+  useEffect(() => {
+    if (!localStorage.getItem('accessToken')) {
+      navigate('/signin');
+      toast.error('로그인 후 이용해주세요.');
+    }
+  }, []);
 
   useEffect(() => {
     makeChoice();
