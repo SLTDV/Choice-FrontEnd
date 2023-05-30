@@ -11,7 +11,7 @@ export const CommentLayout = styled.section`
   }
 `;
 
-export const InputWrap = styled.form`
+export const InputWrap = styled.form<{ isLoading: boolean }>`
   position: relative;
   display: flex;
   flex-direction: column;
@@ -52,10 +52,14 @@ export const InputWrap = styled.form`
     & button {
       background-color: #000000;
       color: #ffffff;
-      cursor: pointer;
-      pointer-events: all;
+      cursor: ${(props) => (props.isLoading ? '' : 'pointer')};
+      pointer-events: ${(props) => (props.isLoading ? 'none' : 'all')};
     }
   }
+`;
+
+export const SpinnerLayout = styled.div`
+  margin-left: 36rem;
 `;
 
 export const Profile = styled.div`

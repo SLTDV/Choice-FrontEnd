@@ -16,11 +16,13 @@ import { commentListAtom, removeCommentModalAtom } from '../../../atoms';
 import { useRecoilState } from 'recoil';
 import RemoveCommentModal from '../../../components/modal/RemoveCommentModal';
 import Comment from './Comment';
+import { Spinner } from '../../../components/common/Spinner/style';
 
 const CommentList = () => {
   const [nickname, setNickname] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
   const postId = useParams() as unknown as { idx: number };
-  const [commentList, setCommentList] = useRecoilState(commentListAtom);
+  const [commentList] = useRecoilState(commentListAtom);
   const commentContent = useRef<any>();
   const [profileImage, setProfileImage] = useState(
     'svg/DefaultProfileImage.svg'
@@ -39,6 +41,7 @@ const CommentList = () => {
 
   const onAddComment = async (idx: number) => {
     try {
+      setIsLoading(true);
       await CommentApi.addComment(idx, commentContent.current.value);
     } catch (error: any) {
       console.log(error);
@@ -51,6 +54,7 @@ const CommentList = () => {
       queryClient.invalidateQueries('comment');
     },
     onSettled: () => {
+      setIsLoading(false);
       commentContent.current.value = '';
     },
   });
@@ -64,7 +68,7 @@ const CommentList = () => {
       {removeCommentModal && <RemoveCommentModal />}
       <S.CommentLayout>
         <h1>댓글</h1>
-        <S.InputWrap>
+        <S.InputWrap isLoading={isLoading}>
           <TextareaAutosize
             placeholder='댓글을 작성해주세요.'
             required
@@ -78,6 +82,11 @@ const CommentList = () => {
             등록
           </button>
         </S.InputWrap>
+        {isLoading && (
+          <S.SpinnerLayout>
+            <Spinner />
+          </S.SpinnerLayout>
+        )}
         {commentList?.length == 0 ? (
           <S.isNotCommentBox>
             <p>첫 댓글을 입력해 주세요.</p>
