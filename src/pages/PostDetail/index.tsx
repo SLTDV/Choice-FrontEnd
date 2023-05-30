@@ -3,11 +3,15 @@ import Header from '../../components/common/Header';
 import * as S from './style';
 import Post from '../../services/Post';
 import { PostDetailType } from '../../types/choice.types';
-import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import TodaysChoice from './TodaysChoice';
 import CommentList from './CommentList';
 import { useMutation, useQuery, useQueryClient } from 'react-query';
 import { CommentType } from '../../types/comment.types';
+import { useRecoilState } from 'recoil';
+import { commentListAtom } from '../../atoms';
+import { toast } from 'react-toastify';
+import { Spinner } from '../../components/common/Spinner/style';
 
 const PostDetail = () => {
   const [postInfo, setPostInfo] = useState<PostDetailType>();
@@ -15,38 +19,41 @@ const PostDetail = () => {
   const navigate = useNavigate();
   const postId = useParams() as unknown as { idx: number };
   const [participants, setParticipants] = useState(0);
-  const [commentList, setCommentList] = useState<CommentType[]>([]);
-  const page = useRef(0);
+  const [commentList, setCommentList] = useRecoilState(commentListAtom);
+  const page = useRef(1);
   const [hasMore, setHasMore] = useState(true);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const observerTargetEl = useRef<HTMLDivElement>(null);
 
   const getComments = useCallback(async () => {
     setIsLoading(true);
-    const res: any = await Post.getPostInfo(postId.idx, page.current, 10);
+    const { data }: any = await Post.getPostInfo(postId.idx, page.current, 10);
     setCommentList((prevCommentList: CommentType[]) => [
       ...prevCommentList,
-      ...res.data.commentList,
+      ...data.commentList,
     ]);
-    setHasMore(res.data.commentList.length === 10);
+    setHasMore(data.commentList.length === 10);
     setIsLoading(false);
-    if (res.data.commentList.length) {
+    if (data.commentList.length) {
       page.current += 1;
     }
   }, []);
 
   const getPostDetail = async () => {
     try {
-      const res: any = await Post.getPostInfo(postId.idx, 0, 10);
-      setPostInfo(res.data);
-      setParticipants(res.data.firstVotingCount + res.data.secondVotingCount);
-      setCommentList(res.data.commentList);
-      page.current += 1;
-      if (res.data.commentList.length !== 10) {
-        setHasMore(false);
-      }
+      const { data }: any = await Post.getPostInfo(
+        postId.idx,
+        page.current,
+        10
+      );
+      setPostInfo(data);
+      setParticipants(data.firstVotingCount + data.secondVotingCount);
     } catch (error: any) {
-      if (error) navigate('/error/404');
+      if (error.response.status === 400) {
+        navigate('/signin');
+        toast.error('로그인 후 이용해주세요.');
+      }
+      if (error.response.status === 404) navigate('/error/404');
     }
   };
 
@@ -77,7 +84,18 @@ const PostDetail = () => {
     },
   });
 
+  const setComments = async () => {
+    const { data }: any = await Post.getPostInfo(postId.idx, 0, 10);
+    setCommentList(data.commentList);
+    setHasMore(data.commentList.length === 10);
+    page.current = 1;
+  };
+
   useQuery(['post', postId.idx], () => getPostDetail(), {
+    refetchOnWindowFocus: false,
+  });
+
+  useQuery(['comment', postId.idx], () => setComments(), {
     refetchOnWindowFocus: false,
   });
 
@@ -92,8 +110,6 @@ const PostDetail = () => {
     io.observe(observerTargetEl.current);
     return () => io.disconnect();
   }, [hasMore, getComments, !isLoading]);
-
-  useEffect(() => setCommentList([]), []);
 
   return (
     <>
@@ -174,13 +190,13 @@ const PostDetail = () => {
                 )}
               </S.VoteBox>
             </S.Detail>
-            <CommentList
-              comment={
-                commentList.length == 0 ? postInfo?.commentList : commentList
-              }
-            />
+            <CommentList />
             <S.LastCommentLine ref={observerTargetEl} hidden={!hasMore} />
-            <S.Spinner isLoading={isLoading} />
+            {isLoading && (
+              <S.SpinnerLayout>
+                <Spinner />
+              </S.SpinnerLayout>
+            )}
           </S.PostDetailSection>
           <TodaysChoice />
         </span>

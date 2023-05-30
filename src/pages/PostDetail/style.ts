@@ -15,7 +15,6 @@ export const Layout = styled.section`
 export const PostDetailSection = styled.section`
   width: 85rem;
   text-align: center;
-  margin-left: -8rem;
   & h1 {
     font-size: 3rem;
   }
@@ -104,6 +103,10 @@ export const HoverBox = styled.span`
     & div {
       opacity: 1;
       bottom: 0;
+      box-shadow: 0 2px 3px rgba(0, 0, 0, 0.25);
+      p {
+        opacity: 1;
+      }
     }
   }
   & div {
@@ -120,12 +123,13 @@ export const OptionName = styled.div`
   bottom: -8rem;
   opacity: 0;
   padding: 1rem 2rem;
-  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.25);
   transition: 0.3s ease;
   & p {
     color: #000000 !important;
+    opacity: 0;
     font-size: 2.2rem;
     line-height: 6rem;
+    transition: 0.3s;
   }
 `;
 export const ButtonWrap = styled.div<{ votingState?: number }>`
@@ -173,25 +177,9 @@ export const VoteButton = styled.button`
 
 export const LastCommentLine = styled.div<{ hidden: boolean }>`
   display: ${(props) => (props.hidden ? 'none' : 'block')};
-  margin-top: -5rem;
+  margin-top: -10rem;
 `;
 
-export const spin = keyframes`
-  0%{ 
-    transform: rotate(0deg) ;
-    border-right-color: transparent;
-    border-bottom-color: transparent;
-  }
-  100%{ transform: rotate(360deg); }
-`;
-
-export const Spinner = styled.div<{ isLoading: boolean }>`
-  display: ${(props) => (props.isLoading ? 'block' : 'none')};
-  width: 3rem;
-  height: 3rem;
-  border-radius: 50%;
-  margin: -3rem 0 5rem 50%;
-  border: 2px solid #333333;
-  border-top-color: transparent;
-  animation: ${spin} 1s infinite;
+export const SpinnerLayout = styled.div`
+  margin: 8rem 0 5rem 50%;
 `;

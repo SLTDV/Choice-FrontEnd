@@ -13,6 +13,7 @@ import MakeChoice from './pages/MakeChoice';
 import Page404 from './pages/Page404';
 import { RecoilRoot } from 'recoil';
 import { QueryClient, QueryClientProvider } from 'react-query';
+import ScrollToTop from './components/common/ScrollToTop';
 
 function App() {
   const queryClient = new QueryClient();
@@ -22,6 +23,7 @@ function App() {
       <RecoilRoot>
         <GlobalStyle />
         <BrowserRouter>
+          <ScrollToTop />
           <ToastContainer className='toast' />
           <Routes>
             <Route path='/' element={<Main />} />

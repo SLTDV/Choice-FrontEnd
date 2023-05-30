@@ -2,6 +2,7 @@ import styled from '@emotion/styled';
 
 export const TodaysChoice = styled.section`
   margin-left: 10%;
+  margin-right: 8rem;
   padding-bottom: 8rem;
 `;
 
@@ -9,6 +10,11 @@ export const TodaysChoiceLayout = styled.div`
   display: flex;
   flex-direction: column;
   row-gap: 5rem;
+`;
+
+export const NotPost = styled.p`
+  font-size: 1.6rem;
+  width: 30rem;
 `;
 
 export const Todays = styled.h1`

@@ -1,32 +1,39 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, {
+  useEffect,
+  useRef,
+  useState,
+  Dispatch,
+  SetStateAction,
+} from 'react';
 import * as S from './style';
 import TextareaAutosize from 'react-textarea-autosize';
 import User from '../../../services/User';
 import CommentApi from '../../../services/Comment';
-import { CommentIdxType, CommentType } from '../../../types/comment.types';
+import { CommentType } from '../../../types/comment.types';
 import { useParams } from 'react-router-dom';
 import { useMutation, useQueryClient } from 'react-query';
-import { commentIdxAtom, removeCommentModalAtom } from '../../../atoms';
+import { commentListAtom, removeCommentModalAtom } from '../../../atoms';
 import { useRecoilState } from 'recoil';
 import RemoveCommentModal from '../../../components/modal/RemoveCommentModal';
 import Comment from './Comment';
+import { Spinner } from '../../../components/common/Spinner/style';
 
-const CommentList = ({ comment }: { comment: CommentType[] | undefined }) => {
+const CommentList = () => {
   const [nickname, setNickname] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
   const postId = useParams() as unknown as { idx: number };
+  const [commentList] = useRecoilState(commentListAtom);
   const commentContent = useRef<any>();
   const [profileImage, setProfileImage] = useState(
     'svg/DefaultProfileImage.svg'
   );
   const [removeCommentModal] = useRecoilState(removeCommentModalAtom);
-  const [commentIdx] = useRecoilState<CommentIdxType>(commentIdxAtom);
   const queryClient = useQueryClient();
-
   const getMyProfile = async () => {
     try {
-      const res: any = await User.getMiniProfile();
-      setNickname(res.data.nickname);
-      res.data.image && setProfileImage(res.data.image);
+      const { data }: any = await User.getMiniProfile();
+      setNickname(data.nickname);
+      data.image && setProfileImage(data.image);
     } catch (error: any) {
       console.log(error);
     }
@@ -34,6 +41,7 @@ const CommentList = ({ comment }: { comment: CommentType[] | undefined }) => {
 
   const onAddComment = async (idx: number) => {
     try {
+      setIsLoading(true);
       await CommentApi.addComment(idx, commentContent.current.value);
     } catch (error: any) {
       console.log(error);
@@ -41,29 +49,12 @@ const CommentList = ({ comment }: { comment: CommentType[] | undefined }) => {
   };
 
   const { mutate: addComment } = useMutation(onAddComment, {
-    onMutate: async (newComment) => {
-      await queryClient.cancelQueries('post');
-      const snapshotOfPreviousData = queryClient.getQueryData('post');
-      queryClient.setQueryData('post', (oldComment: any) => ({
-        newComment,
-        ...oldComment,
-      }));
-
-      return {
-        snapshotOfPreviousData,
-      };
-    },
-
-    onError: ({ snapshotOfPreviousData }) => {
-      queryClient.setQueryData('post', snapshotOfPreviousData);
-    },
     onSuccess: () => {
-      queryClient.invalidateQueries('post');
       queryClient.invalidateQueries('todaysChoice');
+      queryClient.invalidateQueries('comment');
     },
     onSettled: () => {
-      queryClient.invalidateQueries('post');
-      queryClient.invalidateQueries('todaysChoice');
+      setIsLoading(false);
       commentContent.current.value = '';
     },
   });
@@ -74,12 +65,10 @@ const CommentList = ({ comment }: { comment: CommentType[] | undefined }) => {
 
   return (
     <>
-      {removeCommentModal && (
-        <RemoveCommentModal commentIdx={commentIdx.commentIdx} />
-      )}
+      {removeCommentModal && <RemoveCommentModal />}
       <S.CommentLayout>
         <h1>댓글</h1>
-        <S.InputWrap>
+        <S.InputWrap isLoading={isLoading}>
           <TextareaAutosize
             placeholder='댓글을 작성해주세요.'
             required
@@ -93,19 +82,24 @@ const CommentList = ({ comment }: { comment: CommentType[] | undefined }) => {
             등록
           </button>
         </S.InputWrap>
-        {comment?.length == 0 ? (
+        {isLoading && (
+          <S.SpinnerLayout>
+            <Spinner />
+          </S.SpinnerLayout>
+        )}
+        {commentList?.length == 0 ? (
           <S.isNotCommentBox>
             <p>첫 댓글을 입력해 주세요.</p>
           </S.isNotCommentBox>
         ) : (
           <>
-            {comment?.map((comment: CommentType) => (
+            {commentList?.map((comment: CommentType) => (
               <Comment
                 key={comment.idx}
                 idx={comment.idx}
-                profileImageUrl={comment.profileImageUrl}
-                nickname={comment.nickname}
                 content={comment.content}
+                nickname={comment.nickname}
+                profileImageUrl={comment.profileImageUrl}
                 isMine={comment.isMine}
               />
             ))}

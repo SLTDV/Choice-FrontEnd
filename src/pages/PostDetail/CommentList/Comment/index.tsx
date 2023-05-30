@@ -1,33 +1,44 @@
 import React, { useState, useRef, useEffect } from 'react';
 import TextareaAutosize from 'react-textarea-autosize';
 import { useRecoilState } from 'recoil';
-import { commentIdxAtom, removeCommentModalAtom } from '../../../../atoms';
-import { CommentIdxType, CommentType } from '../../../../types/comment.types';
-import { useMutation, useQueryClient } from 'react-query';
+import {
+  commentIdxAtom,
+  commentListAtom,
+  removeCommentModalAtom,
+} from '../../../../atoms';
+import { CommentType } from '../../../../types/comment.types';
 import CommentApi from '../../../../services/Comment';
 import * as S from './style';
 import { useParams } from 'react-router-dom';
+import { Spinner } from '../../../../components/common/Spinner/style';
 
-const Comment = (comment: CommentType) => {
+const Comment = (commentInfo: CommentType) => {
+  const [isLoading, setIsLoading] = useState(false);
   const [, setRemoveCommentModal] = useRecoilState(removeCommentModalAtom);
-  const [, setCommentIdx] = useRecoilState<CommentIdxType>(commentIdxAtom);
+  const [commentList, setCommentList] = useRecoilState(commentListAtom);
+  const [, setCommentIdx] = useRecoilState<number>(commentIdxAtom);
   const [isEditing, setIsEditing] = useState(false);
   const commentEditContent = useRef<HTMLTextAreaElement>(null);
   const postId = useParams() as unknown as { idx: number };
-  const queryClient = useQueryClient();
   const onRemoveComment = (idx: number) => {
-    setCommentIdx({ commentIdx: idx });
+    setCommentIdx(idx);
     setRemoveCommentModal(true);
   };
 
-  const onEditComment = async () => {
+  const editComment = async () => {
     if (commentEditContent.current?.value) {
+      setIsLoading(true);
       setIsEditing(false);
-      await CommentApi.editComment(
-        postId.idx,
-        comment.idx,
-        commentEditContent.current?.value
+      const editedComment = commentEditContent.current.value;
+      await CommentApi.editComment(postId.idx, commentInfo.idx, editedComment);
+      setCommentList(
+        commentList?.map((comment) =>
+          comment.idx === commentInfo.idx
+            ? { ...comment, content: editedComment }
+            : comment
+        )
       );
+      setIsLoading(false);
     }
   };
 
@@ -39,41 +50,31 @@ const Comment = (comment: CommentType) => {
     }
   }, [isEditing]);
 
-  const { mutate: editComment } = useMutation(onEditComment, {
-    onSuccess: () => {
-      queryClient.invalidateQueries('post');
-    },
-    onSettled: () => {
-      queryClient.invalidateQueries('post');
-      setIsEditing(false);
-    },
-  });
-
   return (
     <S.Comment isEditing={isEditing}>
       <S.CommentBox>
         <S.Profile>
           <img
             src={
-              comment.profileImageUrl
-                ? comment.profileImageUrl
+              commentInfo.profileImageUrl
+                ? commentInfo.profileImageUrl
                 : 'svg/DefaultProfileImage.svg'
             }
             alt=''
           />
-          <S.Name>{comment.nickname}</S.Name>
+          <S.Name>{commentInfo.nickname}</S.Name>
         </S.Profile>
         {isEditing ? (
           <TextareaAutosize
-            defaultValue={comment.content}
+            defaultValue={commentInfo.content}
             required
             ref={commentEditContent}
           />
         ) : (
-          <S.Content>{comment.content}</S.Content>
+          <S.Content>{commentInfo.content}</S.Content>
         )}
       </S.CommentBox>
-      {comment.isMine && (
+      {commentInfo.isMine && (
         <S.EditBox className='editBox'>
           {isEditing ? (
             <button onClick={() => editComment()}>수정</button>
@@ -83,13 +84,18 @@ const Comment = (comment: CommentType) => {
                 <img src='svg/CommentEdit.svg' alt='edit' />
                 <div className='line' />
               </S.Edit>
-              <S.DeleteBox onClick={() => onRemoveComment(comment.idx)}>
+              <S.DeleteBox onClick={() => onRemoveComment(commentInfo.idx)}>
                 <img src='svg/CommentDeleteTop.svg' alt='' className='top' />
                 <img src='svg/CommentDelete.svg' alt='delete' />
               </S.DeleteBox>
             </>
           )}
         </S.EditBox>
+      )}
+      {isLoading && (
+        <S.SpinnerLayout>
+          <Spinner />
+        </S.SpinnerLayout>
       )}
     </S.Comment>
   );

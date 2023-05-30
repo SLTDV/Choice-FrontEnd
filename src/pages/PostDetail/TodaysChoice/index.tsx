@@ -27,18 +27,22 @@ const TodaysChoice = () => {
     <S.TodaysChoice>
       <S.Todays>오늘의 Choice</S.Todays>
       <S.TodaysChoiceLayout>
-        {todaysPostList?.map((choice) => (
-          <Choice
-            key={choice.idx}
-            idx={choice.idx}
-            imageUrl={choice.imageUrl}
-            title={choice.title}
-            participants={choice.participants}
-            commentCount={choice.commentCount}
-            firstVotingOption={choice.firstVotingOption}
-            secondVotingOption={choice.secondVotingOption}
-          />
-        ))}
+        {todaysPostList?.length == 0 ? (
+          <S.NotPost>오늘 새롭게 올라온 Choice가 없어요.😥</S.NotPost>
+        ) : (
+          todaysPostList?.map((choice) => (
+            <Choice
+              key={choice.idx}
+              idx={choice.idx}
+              imageUrl={choice.imageUrl}
+              title={choice.title}
+              participants={choice.participants}
+              commentCount={choice.commentCount}
+              firstVotingOption={choice.firstVotingOption}
+              secondVotingOption={choice.secondVotingOption}
+            />
+          ))
+        )}
       </S.TodaysChoiceLayout>
     </S.TodaysChoice>
   );

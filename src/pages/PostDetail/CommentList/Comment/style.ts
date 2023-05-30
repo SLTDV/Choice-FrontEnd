@@ -49,6 +49,7 @@ export const CommentBox = styled.div`
     border-radius: 16px;
     border: 1px solid #aaaaaa;
     resize: none;
+    white-space: pre;
     &:focus {
       border-color: #000000;
       outline: none;
@@ -59,6 +60,7 @@ export const CommentBox = styled.div`
 export const Content = styled.p`
   font-size: 1.5rem;
   margin-left: 6rem;
+  white-space: pre-wrap;
 `;
 
 export const isNotCommentBox = styled.div`
@@ -125,4 +127,10 @@ export const DeleteBox = styled.div`
       margin-top: -7px;
     }
   }
+`;
+
+export const SpinnerLayout = styled.div`
+  position: absolute;
+  bottom: 2.4rem;
+  right: 3rem;
 `;
