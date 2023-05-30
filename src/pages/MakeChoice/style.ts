@@ -108,7 +108,7 @@ export const OptionName = styled.section`
   justify-content: space-between;
   & input {
     text-align: center;
-    width: 23.6rem;
+    width: 22.6rem;
     height: 6rem;
     padding: 1rem;
     font-size: 2rem;
@@ -117,7 +117,7 @@ export const OptionName = styled.section`
     outline: none;
     &:focus {
       border: 2px solid #737373;
-      transition: 0.5s ease;
+      transition: 0.3s ease;
     }
   }
 `;
