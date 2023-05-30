@@ -10,8 +10,10 @@ import { CommentType } from '../../../../types/comment.types';
 import CommentApi from '../../../../services/Comment';
 import * as S from './style';
 import { useParams } from 'react-router-dom';
+import { Spinner } from '../../../../components/common/Spinner/style';
 
 const Comment = (commentInfo: CommentType) => {
+  const [isLoading, setIsLoading] = useState(false);
   const [, setRemoveCommentModal] = useRecoilState(removeCommentModalAtom);
   const [commentList, setCommentList] = useRecoilState(commentListAtom);
   const [, setCommentIdx] = useRecoilState<number>(commentIdxAtom);
@@ -25,8 +27,9 @@ const Comment = (commentInfo: CommentType) => {
 
   const editComment = async () => {
     if (commentEditContent.current?.value) {
-      const editedComment = commentEditContent.current.value;
+      setIsLoading(true);
       setIsEditing(false);
+      const editedComment = commentEditContent.current.value;
       await CommentApi.editComment(postId.idx, commentInfo.idx, editedComment);
       setCommentList(
         commentList?.map((comment) =>
@@ -35,6 +38,7 @@ const Comment = (commentInfo: CommentType) => {
             : comment
         )
       );
+      setIsLoading(false);
     }
   };
 
@@ -87,6 +91,11 @@ const Comment = (commentInfo: CommentType) => {
             </>
           )}
         </S.EditBox>
+      )}
+      {isLoading && (
+        <S.SpinnerLayout>
+          <Spinner />
+        </S.SpinnerLayout>
       )}
     </S.Comment>
   );

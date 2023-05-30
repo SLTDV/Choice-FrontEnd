@@ -128,3 +128,9 @@ export const DeleteBox = styled.div`
     }
   }
 `;
+
+export const SpinnerLayout = styled.div`
+  position: absolute;
+  bottom: 2.4rem;
+  right: 3rem;
+`;
