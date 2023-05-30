@@ -180,22 +180,6 @@ export const LastCommentLine = styled.div<{ hidden: boolean }>`
   margin-top: -10rem;
 `;
 
-export const spin = keyframes`
-  0%{ 
-    transform: rotate(0deg) ;
-    border-right-color: transparent;
-    border-bottom-color: transparent;
-  }
-  100%{ transform: rotate(360deg); }
-`;
-
-export const Spinner = styled.div<{ isLoading: boolean }>`
-  display: ${(props) => (props.isLoading ? 'block' : 'none')};
-  width: 3rem;
-  height: 3rem;
-  border-radius: 50%;
+export const SpinnerLayout = styled.div`
   margin: 8rem 0 5rem 50%;
-  border: 2px solid #333333;
-  border-top-color: transparent;
-  animation: ${spin} 1s infinite;
 `;

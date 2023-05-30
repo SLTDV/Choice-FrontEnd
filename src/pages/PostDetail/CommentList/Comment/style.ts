@@ -60,7 +60,7 @@ export const CommentBox = styled.div`
 export const Content = styled.p`
   font-size: 1.5rem;
   margin-left: 6rem;
-  white-space: pre;
+  white-space: pre-wrap;
 `;
 
 export const isNotCommentBox = styled.div`

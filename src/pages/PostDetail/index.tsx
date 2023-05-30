@@ -11,6 +11,7 @@ import { CommentType } from '../../types/comment.types';
 import { useRecoilState } from 'recoil';
 import { commentListAtom } from '../../atoms';
 import { toast } from 'react-toastify';
+import { Spinner } from '../../components/common/Spinner/style';
 
 const PostDetail = () => {
   const [postInfo, setPostInfo] = useState<PostDetailType>();
@@ -21,7 +22,7 @@ const PostDetail = () => {
   const [commentList, setCommentList] = useRecoilState(commentListAtom);
   const page = useRef(1);
   const [hasMore, setHasMore] = useState(true);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const observerTargetEl = useRef<HTMLDivElement>(null);
 
   const getComments = useCallback(async () => {
@@ -191,7 +192,11 @@ const PostDetail = () => {
             </S.Detail>
             <CommentList />
             <S.LastCommentLine ref={observerTargetEl} hidden={!hasMore} />
-            <S.Spinner isLoading={isLoading} />
+            {isLoading && (
+              <S.SpinnerLayout>
+                <Spinner />
+              </S.SpinnerLayout>
+            )}
           </S.PostDetailSection>
           <TodaysChoice />
         </span>
