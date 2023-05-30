@@ -2,6 +2,8 @@ import React, { useEffect, useRef, useState } from 'react';
 import { useMutation, useQueryClient } from 'react-query';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import { useRecoilState } from 'recoil';
+import { loggedAtom } from '../../atoms';
 import Header from '../../components/common/Header';
 import IsMaking from '../../components/IsMaking';
 import Image from '../../services/Image';
@@ -11,6 +13,7 @@ const MakeChoice = () => {
   const [isMaking, setIsMaking] = useState<boolean>(false);
   const [image1, setImage1] = useState<string>('');
   const [image2, setImage2] = useState<string>('');
+  const [logged] = useRecoilState(loggedAtom);
   const image1Ref = useRef<HTMLInputElement>(null);
   const image2Ref = useRef<HTMLInputElement>(null);
   const queryClient = useQueryClient();
@@ -85,7 +88,7 @@ const MakeChoice = () => {
   });
 
   useEffect(() => {
-    if (!localStorage.getItem('accessToken')) {
+    if (!logged) {
       navigate('/signin');
       toast.error('로그인 후 이용해주세요.');
     }
