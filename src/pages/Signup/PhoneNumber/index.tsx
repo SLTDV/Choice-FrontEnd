@@ -1,8 +1,9 @@
 import React, { useRef, useState, Dispatch, SetStateAction } from 'react';
 import { toast } from 'react-toastify';
 import { useRecoilState } from 'recoil';
-import { certifiedPhoneNumberAtom } from '../../../atoms';
+import { certifiedPhoneNumberAtom, TimerRunningAtom } from '../../../atoms';
 import Auth from '../../../services/Auth';
+import Timer from '../Timer';
 import * as S from './style';
 
 interface Props {
@@ -10,6 +11,7 @@ interface Props {
 }
 
 const PhoneNumber = ({ setPhoneNumber }: Props) => {
+  const [isTimerRunning, setIsTimerRunning] = useRecoilState(TimerRunningAtom);
   const [, setIsCertifiedPhoneNumber] = useRecoilState(
     certifiedPhoneNumberAtom
   );
@@ -84,6 +86,7 @@ const PhoneNumber = ({ setPhoneNumber }: Props) => {
             isError={authNumError}
           />
         </div>
+        {isTimerRunning && <Timer />}
         <S.NextButton onClick={checkAuthenticationNumber}>다음</S.NextButton>
       </S.InputWrap>
     </S.Layout>
