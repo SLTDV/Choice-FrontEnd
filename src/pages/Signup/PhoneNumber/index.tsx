@@ -31,7 +31,8 @@ const PhoneNumber = ({ setPhoneNumber }: Props) => {
         setPhoneNumError(true);
       }
     } catch (error: any) {
-      console.log(error);
+      if (error.response.status == 409)
+        toast.error('이미 인증된 전화번호입니다.');
     }
   };
 
@@ -51,7 +52,6 @@ const PhoneNumber = ({ setPhoneNumber }: Props) => {
       }
     } catch (error: any) {
       setAuthNumError(true);
-      console.log(error);
     }
   };
 
