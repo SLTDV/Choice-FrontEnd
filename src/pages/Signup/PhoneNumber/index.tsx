@@ -1,11 +1,7 @@
 import React, { useRef, useState, Dispatch, SetStateAction } from 'react';
 import { toast } from 'react-toastify';
 import { useRecoilState } from 'recoil';
-import {
-  certifiedPhoneNumberAtom,
-  TimerAtom,
-  TimerRunningAtom,
-} from '../../../atoms';
+import { certifiedPhoneNumberAtom } from '../../../atoms';
 import Auth from '../../../services/Auth';
 import Timer from '../Timer';
 import * as S from './style';
@@ -15,8 +11,7 @@ interface Props {
 }
 
 const PhoneNumber = ({ setPhoneNumber }: Props) => {
-  const [isTimerRunning, setIsTimerRunning] = useRecoilState(TimerRunningAtom);
-  const [, setTimerSec] = useRecoilState(TimerAtom);
+  const [isTimerRunning, setIsTimerRunning] = useState(false);
   const [, setIsCertifiedPhoneNumber] = useRecoilState(
     certifiedPhoneNumberAtom
   );
@@ -32,7 +27,6 @@ const PhoneNumber = ({ setPhoneNumber }: Props) => {
         phoneNumber.current?.value.substring(0, 3) == '010'
       ) {
         await Auth.getAuthenticationNumber(String(phoneNumber.current.value));
-        setTimerSec(179);
         setIsTimerRunning(true);
         toast.success('인증번호가 전송되었습니다.', { autoClose: 2000 });
         setPhoneNumError(false);
@@ -99,9 +93,7 @@ const PhoneNumber = ({ setPhoneNumber }: Props) => {
             <Timer />
           </S.TimerLayout>
         )}
-        <S.NextButton onClick={() => setIsTimerRunning(!isTimerRunning)}>
-          다음
-        </S.NextButton>
+        <S.NextButton onClick={checkAuthenticationNumber}>다음</S.NextButton>
       </S.InputWrap>
     </S.Layout>
   );

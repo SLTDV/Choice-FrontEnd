@@ -7,5 +7,3 @@ export { commentIdxAtom } from './AtomContainer';
 export { certifiedPhoneNumberAtom } from './AtomContainer';
 export { RemoveChoiceModalAtom } from './AtomContainer';
 export { commentListAtom } from './AtomContainer';
-export { TimerAtom } from './AtomContainer';
-export { TimerRunningAtom } from './AtomContainer';

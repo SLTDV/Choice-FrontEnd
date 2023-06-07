@@ -51,15 +51,3 @@ export const commentListAtom = atom<CommentType[]>({
   key: 'commentList',
   default: [],
 });
-
-export const TimerAtom = atom({
-  key: 'timerSec',
-  default: 179,
-  effects_UNSTABLE: [persistAtom],
-});
-
-export const TimerRunningAtom = atom({
-  key: 'isTimerRunning',
-  default: false,
-  effects_UNSTABLE: [persistAtom],
-});

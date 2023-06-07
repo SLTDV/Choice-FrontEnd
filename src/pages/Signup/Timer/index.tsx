@@ -1,9 +1,7 @@
-import React, { useEffect } from 'react';
-import { useRecoilState } from 'recoil';
-import { TimerAtom } from '../../../atoms';
+import React, { useState, useEffect } from 'react';
 
 const Timer = () => {
-  const [timerSec, setTimerSec] = useRecoilState(TimerAtom);
+  const [timerSec, setTimerSec] = useState(179);
 
   useEffect(() => {
     let timer: any;
@@ -15,7 +13,7 @@ const Timer = () => {
     return () => {
       clearTimeout(timer);
     };
-  }, [timerSec]);
+  }, []);
 
   const formatTime = (timeInSeconds: number) => {
     const minutes = Math.floor(timeInSeconds / 60);
