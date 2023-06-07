@@ -27,6 +27,7 @@ const PhoneNumber = ({ setPhoneNumber }: Props) => {
         phoneNumber.current?.value.substring(0, 3) == '010'
       ) {
         await Auth.getAuthenticationNumber(String(phoneNumber.current.value));
+        setIsTimerRunning(true);
         toast.success('인증번호가 전송되었습니다.', { autoClose: 2000 });
         setPhoneNumError(false);
       } else {
@@ -47,6 +48,7 @@ const PhoneNumber = ({ setPhoneNumber }: Props) => {
         );
         setPhoneNumber(phoneNumber.current.value);
         setIsCertifiedPhoneNumber(true);
+        setIsTimerRunning(false);
         toast.success('인증되었습니다!', { autoClose: 2000 });
       } else {
         setAuthNumError(true);
@@ -87,7 +89,9 @@ const PhoneNumber = ({ setPhoneNumber }: Props) => {
           />
         </div>
         {isTimerRunning && <Timer />}
-        <S.NextButton onClick={checkAuthenticationNumber}>다음</S.NextButton>
+        <S.NextButton onClick={() => setIsTimerRunning(!isTimerRunning)}>
+          다음
+        </S.NextButton>
       </S.InputWrap>
     </S.Layout>
   );

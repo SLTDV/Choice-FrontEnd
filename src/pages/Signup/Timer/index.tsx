@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useRecoilState } from 'recoil';
 import { TimerAtom } from '../../../atoms';
 
@@ -6,12 +6,14 @@ const Timer = () => {
   const [timerSec, setTimerSec] = useRecoilState(TimerAtom);
 
   useEffect(() => {
-    const timer = setInterval(() => {
-      setTimerSec((prevSeconds: number) => prevSeconds - 1);
-    }, 1000);
-
+    let timer: any;
+    for (let i = timerSec; i >= 0; i--) {
+      timer = setTimeout(() => {
+        setTimerSec(i);
+      }, (timerSec - i) * 1000);
+    }
     return () => {
-      clearInterval(timer);
+      clearTimeout(timer);
     };
   }, []);
 

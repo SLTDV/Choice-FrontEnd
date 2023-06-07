@@ -54,7 +54,7 @@ export const commentListAtom = atom<CommentType[]>({
 
 export const TimerAtom = atom({
   key: 'timerSec',
-  default: 180,
+  default: 179,
   effects_UNSTABLE: [persistAtom],
 });
 
