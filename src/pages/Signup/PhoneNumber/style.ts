@@ -70,16 +70,18 @@ export const Label = styled.label<{ aniDuration: number }>`
   animation: ${placeholdeFadeIn} ${(props) => props.aniDuration}s;
 `;
 
-export const Button = styled.button`
+export const Button = styled.button<{ isActivation: boolean }>`
   width: 13rem;
   height: 8.2rem;
   margin-left: 1.6rem;
-  background: #000000;
+  background: ${(props) => (props.isActivation ? '#000000' : '#a3a3a3')};
+  pointer-events: ${(props) => (props.isActivation ? 'all' : 'none')};
   border-radius: 20px;
   color: #ffffff;
   font-size: 20px;
   border: none;
   cursor: pointer;
+  transition: 0.3s;
 `;
 export const TimerLayout = styled.div`
   height: 0;

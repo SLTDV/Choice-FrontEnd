@@ -12,6 +12,7 @@ interface Props {
 
 const PhoneNumber = ({ setPhoneNumber }: Props) => {
   const [isTimerRunning, setIsTimerRunning] = useState(false);
+  const [buttonActivation, setButtonActivation] = useState(true);
   const [, setIsCertifiedPhoneNumber] = useRecoilState(
     certifiedPhoneNumberAtom
   );
@@ -22,6 +23,7 @@ const PhoneNumber = ({ setPhoneNumber }: Props) => {
 
   const getAuthenticationNumber = async () => {
     try {
+      setButtonActivation(false);
       if (
         phoneNumber.current?.value.length == 11 &&
         phoneNumber.current?.value.substring(0, 3) == '010'
@@ -32,10 +34,12 @@ const PhoneNumber = ({ setPhoneNumber }: Props) => {
         setPhoneNumError(false);
       } else {
         setPhoneNumError(true);
+        setButtonActivation(true);
       }
     } catch (error: any) {
       if (error.response.status == 409)
         toast.error('이미 인증된 전화번호입니다.');
+      setButtonActivation(true);
     }
   };
 
@@ -52,7 +56,6 @@ const PhoneNumber = ({ setPhoneNumber }: Props) => {
         toast.success('인증되었습니다!', { autoClose: 2000 });
       } else {
         setAuthNumError(true);
-        setPhoneNumError(true);
       }
     } catch (error: any) {
       setAuthNumError(true);
@@ -75,8 +78,14 @@ const PhoneNumber = ({ setPhoneNumber }: Props) => {
           width='30rem'
           ref={phoneNumber}
           isError={phoneNumError}
+          disabled={isTimerRunning}
         />
-        <S.Button onClick={getAuthenticationNumber}>전송</S.Button>
+        <S.Button
+          isActivation={buttonActivation}
+          onClick={getAuthenticationNumber}
+        >
+          전송
+        </S.Button>
       </S.InputWrap>
       <S.InputWrap onSubmit={handleSubmit}>
         <div>
