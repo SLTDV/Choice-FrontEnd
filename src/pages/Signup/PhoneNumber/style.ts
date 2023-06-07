@@ -33,6 +33,7 @@ export const Layout = styled.section`
 
 export const InputWrap = styled.form`
   display: flex;
+  position: relative;
   margin-top: 2rem;
   div {
     display: flex;
@@ -80,7 +81,17 @@ export const Button = styled.button`
   border: none;
   cursor: pointer;
 `;
-
+export const TimerLayout = styled.div`
+  height: 0;
+  width: 0;
+  position: absolute;
+  background: #000000;
+  right: 8.4rem;
+  top: 2.8rem;
+  & p {
+    font-size: 2rem;
+  }
+`;
 export const NextButton = styled.button`
   position: absolute;
   width: 47.6rem;
