@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import * as S from './style';
 import { Link, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
@@ -14,6 +14,10 @@ const Signin = () => {
   const [isError, setIsError] = useState(false);
   const navigate = useNavigate();
   const [logged, setLogged] = useRecoilState(loggedAtom);
+
+  useEffect(() => {
+    if (logged) navigate('/');
+  }, []);
 
   const onValid = async (data: SigninInterface) => {
     try {
