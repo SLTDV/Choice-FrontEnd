@@ -5,7 +5,7 @@ const Timer = () => {
 
   useEffect(() => {
     let timer: any;
-    for (let i = timerSec; i >= 0; i--) {
+    for (let i = 179; i >= 0; i--) {
       timer = setTimeout(() => {
         setTimerSec(i);
       }, (timerSec - i) * 1000);
