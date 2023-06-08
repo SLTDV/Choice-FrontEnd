@@ -3,6 +3,7 @@ import { toast } from 'react-toastify';
 import { useRecoilState } from 'recoil';
 import { certifiedPhoneNumberAtom } from '../../../atoms';
 import Auth from '../../../services/Auth';
+import Timer from '../Timer';
 import * as S from './style';
 
 interface Props {
@@ -10,6 +11,10 @@ interface Props {
 }
 
 const PhoneNumber = ({ setPhoneNumber }: Props) => {
+  const [isTimerRunning, setIsTimerRunning] = useState(false);
+  const [buttonActivation, setButtonActivation] = useState(true);
+  const [retransmissionActivation, setRetransmissionActivation] =
+    useState(false);
   const [, setIsCertifiedPhoneNumber] = useRecoilState(
     certifiedPhoneNumberAtom
   );
@@ -20,18 +25,39 @@ const PhoneNumber = ({ setPhoneNumber }: Props) => {
 
   const getAuthenticationNumber = async () => {
     try {
+      setButtonActivation(false);
       if (
         phoneNumber.current?.value.length == 11 &&
         phoneNumber.current?.value.substring(0, 3) == '010'
       ) {
         await Auth.getAuthenticationNumber(String(phoneNumber.current.value));
+        setIsTimerRunning(true);
+        setRetransmissionActivation(true);
         toast.success('인증번호가 전송되었습니다.', { autoClose: 2000 });
         setPhoneNumError(false);
       } else {
         setPhoneNumError(true);
+        setButtonActivation(true);
       }
     } catch (error: any) {
-      console.log(error);
+      if (error.response.status == 409)
+        toast.error('이미 인증된 전화번호입니다.');
+      setButtonActivation(true);
+    }
+  };
+
+  const retransmission = async () => {
+    setIsTimerRunning(false);
+    if (
+      phoneNumber.current?.value.length == 11 &&
+      phoneNumber.current?.value.substring(0, 3) == '010'
+    ) {
+      await Auth.getAuthenticationNumber(String(phoneNumber.current.value));
+      setRetransmissionActivation(false);
+      setTimeout(() => {
+        setIsTimerRunning(true);
+      }, 100);
+      toast.success('인증번호가 전송되었습니다.', { autoClose: 2000 });
     }
   };
 
@@ -44,14 +70,13 @@ const PhoneNumber = ({ setPhoneNumber }: Props) => {
         );
         setPhoneNumber(phoneNumber.current.value);
         setIsCertifiedPhoneNumber(true);
+        setIsTimerRunning(false);
         toast.success('인증되었습니다!', { autoClose: 2000 });
       } else {
         setAuthNumError(true);
-        setPhoneNumError(true);
       }
     } catch (error: any) {
       setAuthNumError(true);
-      console.log(error);
     }
   };
 
@@ -71,8 +96,15 @@ const PhoneNumber = ({ setPhoneNumber }: Props) => {
           width='30rem'
           ref={phoneNumber}
           isError={phoneNumError}
+          Activation={buttonActivation}
+          disabled={isTimerRunning}
         />
-        <S.Button onClick={getAuthenticationNumber}>전송</S.Button>
+        <S.Button
+          isActivation={buttonActivation}
+          onClick={getAuthenticationNumber}
+        >
+          전송
+        </S.Button>
       </S.InputWrap>
       <S.InputWrap onSubmit={handleSubmit}>
         <div>
@@ -82,8 +114,19 @@ const PhoneNumber = ({ setPhoneNumber }: Props) => {
             maxLength={4}
             ref={authenticationNumber}
             isError={authNumError}
+            Activation={true}
           />
         </div>
+        {retransmissionActivation && (
+          <S.Retransmission onClick={retransmission}>
+            인증번호 재전송
+          </S.Retransmission>
+        )}
+        {isTimerRunning && (
+          <S.TimerLayout>
+            <Timer />
+          </S.TimerLayout>
+        )}
         <S.NextButton onClick={checkAuthenticationNumber}>다음</S.NextButton>
       </S.InputWrap>
     </S.Layout>
