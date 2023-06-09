@@ -1,9 +1,9 @@
 import React, { useRef, useState, Dispatch, SetStateAction } from 'react';
 import { toast } from 'react-toastify';
 import { useRecoilState } from 'recoil';
-import { certifiedPhoneNumberAtom } from '../../../atoms';
-import Auth from '../../../services/Auth';
-import Timer from '../Timer';
+import { certifiedPhoneNumberAtom } from '../../atoms';
+import Auth from '../../services/Auth';
+import Timer from './Timer';
 import * as S from './style';
 
 interface Props {

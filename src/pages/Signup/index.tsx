@@ -7,7 +7,7 @@ import { toast } from 'react-toastify';
 import { Link, useNavigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 import { certifiedPhoneNumberAtom } from '../../atoms';
-import PhoneNumber from './PhoneNumber';
+import PhoneNumber from '../../components/PhoneNumberAuth';
 
 const Signup = () => {
   const [isError, setIsError] = useState(false);
