@@ -72,6 +72,9 @@ const Signin = () => {
               />
               <div className='label'>비밀번호</div>
             </S.LoginInput>
+            <S.ForgetPassword>
+              <Link to='/password'>비밀번호를 잊어버리셨나요?</Link>
+            </S.ForgetPassword>
             <S.Button>로그인</S.Button>
             <S.GoSignup>
               <Link to='/signup'>회원가입</Link>

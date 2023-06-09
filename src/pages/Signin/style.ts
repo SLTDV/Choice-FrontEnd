@@ -53,6 +53,7 @@ export const SigninLayout = styled.div`
 `;
 
 export const SigninForm = styled.form`
+  position: relative;
   text-align: center;
   align-items: center;
   display: flex;
@@ -110,6 +111,21 @@ export const LoginInput = styled.div<{ isError: boolean }>`
   }
   & input:-webkit-autofill {
     -webkit-box-shadow: 0 0 0 1000px #ffffff inset;
+  }
+`;
+
+export const ForgetPassword = styled.p`
+  position: absolute;
+  right: 1.6rem;
+  bottom: 18rem;
+  cursor: pointer;
+  & a {
+    color: #939393;
+    font-size: 1.4rem;
+  }
+  & a:hover {
+    transition: 0.3s;
+    color: #000000;
   }
 `;
 

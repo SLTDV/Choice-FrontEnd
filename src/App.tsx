@@ -14,6 +14,7 @@ import Page404 from './pages/Page404';
 import { RecoilRoot } from 'recoil';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import ScrollToTop from './components/common/ScrollToTop';
+import ChangePassword from './pages/ChangePassword';
 
 function App() {
   const queryClient = new QueryClient();
@@ -32,6 +33,7 @@ function App() {
             <Route path='/:idx' element={<PostDetail />} />
             <Route path='/my' element={<MyPage />} />
             <Route path='/makeChoice' element={<MakeChoice />} />
+            <Route path='/password' element={<ChangePassword />} />
             <Route path='/*' element={<Page404 />} />
           </Routes>
         </BrowserRouter>
