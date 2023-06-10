@@ -7,3 +7,4 @@ export { commentIdxAtom } from './AtomContainer';
 export { certifiedPhoneNumberAtom } from './AtomContainer';
 export { RemoveChoiceModalAtom } from './AtomContainer';
 export { commentListAtom } from './AtomContainer';
+export { changePasswordAtom } from './AtomContainer';

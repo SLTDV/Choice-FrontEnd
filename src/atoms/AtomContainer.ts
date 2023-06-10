@@ -51,3 +51,8 @@ export const commentListAtom = atom<CommentType[]>({
   key: 'commentList',
   default: [],
 });
+
+export const changePasswordAtom = atom({
+  key: 'isChangePassword',
+  default: false,
+});
