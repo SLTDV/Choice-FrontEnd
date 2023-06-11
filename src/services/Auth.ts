@@ -69,6 +69,20 @@ class Auth {
       return error;
     }
   }
+  changePassword(phoneNumber: string, password: string) {
+    try {
+      return instance({
+        method: 'PATCH',
+        url: process.env.REACT_APP_BASE_URL + '/auth/password',
+        data: {
+          phoneNumber: phoneNumber,
+          password: password,
+        },
+      });
+    } catch (error) {
+      return error;
+    }
+  }
 }
 
 export default new Auth();
