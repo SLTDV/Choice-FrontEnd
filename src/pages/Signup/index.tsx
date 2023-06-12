@@ -34,7 +34,7 @@ const Signup = () => {
           className: 'toast',
         });
       } catch (error: any) {
-        toast.error('중복된 닉네임 혹은 이메일입니다.', {
+        toast.error('중복된 닉네임입니다.', {
           autoClose: 2000,
           theme: 'dark',
           className: 'toast',
