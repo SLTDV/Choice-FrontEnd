@@ -5,5 +5,7 @@ export { logoutModalAtom } from './AtomContainer';
 export { removeCommentModalAtom } from './AtomContainer';
 export { commentIdxAtom } from './AtomContainer';
 export { certifiedPhoneNumberAtom } from './AtomContainer';
+export { certifiedPhoneNumberPasswordAtom } from './AtomContainer';
 export { RemoveChoiceModalAtom } from './AtomContainer';
 export { commentListAtom } from './AtomContainer';
+export { changePasswordAtom } from './AtomContainer';

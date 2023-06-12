@@ -6,15 +6,20 @@ import Auth from '../../services/Auth';
 import { toast } from 'react-toastify';
 import { Link, useNavigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
-import { certifiedPhoneNumberAtom, changePasswordAtom } from '../../atoms';
+import {
+  certifiedPhoneNumberPasswordAtom,
+  changePasswordAtom,
+} from '../../atoms';
 import PhoneNumber from '../../components/PhoneNumberAuth';
 
-const Signup = () => {
+const ChangePassword = () => {
   const [isError, setIsError] = useState(false);
   const [phoneNumber, setPhoneNumber] = useState('');
   const navigate = useNavigate();
+  const [isCertifiedPhoneNumberPassword, setIsCertifiedPhoneNumberPassword] =
+    useRecoilState(certifiedPhoneNumberPasswordAtom);
   const [, setIsChangePassword] = useRecoilState(changePasswordAtom);
-  const [isCertifiedPhoneNumber] = useRecoilState(certifiedPhoneNumberAtom);
+
   const {
     register,
     handleSubmit,
@@ -26,20 +31,15 @@ const Signup = () => {
     if (data.password === data.passwordCheck) {
       try {
         setIsError(false);
-        await Auth.signup(phoneNumber, data);
+        await Auth.changePassword(phoneNumber, data.password);
         navigate('/signin');
-        toast.success('회원가입이 완료되었습니다!', {
-          autoClose: 2000,
-          theme: 'dark',
-          className: 'toast',
-        });
+        toast.success('비밀번호가 변경되었습니다!');
       } catch (error: any) {
-        toast.error('중복된 닉네임입니다.', {
+        toast.error('이미 해당 비밀번호를 사용중입니다.', {
           autoClose: 2000,
           theme: 'dark',
           className: 'toast',
         });
-        console.log(error);
       }
     } else {
       setIsError(true);
@@ -51,7 +51,8 @@ const Signup = () => {
   };
 
   useEffect(() => {
-    setIsChangePassword(false);
+    setIsChangePassword(true);
+    setIsCertifiedPhoneNumberPassword(false);
   }, []);
 
   return (
@@ -66,36 +67,24 @@ const Signup = () => {
           </S.LogoWrap>
         </S.LogoLayout>
         <S.SignupLayout>
-          {isCertifiedPhoneNumber ? (
+          {isCertifiedPhoneNumberPassword ? (
             <S.SignupForm onSubmit={handleSubmit(onValid, inValid)}>
-              <h1>SIGN UP</h1>
-              <h3>Choice 회원가입</h3>
-              <div>
-                <S.ErrorText>{isError && errors.nickname?.message}</S.ErrorText>
-                <S.Label aniDuration={1}>닉네임</S.Label>
-                <S.Input
-                  {...register('nickname', {
-                    required: '닉네임을 입력해주세요.',
-                    maxLength: {
-                      value: 6,
-                      message: '6자 이내로 입력해주세요.',
-                    },
-                    minLength: {
-                      value: 2,
-                      message: '2자 이상 입력해주세요.',
-                    },
-                  })}
-                  type='text'
-                  placeholder='2~6자'
-                  isError={isError}
-                />
-              </div>
+              <h1>USER</h1>
+              <h3>비밀번호 변경</h3>
               <div>
                 <S.ErrorText>{isError && errors.password?.message}</S.ErrorText>
                 <S.Label aniDuration={0.6}>비밀번호</S.Label>
                 <S.Input
                   {...register('password', {
                     required: '비밀번호를 입력해주세요.',
+                    maxLength: {
+                      value: 16,
+                      message: '16자 이내로 입력해주세요.',
+                    },
+                    minLength: {
+                      value: 8,
+                      message: '8자 이상 입력해주세요.',
+                    },
                     pattern: {
                       message: '잘못된 비밀번호 형식이에요',
                       value:
@@ -120,7 +109,7 @@ const Signup = () => {
                   isError={isError}
                 />
               </div>
-              <S.Button>회원가입</S.Button>
+              <S.Button>완료</S.Button>
             </S.SignupForm>
           ) : (
             <PhoneNumber setPhoneNumber={setPhoneNumber} />
@@ -131,4 +120,4 @@ const Signup = () => {
   );
 };
 
-export default Signup;
+export default ChangePassword;

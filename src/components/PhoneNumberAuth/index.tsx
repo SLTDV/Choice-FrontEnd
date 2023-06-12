@@ -1,9 +1,13 @@
 import React, { useRef, useState, Dispatch, SetStateAction } from 'react';
 import { toast } from 'react-toastify';
 import { useRecoilState } from 'recoil';
-import { certifiedPhoneNumberAtom } from '../../../atoms';
-import Auth from '../../../services/Auth';
-import Timer from '../Timer';
+import {
+  certifiedPhoneNumberAtom,
+  certifiedPhoneNumberPasswordAtom,
+  changePasswordAtom,
+} from '../../atoms';
+import Auth from '../../services/Auth';
+import Timer from './Timer';
 import * as S from './style';
 
 interface Props {
@@ -13,10 +17,14 @@ interface Props {
 const PhoneNumber = ({ setPhoneNumber }: Props) => {
   const [isTimerRunning, setIsTimerRunning] = useState(false);
   const [buttonActivation, setButtonActivation] = useState(true);
+  const [isChangePassword] = useRecoilState(changePasswordAtom);
   const [retransmissionActivation, setRetransmissionActivation] =
     useState(false);
   const [, setIsCertifiedPhoneNumber] = useRecoilState(
     certifiedPhoneNumberAtom
+  );
+  const [, setIsCertifiedPhoneNumberPassword] = useRecoilState(
+    certifiedPhoneNumberPasswordAtom
   );
   const [phoneNumError, setPhoneNumError] = useState(false);
   const [authNumError, setAuthNumError] = useState(false);
@@ -30,7 +38,11 @@ const PhoneNumber = ({ setPhoneNumber }: Props) => {
         phoneNumber.current?.value.length == 11 &&
         phoneNumber.current?.value.substring(0, 3) == '010'
       ) {
-        await Auth.getAuthenticationNumber(String(phoneNumber.current.value));
+        isChangePassword
+          ? await Auth.getAuthenticationNumberPassword(
+              phoneNumber.current.value
+            )
+          : await Auth.getAuthenticationNumber(phoneNumber.current.value);
         setIsTimerRunning(true);
         setRetransmissionActivation(true);
         toast.success('인증번호가 전송되었습니다.', { autoClose: 2000 });
@@ -41,7 +53,9 @@ const PhoneNumber = ({ setPhoneNumber }: Props) => {
       }
     } catch (error: any) {
       if (error.response.status == 409)
-        toast.error('이미 인증된 전화번호입니다.');
+        isChangePassword
+          ? toast.error('가입되지 않은 번호입니다.')
+          : toast.error('이미 인증된 전화번호입니다.');
       setButtonActivation(true);
     }
   };
@@ -52,7 +66,9 @@ const PhoneNumber = ({ setPhoneNumber }: Props) => {
       phoneNumber.current?.value.length == 11 &&
       phoneNumber.current?.value.substring(0, 3) == '010'
     ) {
-      await Auth.getAuthenticationNumber(String(phoneNumber.current.value));
+      isChangePassword
+        ? await Auth.getAuthenticationNumberPassword(phoneNumber.current.value)
+        : await Auth.getAuthenticationNumber(phoneNumber.current.value);
       setRetransmissionActivation(false);
       setTimeout(() => {
         setIsTimerRunning(true);
@@ -65,11 +81,13 @@ const PhoneNumber = ({ setPhoneNumber }: Props) => {
     try {
       if (authenticationNumber.current?.value && phoneNumber.current?.value) {
         await Auth.checkAuthenticationNumber(
-          String(phoneNumber.current.value),
-          String(authenticationNumber.current.value)
+          phoneNumber.current.value,
+          authenticationNumber.current.value
         );
         setPhoneNumber(phoneNumber.current.value);
-        setIsCertifiedPhoneNumber(true);
+        isChangePassword
+          ? setIsCertifiedPhoneNumberPassword(true)
+          : setIsCertifiedPhoneNumber(true);
         setIsTimerRunning(false);
         toast.success('인증되었습니다!', { autoClose: 2000 });
       } else {
@@ -86,8 +104,8 @@ const PhoneNumber = ({ setPhoneNumber }: Props) => {
 
   return (
     <S.Layout>
-      <h1>SIGN UP</h1>
-      <h3>Choice 회원가입</h3>
+      <h1>{isChangePassword ? 'USER' : 'SIGN UP'}</h1>
+      <h3>{isChangePassword ? '비밀번호 변경' : 'Choice 회원가입'}</h3>
       <S.InputWrap onSubmit={handleSubmit}>
         {phoneNumError && <S.ErrorText>전화번호를 확인해주세요.</S.ErrorText>}
         <S.Label aniDuration={1}>전화번호</S.Label>
