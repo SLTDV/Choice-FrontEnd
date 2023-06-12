@@ -77,8 +77,8 @@ const Signup = () => {
                   {...register('nickname', {
                     required: '닉네임을 입력해주세요.',
                     maxLength: {
-                      value: 6,
-                      message: '6자 이내로 입력해주세요.',
+                      value: 10,
+                      message: '10자 이내로 입력해주세요.',
                     },
                     minLength: {
                       value: 2,
@@ -86,7 +86,7 @@ const Signup = () => {
                     },
                   })}
                   type='text'
-                  placeholder='2~6자'
+                  placeholder='2~10자'
                   isError={isError}
                 />
               </div>
