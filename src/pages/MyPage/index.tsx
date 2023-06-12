@@ -85,7 +85,7 @@ const MyPage = () => {
             </p>
             <input
               defaultValue={myInfo?.nickname}
-              maxLength={6}
+              maxLength={10}
               minLength={2}
             />
           </S.ProfileBox>
