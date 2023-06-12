@@ -1,7 +1,6 @@
 import React, { useEffect, useState, useRef, useCallback } from 'react';
 import Header from '../../components/common/Header';
 import * as S from './style';
-import Choice from '../../components/common/Choice';
 import { Link } from 'react-router-dom';
 import Post from '../../services/Post';
 import { ChoiceData } from '../../types/choice.types';

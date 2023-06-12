@@ -19,7 +19,7 @@ const PostDetail = () => {
   const navigate = useNavigate();
   const postId = useParams() as unknown as { idx: number };
   const [participants, setParticipants] = useState(0);
-  const [commentList, setCommentList] = useRecoilState(commentListAtom);
+  const [, setCommentList] = useRecoilState(commentListAtom);
   const page = useRef(1);
   const [hasMore, setHasMore] = useState(true);
   const [isLoading, setIsLoading] = useState<boolean>(false);

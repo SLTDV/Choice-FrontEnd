@@ -1,10 +1,4 @@
-import React, {
-  useEffect,
-  useRef,
-  useState,
-  Dispatch,
-  SetStateAction,
-} from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import * as S from './style';
 import TextareaAutosize from 'react-textarea-autosize';
 import User from '../../../services/User';
