@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import Post from '../../../services/Post';
 import { ChoiceData } from '../../../types/choice.types';
 import Choice from '../../../components/common/Choice';

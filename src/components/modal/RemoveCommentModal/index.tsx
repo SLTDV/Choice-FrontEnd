@@ -9,7 +9,6 @@ import {
 import { useMutation, useQueryClient } from 'react-query';
 import CommentApi from '../../../services/Comment';
 import { useParams } from 'react-router';
-import { CommentType } from '../../../types/comment.types';
 import Layout from '../Layout';
 import { Spinner } from '../../common/Spinner/style';
 

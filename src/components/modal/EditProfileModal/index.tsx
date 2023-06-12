@@ -30,7 +30,7 @@ const EditProfileModal = (data: EditProfileType) => {
   const editPropfile = async () => {
     try {
       const nickname = nicknameRef.current.value;
-      if (nickname.length > 1 && nickname.length < 7) {
+      if (nickname.length > 1 && nickname.length < 11) {
         setIsError(false);
         await User.editProfileImage(profileImage ? profileImage : data.image),
           await User.editNickname(nickname),
@@ -67,7 +67,7 @@ const EditProfileModal = (data: EditProfileType) => {
           onClick={() => nicknameRef.current.focus()}
         />
         <S.ErrorMessage isError={isError}>
-          닉네임은 2~6글자 입니다.
+          닉네임은 2~10글자 입니다.
         </S.ErrorMessage>
         <button onClick={() => editPropfile()}>수정 완료</button>
       </S.Modal>

@@ -11,7 +11,7 @@ export const ModalBg = styled.div`
 
 export const Modal = styled.div`
   width: 34rem;
-  height: 19rem;
+  height: 18.6rem;
   background-color: #ffffff;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.25);
   border-radius: 2rem;
@@ -42,5 +42,9 @@ export const Modal = styled.div`
   & button:hover {
     background-color: #333333;
     color: #ffffff;
+  }
+  & div {
+    margin-left: 15.4rem;
+    margin-top: 2.2rem;
   }
 `;

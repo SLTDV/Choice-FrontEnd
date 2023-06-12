@@ -8,6 +8,7 @@ import { toast } from 'react-toastify';
 import tokenService from '../../utils/tokenService';
 import { useRecoilState } from 'recoil';
 import { loggedAtom } from '../../atoms';
+import User from '../../services/User';
 
 const Signin = () => {
   const { register, handleSubmit } = useForm<SigninInterface>();
@@ -23,8 +24,10 @@ const Signin = () => {
       setIsError(false);
       const res: any = await Auth.signin(data);
       tokenService.setUser(res.data);
+      const profile: any = await User.getMiniProfile();
       setLogged(true);
       navigate('/');
+      toast.success(`${profile.data.nickname}님 환영합니다!`);
     } catch (error: any) {
       console.log(error);
       setIsError(true);

@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useQueryClient, useMutation } from 'react-query';
 import { toast } from 'react-toastify';
 import { useRecoilState } from 'recoil';
 import { RemoveChoiceModalAtom } from '../../../atoms';
 import Post from '../../../services/Post';
+import { Spinner } from '../../common/Spinner/style';
 import Layout from '../Layout';
 import * as S from './style';
 
@@ -11,9 +12,11 @@ const RemoveChoiceModal = () => {
   const [{ choiceIdx }, setRemoveChoiceModalAtom] = useRecoilState(
     RemoveChoiceModalAtom
   );
+  const [isLoading, setIsLoading] = useState(false);
   const queryClient = useQueryClient();
 
   const onRemoveChoice = async () => {
+    setIsLoading(true);
     await Post.removeChoice(choiceIdx);
   };
 
@@ -31,6 +34,7 @@ const RemoveChoiceModal = () => {
     },
     onSettled: () => {
       setRemoveChoiceModalAtom({ onModal: false, choiceIdx });
+      setIsLoading(false);
     },
   });
 
@@ -42,14 +46,20 @@ const RemoveChoiceModal = () => {
       <S.Modal>
         <h1>게시물 삭제</h1>
         <p>정말 게시물을 삭제할까요?</p>
-        <button onClick={() => removeChoice()}>확인</button>
-        <button
-          onClick={() =>
-            setRemoveChoiceModalAtom({ onModal: false, choiceIdx })
-          }
-        >
-          취소
-        </button>
+        {isLoading ? (
+          <Spinner />
+        ) : (
+          <>
+            <button onClick={() => removeChoice()}>확인</button>
+            <button
+              onClick={() =>
+                setRemoveChoiceModalAtom({ onModal: false, choiceIdx })
+              }
+            >
+              취소
+            </button>
+          </>
+        )}
       </S.Modal>
     </Layout>
   );
