@@ -27,6 +27,10 @@ export const Modal = styled.div`
   & p {
     font-size: 1.6rem;
   }
+  & div {
+    margin-left: 13.2rem;
+    margin-top: 2.2rem;
+  }
 `;
 
 export const Button = styled.button`
