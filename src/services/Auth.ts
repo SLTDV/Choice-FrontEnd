@@ -69,13 +69,13 @@ class Auth {
       return error;
     }
   }
-  checkAuthenticationNumberPassword(phoneNumber: string) {
+  getAuthenticationNumberPassword(phoneNumber: string) {
     try {
       return instance({
         method: 'POST',
         url:
           process.env.REACT_APP_BASE_URL +
-          `/auth/phone?phoneNumber=${phoneNumber}`,
+          `/auth/phone/password?phoneNumber=${phoneNumber}`,
       });
     } catch (error) {
       return error;

@@ -14,7 +14,6 @@ const Signin = () => {
   const [isError, setIsError] = useState(false);
   const navigate = useNavigate();
   const [logged, setLogged] = useRecoilState(loggedAtom);
-
   useEffect(() => {
     if (logged) navigate('/');
   }, []);

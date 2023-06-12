@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import * as S from './style';
 import { useForm } from 'react-hook-form';
 import { SignupInterface } from '../../types/auth.types';
@@ -6,13 +6,14 @@ import Auth from '../../services/Auth';
 import { toast } from 'react-toastify';
 import { Link, useNavigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
-import { certifiedPhoneNumberAtom } from '../../atoms';
+import { certifiedPhoneNumberAtom, changePasswordAtom } from '../../atoms';
 import PhoneNumber from '../../components/PhoneNumberAuth';
 
 const Signup = () => {
   const [isError, setIsError] = useState(false);
   const [phoneNumber, setPhoneNumber] = useState('');
   const navigate = useNavigate();
+  const [, setIsChangePassword] = useRecoilState(changePasswordAtom);
   const [isCertifiedPhoneNumber] = useRecoilState(certifiedPhoneNumberAtom);
   const {
     register,
@@ -48,6 +49,10 @@ const Signup = () => {
   const inValid = (error: any) => {
     error && setIsError(true);
   };
+
+  useEffect(() => {
+    setIsChangePassword(false);
+  }, []);
 
   return (
     <S.Layout>

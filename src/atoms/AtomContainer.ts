@@ -39,6 +39,11 @@ export const certifiedPhoneNumberAtom = atom({
   default: false,
 });
 
+export const certifiedPhoneNumberPasswordAtom = atom({
+  key: 'isCertifiedPhoneNumberPassword',
+  default: false,
+});
+
 export const RemoveChoiceModalAtom = atom({
   key: 'removeChoiceModal',
   default: {
