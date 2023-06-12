@@ -15,7 +15,6 @@ const LogoutModal = () => {
       await Auth.logout();
       navigate('/', { replace: true });
       window.localStorage.clear();
-      toast.success('로그아웃 되었습니다.');
       setLogoutModal(false);
     } catch (error: any) {
       console.log(error);
