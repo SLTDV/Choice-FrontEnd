@@ -4,7 +4,7 @@ import { useForm } from 'react-hook-form';
 import { SignupInterface } from '../../types/auth.types';
 import Auth from '../../services/Auth';
 import { toast } from 'react-toastify';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 import {
   certifiedPhoneNumberPasswordAtom,
@@ -15,9 +15,9 @@ import PhoneNumber from '../../components/PhoneNumberAuth';
 const ChangePassword = () => {
   const [isError, setIsError] = useState(false);
   const [phoneNumber, setPhoneNumber] = useState('');
-  const [isCertifiedPhoneNumberPassword] = useRecoilState(
-    certifiedPhoneNumberPasswordAtom
-  );
+  const navigate = useNavigate();
+  const [isCertifiedPhoneNumberPassword, setIsCertifiedPhoneNumberPassword] =
+    useRecoilState(certifiedPhoneNumberPasswordAtom);
   const [, setIsChangePassword] = useRecoilState(changePasswordAtom);
 
   const {
@@ -32,6 +32,8 @@ const ChangePassword = () => {
       try {
         setIsError(false);
         await Auth.changePassword(phoneNumber, data.password);
+        navigate('/signin');
+        toast.success('비밀번호가 변경되었습니다!');
       } catch (error: any) {
         toast.error('이미 해당 비밀번호를 사용중입니다.', {
           autoClose: 2000,
@@ -50,6 +52,7 @@ const ChangePassword = () => {
 
   useEffect(() => {
     setIsChangePassword(true);
+    setIsCertifiedPhoneNumberPassword(false);
   }, []);
 
   return (

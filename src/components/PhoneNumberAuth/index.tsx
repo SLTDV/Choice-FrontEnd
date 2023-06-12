@@ -23,8 +23,9 @@ const PhoneNumber = ({ setPhoneNumber }: Props) => {
   const [, setIsCertifiedPhoneNumber] = useRecoilState(
     certifiedPhoneNumberAtom
   );
-  const [isCertifiedPhoneNumberPassword, setIsCertifiedPhoneNumberPassword] =
-    useRecoilState(certifiedPhoneNumberPasswordAtom);
+  const [, setIsCertifiedPhoneNumberPassword] = useRecoilState(
+    certifiedPhoneNumberPasswordAtom
+  );
   const [phoneNumError, setPhoneNumError] = useState(false);
   const [authNumError, setAuthNumError] = useState(false);
   const phoneNumber = useRef<HTMLInputElement>(null);
