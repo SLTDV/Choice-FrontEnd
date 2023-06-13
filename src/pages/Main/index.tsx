@@ -32,7 +32,7 @@ const Main = () => {
         const res: any = await Post.getPost(latestPage.current, 12);
         const data: GetPostData = {
           page: res.data.page,
-          postList: res.data.postList,
+          postList: res.data.postList && res.data.postList,
         };
         setChoiceList((prevChoice) => [...prevChoice, ...data.postList]);
         setHasMoreCoice(data.postList.length == 12);
@@ -41,7 +41,7 @@ const Main = () => {
         const res: any = await Post.getPopularPost(popularPage.current, 12);
         const data: GetPostData = {
           page: res.data.page,
-          postList: res.data.postList,
+          postList: res.data.postList && res.data.postList,
         };
         setPopularChoiceList((prevChoice) => [...prevChoice, ...data.postList]);
         setHasMorePopularChoice(data.postList.length == 12);
