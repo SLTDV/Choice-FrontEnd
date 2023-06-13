@@ -7,6 +7,11 @@ import { ChoiceData } from '../../types/choice.types';
 import PostSkeleton from '../../components/common/PostSkeleton';
 import ChoiceList from '../../components/common/ChoiceList';
 
+interface GetPostData {
+  page: number;
+  postList: ChoiceData[];
+}
+
 const Main = () => {
   const [choiceList, setChoiceList] = useState<ChoiceData[]>([]);
   const [popularChoiceList, setPopularChoiceList] = useState<ChoiceData[]>([]);
@@ -25,16 +30,21 @@ const Main = () => {
     try {
       if (category == 'latest') {
         const res: any = await Post.getPost(latestPage.current, 12);
-        setChoiceList((prevChoice) => [...prevChoice, ...res.data.postList]);
-        setHasMoreCoice(res.data.postList.length == 12);
+        const data: GetPostData = {
+          page: res.data.page,
+          postList: res.data.postList,
+        };
+        setChoiceList((prevChoice) => [...prevChoice, ...data.postList]);
+        setHasMoreCoice(data.postList.length == 12);
         latestPage.current += 1;
       } else if (category == 'popularity') {
         const res: any = await Post.getPopularPost(popularPage.current, 12);
-        setPopularChoiceList((prevChoice) => [
-          ...prevChoice,
-          ...res.data.postList,
-        ]);
-        setHasMorePopularChoice(res.data.postList.length == 12);
+        const data: GetPostData = {
+          page: res.data.page,
+          postList: res.data.postList,
+        };
+        setPopularChoiceList((prevChoice) => [...prevChoice, ...data.postList]);
+        setHasMorePopularChoice(data.postList.length == 12);
         popularPage.current += 1;
       }
       setIsLoading(false);
