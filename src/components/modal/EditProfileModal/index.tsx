@@ -32,9 +32,9 @@ const EditProfileModal = (data: EditProfileType) => {
       const nickname = nicknameRef.current.value;
       if (nickname.length > 1 && nickname.length < 11) {
         setIsError(false);
-        await User.editProfileImage(profileImage ? profileImage : data.image),
-          await User.editNickname(nickname),
-          window.location.reload();
+        await User.editProfileImage(profileImage ? profileImage : data.image);
+        await User.editNickname(nickname);
+        window.location.reload();
       } else {
         setIsError(true);
       }
