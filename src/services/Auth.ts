@@ -21,7 +21,7 @@ class Auth {
   signin(data: SigninInterface) {
     try {
       return instance({
-        method: 'GET',
+        method: 'POST',
         url: process.env.REACT_APP_BASE_URL + '/auth/signin',
         data: {
           phoneNumber: data.phoneNumber,
@@ -72,7 +72,7 @@ class Auth {
   getAuthenticationNumberPassword(phoneNumber: string) {
     try {
       return instance({
-        method: 'GET',
+        method: 'POST',
         url:
           process.env.REACT_APP_BASE_URL +
           `/auth/phone/password?phoneNumber=${phoneNumber}`,
