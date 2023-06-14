@@ -49,7 +49,7 @@ export const Description = styled.p`
   width: 60rem;
   font-size: 2rem;
   line-height: 3.4rem;
-  word-break: break-all;
+  white-space: pre-line;
 `;
 
 export const VoteBox = styled.div`
