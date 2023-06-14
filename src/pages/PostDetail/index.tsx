@@ -24,7 +24,6 @@ const PostDetail = () => {
   const [hasMore, setHasMore] = useState(true);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const observerTargetEl = useRef<HTMLDivElement>(null);
-
   const getComments = useCallback(async () => {
     setIsLoading(true);
     const { data }: any = await Post.getPostInfo(postId.idx, page.current, 10);
@@ -50,6 +49,7 @@ const PostDetail = () => {
       setParticipants(data.firstVotingCount + data.secondVotingCount);
     } catch (error: any) {
       if (error.response.status === 400) {
+        navigate('/');
         navigate('/signin');
         toast.error('로그인 후 이용해주세요.');
       }

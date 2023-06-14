@@ -89,6 +89,7 @@ const MakeChoice = () => {
 
   useEffect(() => {
     if (!logged) {
+      navigate('/');
       navigate('/signin');
       toast.error('로그인 후 이용해주세요.');
     }
