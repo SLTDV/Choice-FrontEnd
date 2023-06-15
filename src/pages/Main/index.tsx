@@ -69,8 +69,8 @@ const Main = () => {
 
   return (
     <S.Layout>
-      <div>
-        <Header />
+      <Header />
+      <div className='layout'>
         <S.Nav>
           <Link to='makeChoice'>
             <S.MakeChoiceBtn>Choice만들기</S.MakeChoiceBtn>
