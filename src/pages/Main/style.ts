@@ -52,11 +52,14 @@ export const Category = styled.div`
   & p {
     font-size: 2rem;
     margin-left: 0.2rem;
-    cursor: default;
+    cursor: pointer;
   }
   &:hover {
     & div {
       display: flex;
+      @media screen and (max-width: 1500px) {
+        display: none;
+      }
     }
   }
 `;

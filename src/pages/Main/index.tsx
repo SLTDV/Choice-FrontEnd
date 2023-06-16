@@ -77,7 +77,11 @@ const Main = () => {
           </Link>
           <S.Category>
             <img src='svg/Category.svg' alt='' />
-            <p>{category == 'latest' ? '최신순' : '인기순'}</p>
+            {category === 'latest' ? (
+              <p onClick={() => setCategory('popularity')}>최신순</p>
+            ) : (
+              <p onClick={() => setCategory('latest')}>인기순</p>
+            )}
             <S.CategoryModal>
               <S.Latest mode={category} onClick={() => setCategory('latest')}>
                 최신순
