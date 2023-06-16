@@ -12,7 +12,7 @@ const skeletonAnimation = keyframes`
 `;
 
 export const Skeleton = styled.div`
-  width: 30rem;
+  width: 100%;
   height: 30rem;
   box-shadow: 1px 2px 10px rgba(0, 0, 0, 0.25);
   border-radius: 2rem;
@@ -23,12 +23,21 @@ export const Skeleton = styled.div`
   &:hover {
     transform: scale(1.1);
   }
+  @media screen and (max-width: 1200px) {
+    height: 32rem;
+  }
+  @media screen and (max-width: 720px) {
+    height: 36rem;
+  }
+  @media screen and (max-width: 420px) {
+    height: 30rem;
+  }
 `;
 
 export const InfoBox = styled.div`
-  width: 26rem;
-  height: 8rem;
-  padding: 1rem 2rem;
+  width: 30rem;
+  height: 9rem;
+  padding-top: 1rem;
   border-radius: 0 0 2rem 2rem;
   bottom: 0;
   background: #ffffff;
@@ -39,6 +48,9 @@ export const InfoBox = styled.div`
     bottom: 1rem;
     right: 2rem;
   }
+  @media screen and (max-width: 1200px) {
+    width: 100%;
+  }
 `;
 
 export const text = styled.div<{ width: string; height: string }>`
@@ -47,6 +59,7 @@ export const text = styled.div<{ width: string; height: string }>`
   animation: ${skeletonAnimation} 1.8s infinite;
   margin-bottom: 0.5rem;
   border-radius: 5px;
+  margin-left: 2rem;
 `;
 
 export const Info = styled.div<{ width: string; height: string }>`

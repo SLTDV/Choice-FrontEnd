@@ -103,7 +103,7 @@ const Main = () => {
         ) : (
           <S.PostLayout>
             <ChoiceList choiceList={popularChoiceList} />
-            {isLoading && skeletonArr.map((idx) => <PostSkeleton key={idx} />)}
+            {!isLoading && skeletonArr.map((idx) => <PostSkeleton key={idx} />)}
           </S.PostLayout>
         )}
         <S.LastChoiceLine ref={observerTargetEl} />
