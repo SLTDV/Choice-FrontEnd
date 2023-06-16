@@ -128,7 +128,7 @@ const PostDetail = () => {
               />
               <p>{postInfo?.writer}</p>
             </S.ProfileBox>
-            <h1>{postInfo?.title}</h1>
+            <h1 className='title'>{postInfo?.title}</h1>
             <S.Detail>
               <S.Description>{postInfo?.content}</S.Description>
               <S.VoteBox>
@@ -140,7 +140,7 @@ const PostDetail = () => {
                       </S.OptionName>
                     </S.HoverBox>
                   </S.Option>
-                  <p>VS</p>
+                  <p className='vs'>VS</p>
                   <S.Option image={postInfo?.secondImageUrl} className='second'>
                     <S.HoverBox>
                       <S.OptionName>

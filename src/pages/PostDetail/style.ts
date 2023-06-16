@@ -5,16 +5,56 @@ export const Layout = styled.section`
   padding-top: 17rem;
   width: 100%;
   display: flex;
-  margin: auto;
   justify-content: space-around;
   & span {
     display: flex;
+  }
+  margin-left: -1.4rem;
+  @media screen and (max-width: 1300px) {
+    margin-left: 0;
+  }
+  @media screen and (max-width: 728px) {
+    margin-left: -2rem;
+  }
+  @media screen and (max-width: 500px) {
+    margin-left: -1.2rem;
   }
 `;
 
 export const PostDetailSection = styled.section`
   width: 85rem;
   text-align: center;
+  transition: 0.3s;
+  & .title {
+    transition: 0.3s;
+    @media screen and (max-width: 950px) {
+      font-size: 2.8rem;
+      margin-bottom: -1rem;
+      margin-top: 0.6rem;
+    }
+
+    @media screen and (max-width: 768px) {
+      margin-bottom: -2rem;
+    }
+    @media screen and (max-width: 720px) {
+      margin: 7rem 0 -4rem 3rem;
+      text-align: left;
+    }
+    @media screen and (max-width: 500px) {
+      margin-left: 2rem;
+      text-align: left;
+    }
+  }
+  @media screen and (max-width: 950px) {
+    width: 75rem;
+  }
+
+  @media screen and (max-width: 768px) {
+    width: 70rem;
+  }
+  @media screen and (max-width: 720px) {
+    width: 96%;
+  }
   & h1 {
     font-size: 3rem;
   }
@@ -24,15 +64,32 @@ export const ProfileBox = styled.div`
   position: absolute;
   display: flex;
   margin-top: -0.5rem;
+  transition: 0.3s;
   & img {
+    transition: 0.3s;
     width: 5rem;
     height: 5rem;
     border-radius: 5rem;
     object-fit: cover;
+    @media screen and (max-width: 720px) {
+      width: 4rem;
+      height: 4rem;
+    }
   }
   & p {
     font-size: 1.6rem;
     margin: auto 1rem;
+  }
+  @media screen and (max-width: 950px) {
+    margin-left: 2rem;
+  }
+
+  @media screen and (max-width: 768px) {
+    margin-left: 3rem;
+    transform: scale(0.9);
+  }
+  @media screen and (max-width: 720px) {
+    margin-left: 3.6%;
   }
 `;
 
@@ -42,6 +99,20 @@ export const Detail = styled.section`
   border-bottom: 2px solid #f0f0f0;
   margin: 3.5rem 0;
   padding: 3.5rem 0;
+  transition: 0.3s;
+  @media screen and (max-width: 950px) {
+    transform: scale(0.95);
+  }
+  @media screen and (max-width: 768px) {
+    transform: scale(0.92);
+  }
+  @media screen and (max-width: 720px) {
+    width: 110%;
+  }
+  @media screen and (max-width: 500px) {
+    padding: 2rem 0;
+    padding-bottom: 1rem;
+  }
 `;
 
 export const Description = styled.p`
@@ -50,16 +121,30 @@ export const Description = styled.p`
   font-size: 2rem;
   line-height: 3.4rem;
   white-space: pre-line;
+  @media screen and (max-width: 720px) {
+    text-align: left;
+    width: 96%;
+  }
+  @media screen and (max-width: 500px) {
+    text-align: left;
+    width: 97%;
+  }
 `;
 
 export const VoteBox = styled.div`
   padding: 6rem 0 5rem 0;
   width: 100%;
-  & p {
+  & .vs {
     font-size: 3rem;
     color: #6d6d6d;
     font-weight: bold;
     margin: auto;
+    @media screen and (max-width: 720px) {
+      display: none;
+    }
+  }
+  @media screen and (max-width: 500px) {
+    padding: 4rem 0 4rem 0;
   }
 `;
 
@@ -75,6 +160,13 @@ export const OptionBox = styled.div<{ votingState: number }>`
   & .second {
     box-shadow: ${(props) =>
       props.votingState == 2 && '0 0 0 4px #000000 inset'};
+  }
+
+  @media screen and (max-width: 768px) {
+    width: 70rem;
+  }
+  @media screen and (max-width: 720px) {
+    width: 100%;
   }
 `;
 
@@ -93,6 +185,10 @@ export const Option = styled.div<{ image?: string }>`
       opacity: 1;
       bottom: 0;
     }
+  }
+  @media screen and (max-width: 720px) {
+    width: 42vw;
+    height: 42vw;
   }
 `;
 
@@ -131,6 +227,9 @@ export const OptionName = styled.div`
     line-height: 6rem;
     transition: 0.3s;
   }
+  @media screen and (max-width: 720px) {
+    display: none;
+  }
 `;
 export const ButtonWrap = styled.div<{ votingState?: number }>`
   display: flex;
@@ -155,6 +254,15 @@ export const ButtonWrap = styled.div<{ votingState?: number }>`
       color: ${(props) => props.votingState == 2 && '#ffffff'};
     }
   }
+  @media screen and (max-width: 768px) {
+    width: 82%;
+  }
+  @media screen and (max-width: 720px) {
+    width: 78%;
+  }
+  @media screen and (max-width: 500px) {
+    width: 100%;
+  }
 `;
 
 export const VoteButton = styled.button`
@@ -172,6 +280,22 @@ export const VoteButton = styled.button`
   & p {
     font-size: 1.5rem;
     color: #000000;
+    @media screen and (max-width: 620px) {
+      font-size: 1.3rem;
+    }
+  }
+  & h1 {
+    @media screen and (max-width: 620px) {
+      font-size: 2.3rem;
+    }
+  }
+  @media screen and (max-width: 720px) {
+    width: 26vw;
+    height: 16vw;
+  }
+  @media screen and (max-width: 500px) {
+    width: 42vw;
+    height: 16vw;
   }
 `;
 

@@ -2,8 +2,12 @@ import styled from '@emotion/styled';
 
 export const TodaysChoice = styled.section`
   margin-left: 10%;
-  margin-right: 8rem;
+  margin-right: -2rem;
   padding-bottom: 8rem;
+  width: 38.3rem;
+  @media screen and (max-width: 1300px) {
+    display: none;
+  }
 `;
 
 export const TodaysChoiceLayout = styled.div`

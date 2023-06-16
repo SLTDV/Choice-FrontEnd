@@ -20,7 +20,7 @@ export const Header = styled.header`
       left: 11rem;
     }
     @media screen and (max-width: 500px) {
-      left: 9.6rem;
+      left: 9.2rem;
     }
   }
 `;
