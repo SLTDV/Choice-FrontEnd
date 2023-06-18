@@ -3,9 +3,15 @@ import styled from '@emotion/styled';
 
 const modal = keyframes`
     0%{
-        bottom: -30%;
+        bottom: -28%;
         opacity: 0;
         transform: scale(0);
+    }
+`;
+const mobile = keyframes`
+    0%{
+        bottom: -100%;
+        opacity: 0;
     }
 `;
 
@@ -28,7 +34,7 @@ export const Modal = styled.div`
   opacity: 1;
   background-color: #ffffff;
   transition: 0.5s ease-out;
-  bottom: 22%;
+  bottom: 20%;
   animation: ${modal} 0.5s ease;
   display: flex;
   flex-direction: column;
@@ -55,9 +61,24 @@ export const Modal = styled.div`
     right: 22rem;
     width: 2rem;
     height: 2rem;
-  }
-  & img {
+    bottom: 1.4rem;
+    right: 0.2rem;
     cursor: pointer;
+  }
+  & div {
+    position: relative;
+    width: 29rem;
+    margin: 0 auto;
+  }
+  @media screen and (max-width: 768px) {
+    width: 100%;
+    height: 82rem;
+    border-radius: 3rem;
+    bottom: -18%;
+    animation: ${mobile} 0.5s;
+  }
+  @media screen and (max-width: 450px) {
+    height: 74rem;
   }
 `;
 
