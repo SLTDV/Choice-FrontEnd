@@ -172,6 +172,9 @@ export const OptionName = styled.section`
       height: 4.6rem;
       font-size: 1.7rem;
     }
+    @media screen and (max-width: 430px) {
+      font-size: 1.5rem;
+    }
   }
 `;
 
