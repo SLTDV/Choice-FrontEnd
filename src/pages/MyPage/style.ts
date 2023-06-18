@@ -43,6 +43,7 @@ export const Layout = styled.section`
   margin-top: 21rem;
   display: flex;
   justify-content: space-around;
+  transition: 0.3s;
 `;
 
 export const ProfileBox = styled.section`
@@ -95,12 +96,25 @@ export const Edit = styled.div`
 `;
 
 export const PostLayout = styled.section`
-  margin-top: 11rem;
   display: grid;
   grid-template-columns: 30rem 30rem 30rem;
   justify-content: space-between;
   gap: 6rem;
   padding-bottom: 6rem;
+  margin: 8rem auto 1rem auto;
+  width: 100rem;
+  @media screen and (max-width: 1200px) {
+    width: 78%;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 4rem;
+  }
+  @media screen and (max-width: 768px) {
+    width: 88%;
+    grid-template-columns: repeat(2, 1fr);
+  }
+  @media screen and (max-width: 720px) {
+    grid-template-columns: repeat(1, 1fr);
+  }
 `;
 
 export const NonePost = styled.div`

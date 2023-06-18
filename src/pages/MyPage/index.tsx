@@ -89,22 +89,22 @@ const MyPage = () => {
               minLength={2}
             />
           </S.ProfileBox>
-          {myPostList?.length === 0 ? (
+          {myPostList?.length === 0 && (
             <S.NonePost>
               <p>😑게시물이 아직 없어요 ...</p>
               <Link to='/makeChoice'>
                 <S.MakeChoiceButton>Choice 만들러 가기</S.MakeChoiceButton>
               </Link>
             </S.NonePost>
-          ) : (
-            <S.PostLayout>
-              <ChoiceList choiceList={myPostList} isMine={true} />
-              {isLoading &&
-                skeletonArr.map((idx) => <PostSkeleton key={idx} />)}
-            </S.PostLayout>
           )}
         </div>
       </S.Layout>
+      {myPostList?.length !== 0 && (
+        <S.PostLayout>
+          <ChoiceList choiceList={myPostList} isMine={true} />
+          {isLoading && skeletonArr.map((idx) => <PostSkeleton key={idx} />)}
+        </S.PostLayout>
+      )}
       <S.OptionBox modalState={optionModal}>
         <S.OptionModal modalState={optionModal}>
           <p onClick={() => setLogoutModal(true)}>로그아웃</p>
