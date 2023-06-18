@@ -25,6 +25,7 @@ export const Title = styled.input`
   border: none;
   border-bottom: 2px solid #f0f0f0;
   outline: none;
+  margin: 0 auto;
   font-size: 2.8rem;
   text-align: center;
   font-weight: bold;
@@ -35,6 +36,20 @@ export const Title = styled.input`
   &:focus {
     border-bottom: 2px solid #737373;
     transition: 0.3s;
+  }
+  @media screen and (max-width: 1000px) {
+    width: 90vw;
+  }
+  @media screen and (max-width: 960px) {
+    width: 76vw;
+  }
+  @media screen and (max-width: 500px) {
+    font-size: 2.3rem;
+    padding-bottom: 2rem;
+  }
+  @media screen and (max-width: 430px) {
+    font-size: 2rem;
+    padding-bottom: 2rem;
   }
 `;
 
@@ -56,6 +71,15 @@ export const Content = styled.textarea`
     border: 2px solid #737373;
     transition: 0.3s ease;
   }
+  @media screen and (max-width: 1000px) {
+    width: 68vw;
+  }
+  @media screen and (max-width: 550px) {
+    width: 64vw;
+  }
+  @media screen and (max-width: 420px) {
+    width: 62vw;
+  }
 `;
 
 export const OptionBox = styled.section`
@@ -72,6 +96,14 @@ export const OptionImage = styled.section`
     margin: auto 7rem;
     color: #6d6d6d;
     font-weight: bold;
+    @media screen and (max-width: 900px) {
+      opacity: 0;
+      width: 10vw;
+      margin: 0;
+    }
+  }
+  @media screen and (max-width: 500px) {
+    margin-bottom: 3rem;
   }
 `;
 
@@ -95,9 +127,22 @@ export const Image = styled.input<{ image: string | undefined }>`
     width: 5rem;
     height: 5rem;
     cursor: pointer;
-    margin-top: 10.5rem;
-    margin-left: 10.5rem;
+    margin-top: 10rem;
+    margin-left: 10rem;
     background-color: transparent;
+    @media screen and (max-width: 768px) {
+      margin-top: 13.5vw;
+      margin-left: 13.5vw;
+      width: 7.8vw;
+      height: 7.8vw;
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: cover;
+    }
+  }
+  @media screen and (max-width: 768px) {
+    width: 34vw;
+    height: 34vw;
   }
 `;
 
@@ -119,6 +164,17 @@ export const OptionName = styled.section`
       border: 2px solid #737373;
       transition: 0.3s ease;
     }
+    @media screen and (max-width: 768px) {
+      width: 30.4vw;
+    }
+    @media screen and (max-width: 500px) {
+      width: 29vw;
+      height: 4.6rem;
+      font-size: 1.7rem;
+    }
+    @media screen and (max-width: 430px) {
+      font-size: 1.5rem;
+    }
   }
 `;
 
@@ -133,4 +189,10 @@ export const Button = styled.button`
   font-size: 2rem;
   transition: 0.3s;
   pointer-events: none;
+  @media screen and (max-width: 1000px) {
+    width: 80vw;
+  }
+  @media screen and (max-width: 500px) {
+    margin-top: 1.6rem;
+  }
 `;

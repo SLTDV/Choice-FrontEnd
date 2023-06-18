@@ -80,7 +80,10 @@ const MyPage = () => {
               alt='profile image'
               className='profileImage'
             />
-            <p onClick={() => setEditProfileModal(!editProfileModal)}>
+            <p
+              className='editBtn'
+              onClick={() => setEditProfileModal(!editProfileModal)}
+            >
               프로필 수정
             </p>
             <input
@@ -88,39 +91,45 @@ const MyPage = () => {
               maxLength={10}
               minLength={2}
             />
+            <S.OptionBox modalState={optionModal}>
+              <S.OptionModal modalState={optionModal}>
+                <p
+                  className='editProfile'
+                  onClick={() => setEditProfileModal(!editProfileModal)}
+                >
+                  프로필 수정
+                </p>
+                <p onClick={() => setLogoutModal(true)}>로그아웃</p>
+                <p
+                  className='withdrawal'
+                  onClick={() => setUserWithdrawalModal(true)}
+                >
+                  회원탈퇴
+                </p>
+              </S.OptionModal>
+              <img
+                src='svg/Option.svg'
+                alt=''
+                onClick={() => setOptionModal(!optionModal)}
+              />
+            </S.OptionBox>
           </S.ProfileBox>
-          {myPostList?.length === 0 ? (
+          {myPostList?.length === 0 && (
             <S.NonePost>
               <p>😑게시물이 아직 없어요 ...</p>
               <Link to='/makeChoice'>
                 <S.MakeChoiceButton>Choice 만들러 가기</S.MakeChoiceButton>
               </Link>
             </S.NonePost>
-          ) : (
-            <S.PostLayout>
-              <ChoiceList choiceList={myPostList} isMine={true} />
-              {isLoading &&
-                skeletonArr.map((idx) => <PostSkeleton key={idx} />)}
-            </S.PostLayout>
           )}
         </div>
       </S.Layout>
-      <S.OptionBox modalState={optionModal}>
-        <S.OptionModal modalState={optionModal}>
-          <p onClick={() => setLogoutModal(true)}>로그아웃</p>
-          <p
-            className='withdrawal'
-            onClick={() => setUserWithdrawalModal(true)}
-          >
-            회원탈퇴
-          </p>
-        </S.OptionModal>
-        <img
-          src='svg/Option.svg'
-          alt=''
-          onClick={() => setOptionModal(!optionModal)}
-        />
-      </S.OptionBox>
+      {myPostList?.length !== 0 && (
+        <S.PostLayout>
+          <ChoiceList choiceList={myPostList} isMine={true} />
+          {isLoading && skeletonArr.map((idx) => <PostSkeleton key={idx} />)}
+        </S.PostLayout>
+      )}
     </>
   );
 };

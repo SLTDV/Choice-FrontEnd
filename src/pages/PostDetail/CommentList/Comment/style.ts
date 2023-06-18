@@ -55,6 +55,13 @@ export const CommentBox = styled.div`
       outline: none;
     }
   }
+  transition: 0.3s;
+  @media screen and (max-width: 1300px) {
+    width: 86%;
+  }
+  @media screen and (max-width: 950px) {
+    transform: scale(0.99);
+  }
 `;
 
 export const Content = styled.p`

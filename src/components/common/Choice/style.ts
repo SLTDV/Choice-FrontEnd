@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 
 export const Post = styled.div<{ imageUrl: string }>`
-  width: 30rem;
+  width: 100%;
   height: 30rem;
   border-radius: 2rem;
   background-image: url(${(props) => props.imageUrl});
@@ -15,17 +15,25 @@ export const Post = styled.div<{ imageUrl: string }>`
   &:hover {
     transform: scale(1.1);
   }
+  @media screen and (max-width: 1200px) {
+    height: 32rem;
+  }
+  @media screen and (max-width: 720px) {
+    height: 36rem;
+  }
+  @media screen and (max-width: 420px) {
+    height: 30rem;
+  }
 `;
 
 export const InfoBox = styled.section`
   border-radius: 0 0 2rem 2rem;
-  width: 26rem;
-  height: 8rem;
+  width: 30rem;
+  height: 10rem;
   background-color: #ffffff;
   opacity: 0.9;
   position: absolute;
   bottom: 0;
-  padding: 1rem 2rem;
   @font-face {
     font-family: 'AppleSDGothicNeoUL';
     font-style: normal;
@@ -34,12 +42,17 @@ export const InfoBox = styled.section`
   h1 {
     font-family: AppleSDGothicNeoUL;
     font-size: 1.8rem;
+    margin: 1rem 0 0 2rem;
   }
   p {
     font-family: AppleSDGothicNeoUL;
     font-size: 1.3rem;
     color: #737373;
     font-weight: 600;
+    margin-left: 2rem;
+  }
+  @media screen and (max-width: 1200px) {
+    width: 100%;
   }
 `;
 
@@ -48,6 +61,9 @@ export const Info = styled.div`
   position: absolute;
   bottom: 1rem;
   right: 0rem;
+  & p {
+    margin-left: 3px;
+  }
 `;
 
 export const Count = styled.p`
@@ -56,5 +72,4 @@ export const Count = styled.p`
   font-weight: bold;
   color: #000000 !important;
   margin-right: 2rem;
-  margin-left: 3px;
 `;

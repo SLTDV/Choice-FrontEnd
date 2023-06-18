@@ -5,6 +5,11 @@ export const Layout = styled.section`
   margin-top: 13.5rem;
   display: flex;
   justify-content: space-around;
+  & .layout {
+    @media screen and (max-width: 1200px) {
+      width: 88%;
+    }
+  }
 `;
 
 export const Nav = styled.nav`
@@ -12,6 +17,9 @@ export const Nav = styled.nav`
   justify-content: space-between;
   width: 102rem;
   margin-bottom: 4rem;
+  @media screen and (max-width: 1200px) {
+    width: 100%;
+  }
 `;
 
 export const MakeChoiceBtn = styled.button`
@@ -27,6 +35,12 @@ export const MakeChoiceBtn = styled.button`
     background-color: #000000;
     color: #ffffff;
   }
+  @media screen and (max-width: 500px) {
+    width: 15rem;
+    height: 4.6rem;
+    border: 1px solid #000000;
+    font-size: 1.4rem;
+  }
 `;
 
 export const Category = styled.div`
@@ -38,11 +52,14 @@ export const Category = styled.div`
   & p {
     font-size: 2rem;
     margin-left: 0.2rem;
-    cursor: default;
+    cursor: pointer;
   }
   &:hover {
     & div {
       display: flex;
+      @media screen and (max-width: 1500px) {
+        display: none;
+      }
     }
   }
 `;
@@ -72,12 +89,20 @@ export const popularity = styled.p<{ mode: string }>`
 
 export const PostLayout = styled.section`
   display: grid;
-  grid-template-columns: 30rem 30rem 30rem;
+  grid-template-columns: repeat(3, 1fr);
   width: 100%;
   justify-content: space-between;
-  flex-flow: row wrap;
-  row-gap: 6rem;
+  gap: 6rem;
   padding-bottom: 6rem;
+
+  @media screen and (max-width: 1200px) {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 4rem;
+  }
+
+  @media screen and (max-width: 720px) {
+    grid-template-columns: repeat(1, 1fr);
+  }
 `;
 
 export const LastChoiceLine = styled.div`

@@ -13,6 +13,15 @@ export const Header = styled.header`
     position: absolute;
     bottom: 0;
     margin-left: -6.6rem;
+    transition: 0.2s;
+  }
+  & .logo {
+    @media screen and (max-width: 768px) {
+      left: 11rem;
+    }
+    @media screen and (max-width: 500px) {
+      left: 9.2rem;
+    }
   }
 `;
 
@@ -31,7 +40,7 @@ export const ProfileWrap = styled.div`
   display: flex;
   position: absolute;
   bottom: 0;
-  right: 7%;
+  right: 6.4%;
   & p {
     font-size: 1.8rem;
     margin: auto 1rem;

@@ -72,9 +72,11 @@ const CommentList = () => {
             <img src={profileImage} alt='' />
             <S.Name>{nickname}</S.Name>
           </S.Profile>
-          <button onClick={() => addComment(postId.idx)} type='button'>
-            등록
-          </button>
+          <div className='btnLayout'>
+            <button onClick={() => addComment(postId.idx)} type='button'>
+              등록
+            </button>
+          </div>
         </S.InputWrap>
         {isLoading && (
           <S.SpinnerLayout>
