@@ -13,6 +13,11 @@ export const OptionBox = styled.div<{ modalState: boolean }>`
     transform: rotate(${(props) => (props.modalState ? '0' : '270deg')});
     margin-top: 1rem;
   }
+  @media screen and (max-width: 768px) {
+    position: absolute;
+    bottom: 0rem;
+    right: -0.2rem;
+  }
 `;
 
 export const OptionModal = styled.div<{ modalState: boolean }>`
@@ -22,7 +27,7 @@ export const OptionModal = styled.div<{ modalState: boolean }>`
   flex-direction: column;
   justify-content: space-evenly;
   width: 11rem;
-  height: 12rem;
+  height: 11.4rem;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.25);
   border-radius: 2rem;
   transition: 0.5s;
@@ -37,6 +42,18 @@ export const OptionModal = styled.div<{ modalState: boolean }>`
   & .withdrawal {
     color: #e10000;
   }
+  & .editProfile {
+    display: none;
+    @media screen and (max-width: 768px) {
+      display: block;
+    }
+  }
+  @media screen and (max-width: 768px) {
+    width: 12rem;
+    height: 13rem;
+    border-radius: 4px;
+    margin-bottom: -18.4rem;
+  }
 `;
 
 export const Layout = styled.section`
@@ -44,25 +61,38 @@ export const Layout = styled.section`
   display: flex;
   justify-content: space-around;
   transition: 0.3s;
+  @media screen and (max-width: 768px) {
+    margin-top: 15rem;
+    grid-template-columns: repeat(2, 1fr);
+  }
 `;
 
 export const ProfileBox = styled.section`
+  z-index: 9000;
   text-align: center;
   width: 50rem;
   position: relative;
   margin: 0 auto;
-  & img {
+  & .profileImage {
     width: 26rem;
     height: 26rem;
     border-radius: 25rem;
     object-fit: cover;
+    transition: 0.3s;
+    @media screen and (max-width: 768px) {
+      width: 34vw;
+      height: 34vw;
+    }
   }
-  & p {
+  & .editBtn {
     color: #939393;
     font-size: 1.5rem;
     margin-top: 1.7rem;
     text-decoration-line: underline;
     cursor: pointer;
+    @media screen and (max-width: 768px) {
+      display: none;
+    }
   }
   & input {
     @font-face {
@@ -81,6 +111,13 @@ export const ProfileBox = styled.section`
     pointer-events: none;
     width: 100%;
     padding-bottom: 0.5rem;
+    @media screen and (max-width: 768px) {
+      margin-top: 1.4rem;
+      font-size: 2.3rem;
+    }
+  }
+  @media screen and (max-width: 568px) {
+    width: 84vw;
   }
 `;
 
@@ -109,7 +146,8 @@ export const PostLayout = styled.section`
     gap: 4rem;
   }
   @media screen and (max-width: 768px) {
-    width: 88%;
+    width: 87%;
+    margin-top: 10vw;
     grid-template-columns: repeat(2, 1fr);
   }
   @media screen and (max-width: 720px) {

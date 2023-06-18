@@ -80,7 +80,10 @@ const MyPage = () => {
               alt='profile image'
               className='profileImage'
             />
-            <p onClick={() => setEditProfileModal(!editProfileModal)}>
+            <p
+              className='editBtn'
+              onClick={() => setEditProfileModal(!editProfileModal)}
+            >
               프로필 수정
             </p>
             <input
@@ -88,6 +91,28 @@ const MyPage = () => {
               maxLength={10}
               minLength={2}
             />
+            <S.OptionBox modalState={optionModal}>
+              <S.OptionModal modalState={optionModal}>
+                <p
+                  className='editProfile'
+                  onClick={() => setEditProfileModal(!editProfileModal)}
+                >
+                  프로필 수정
+                </p>
+                <p onClick={() => setLogoutModal(true)}>로그아웃</p>
+                <p
+                  className='withdrawal'
+                  onClick={() => setUserWithdrawalModal(true)}
+                >
+                  회원탈퇴
+                </p>
+              </S.OptionModal>
+              <img
+                src='svg/Option.svg'
+                alt=''
+                onClick={() => setOptionModal(!optionModal)}
+              />
+            </S.OptionBox>
           </S.ProfileBox>
           {myPostList?.length === 0 && (
             <S.NonePost>
@@ -105,22 +130,6 @@ const MyPage = () => {
           {isLoading && skeletonArr.map((idx) => <PostSkeleton key={idx} />)}
         </S.PostLayout>
       )}
-      <S.OptionBox modalState={optionModal}>
-        <S.OptionModal modalState={optionModal}>
-          <p onClick={() => setLogoutModal(true)}>로그아웃</p>
-          <p
-            className='withdrawal'
-            onClick={() => setUserWithdrawalModal(true)}
-          >
-            회원탈퇴
-          </p>
-        </S.OptionModal>
-        <img
-          src='svg/Option.svg'
-          alt=''
-          onClick={() => setOptionModal(!optionModal)}
-        />
-      </S.OptionBox>
     </>
   );
 };
