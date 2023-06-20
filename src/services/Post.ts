@@ -111,5 +111,19 @@ class Post {
       return error;
     }
   }
+
+  reportChoice(idx: number) {
+    try {
+      return instance({
+        method: 'POST',
+        url: process.env.REACT_APP_BASE_URL + '/post/' + idx,
+        headers: {
+          Authorization: tokenService.getLocalAccessToken(),
+        },
+      });
+    } catch (error) {
+      return error;
+    }
+  }
 }
 export default new Post();
