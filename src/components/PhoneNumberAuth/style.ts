@@ -16,7 +16,7 @@ export const Layout = styled.section`
   display: flex;
   flex-direction: column;
   text-align: center;
-  & .signup {
+  & .title {
     width: 60rem;
     @media screen and (max-width: 1475px) {
       display: none;
