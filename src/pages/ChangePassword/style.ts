@@ -29,6 +29,9 @@ export const Layout = styled.section`
   justify-content: space-around;
   & .layout {
     display: flex;
+    @media screen and (max-width: 1475px) {
+      flex-direction: column;
+    }
   }
 `;
 
@@ -39,12 +42,22 @@ export const LogoLayout = styled.section`
   justify-content: space-around;
   margin-left: -14%;
   margin-right: 30%;
+  @media screen and (max-width: 1475px) {
+    height: 40vh;
+    align-items: center;
+    text-align: center;
+    margin: 8vh auto 5vw auto;
+  }
 `;
 
 export const LogoWrap = styled.div`
   text-align: right;
   img {
     animation: ${fadeIn} 1s;
+    @media screen and (max-width: 1475px) {
+      height: 8rem;
+      margin: 0 auto;
+    }
   }
   p {
     margin: 0;
@@ -53,6 +66,13 @@ export const LogoWrap = styled.div`
     font-style: normal;
     font-weight: 400;
     font-size: 2rem;
+    @media screen and (max-width: 1475px) {
+      margin: -1rem auto;
+    }
+  }
+  @media screen and (max-width: 1475px) {
+    text-align: center;
+    width: 30rem;
   }
 `;
 
@@ -62,6 +82,9 @@ export const SignupLayout = styled.section`
   justify-content: space-around;
   height: 100vh;
   width: 70rem;
+  @media screen and (max-width: 1475px) {
+    width: 70vw;
+  }
 `;
 
 export const Label = styled.label<{ aniDuration: number }>`
@@ -73,6 +96,11 @@ export const Label = styled.label<{ aniDuration: number }>`
   font-size: 1.8rem;
   transform: translateY(2.8rem);
   animation: ${placeholdeFadeIn} ${(props) => props.aniDuration}s;
+  @media screen and (max-width: 1475px) {
+    text-align: left;
+    font-size: 1.4rem;
+    transform: translate(1rem, -0.6rem);
+  }
 `;
 
 export const SignupForm = styled.form`
@@ -84,6 +112,9 @@ export const SignupForm = styled.form`
     font-size: 5rem;
     font-family: AppleSDGothicNeoUL;
     transform: translateX(7.8rem);
+    @media screen and (max-width: 1475px) {
+      display: none;
+    }
   }
   h3 {
     transform: translateX(7.8rem);
@@ -91,9 +122,30 @@ export const SignupForm = styled.form`
     font-size: 1.4rem;
     line-height: 17px;
     margin: -1.2rem 0 5rem 0;
+    @media screen and (max-width: 1475px) {
+      display: none;
+    }
   }
   & div {
     display: flex;
+    @media screen and (max-width: 1475px) {
+      flex-direction: column;
+      position: relative;
+    }
+    @media screen and (max-width: 440px) {
+      width: 30rem;
+      margin-left: -2.5rem;
+    }
+    @media screen and (max-width: 420px) {
+      margin-left: 0rem;
+    }
+    @media screen and (max-width: 400px) {
+      margin-left: 1rem;
+    }
+  }
+  @media screen and (max-width: 1475px) {
+    align-items: center;
+    margin-top: -24vh;
   }
 `;
 
@@ -115,6 +167,12 @@ export const Input = styled.input<{ isError?: boolean }>`
   &::placeholder {
     opacity: ${(props) => (props.isError ? '0' : '0.5')};
   }
+  @media screen and (max-width: 630px) {
+    width: 70vw;
+  }
+  @media screen and (max-width: 440px) {
+    width: 100%;
+  }
 `;
 
 export const ErrorText = styled.p`
@@ -123,6 +181,10 @@ export const ErrorText = styled.p`
   font-size: 1.2rem;
   margin: 1.6rem 0 0 2.3rem;
   transform: translateX(15rem);
+  @media screen and (max-width: 1475px) {
+    transform: translate(-1rem, 1.6rem);
+    right: 0;
+  }
 `;
 
 export const Button = styled.button`
@@ -136,4 +198,21 @@ export const Button = styled.button`
   font-size: 24px;
   cursor: pointer;
   transform: translateX(15rem);
+  @media screen and (max-width: 1475px) {
+    transform: translateX(0);
+  }
+  @media screen and (max-width: 630px) {
+    width: calc(70vw + 2.4rem);
+  }
+  @media screen and (max-width: 440px) {
+    width: 109%;
+  }
+  @media screen and (max-width: 420px) {
+    margin-right: -2.4rem;
+    width: 33rem;
+  }
+  @media screen and (max-width: 400px) {
+    margin-right: -3.2rem;
+    width: 32.8rem;
+  }
 `;

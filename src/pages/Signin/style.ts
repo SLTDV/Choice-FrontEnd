@@ -19,6 +19,10 @@ export const Layout = styled.section`
   justify-content: space-around;
   & .layout {
     display: flex;
+    @media screen and (max-width: 1380px) {
+      flex-direction: column;
+      justify-content: center;
+    }
   }
 `;
 
@@ -27,21 +31,35 @@ export const LogoLayout = styled.section`
   display: flex;
   flex-direction: column;
   justify-content: space-around;
-  margin-right: 38rem;
+  margin-right: 22vw;
+  @media screen and (max-width: 1380px) {
+    height: 9rem;
+    width: 100%;
+    align-items: center;
+    margin-bottom: 7vw;
+  }
 `;
 
 export const LogoWrap = styled.div`
   text-align: right;
   img {
     animation: ${fadeIn} 1s;
+    @media screen and (max-width: 1380px) {
+      height: 8rem;
+      margin: 0 auto;
+    }
   }
   p {
     margin: 0;
-    color: #6d6d6d;
+    color: #b5b3b3;
     animation: ${fadeIn} 1s;
     font-style: normal;
     font-weight: 400;
     font-size: 2rem;
+    @media screen and (max-width: 1380px) {
+      text-align: center;
+      margin-top: -1rem;
+    }
   }
 `;
 
@@ -50,24 +68,34 @@ export const SigninLayout = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-around;
+  @media screen and (max-width: 1380px) {
+    height: 50rem;
+  }
 `;
 
 export const SigninForm = styled.form`
   position: relative;
   text-align: center;
   align-items: center;
+  width: 100%;
   display: flex;
   flex-direction: column;
   h1 {
     font-weight: 200;
     font-size: 5rem;
     font-family: AppleSDGothicNeoUL;
+    @media screen and (max-width: 1380px) {
+      display: none;
+    }
   }
   h3 {
     font-weight: 300;
     font-size: 1.4rem;
     line-height: 17px;
     margin: -1.2rem 0 5rem 0;
+    @media screen and (max-width: 1380px) {
+      display: none;
+    }
   }
 `;
 
@@ -87,6 +115,12 @@ export const LoginInput = styled.div<{ isError: boolean }>`
     padding-left: 2rem;
     transition: 0.1s ease;
     left: 0;
+    @media screen and (max-width: 768px) {
+      width: 74vw;
+      margin: auto;
+      left: 50%;
+      transform: translateX(-50%);
+    }
   }
   & .label {
     position: absolute;
@@ -94,6 +128,9 @@ export const LoginInput = styled.div<{ isError: boolean }>`
     transition: 0.3s ease;
     margin: 3rem 0 0 2.3rem;
     color: #737373;
+    @media screen and (max-width: 400px) {
+      margin-left: 3rem;
+    }
   }
   & input:focus {
     outline: none;
@@ -116,7 +153,7 @@ export const LoginInput = styled.div<{ isError: boolean }>`
 
 export const ForgetPassword = styled.p`
   position: absolute;
-  right: 1.6rem;
+  right: 1rem;
   bottom: 18rem;
   cursor: pointer;
   & a {
@@ -127,10 +164,15 @@ export const ForgetPassword = styled.p`
     transition: 0.3s;
     color: #000000;
   }
+  @media screen and (max-width: 400px) {
+    width: 60vw;
+    left: 40%;
+    transform: translateX(-6%);
+  }
 `;
 
 export const Button = styled.button`
-  width: 60rem;
+  width: 59.6rem;
   height: 7.5rem;
   background-color: #000000;
   border-radius: 2rem;
@@ -138,6 +180,9 @@ export const Button = styled.button`
   font-size: 2.4rem;
   margin-top: 6rem;
   cursor: pointer;
+  @media screen and (max-width: 768px) {
+    width: calc(74vw + 2.5rem);
+  }
 `;
 
 export const GoSignup = styled.div`
