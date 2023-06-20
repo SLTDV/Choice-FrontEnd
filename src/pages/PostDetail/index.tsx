@@ -129,6 +129,9 @@ const PostDetail = () => {
               <p>{postInfo?.writer}</p>
             </S.ProfileBox>
             <h1 className='title'>{postInfo?.title}</h1>
+            <S.Kebob>
+              <img src='svg/Kebob.svg' alt='' />
+            </S.Kebob>
             <S.Detail>
               <S.Description>{postInfo?.content}</S.Description>
               <S.VoteBox>

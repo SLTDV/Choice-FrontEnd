@@ -25,6 +25,7 @@ export const PostDetailSection = styled.section`
   width: 85rem;
   text-align: center;
   transition: 0.3s;
+  position: relative;
   & .title {
     transition: 0.3s;
     @media screen and (max-width: 950px) {
@@ -90,6 +91,20 @@ export const ProfileBox = styled.div`
   }
   @media screen and (max-width: 720px) {
     margin-left: 3.6%;
+  }
+`;
+
+export const Kebob = styled.div`
+  position: absolute;
+  right: 1rem;
+  top: 2rem;
+  cursor: pointer;
+  @media screen and (max-width: 950px) {
+    right: 4rem;
+  }
+  @media screen and (max-width: 720px) {
+    right: -0.4rem;
+    top: 8rem;
   }
 `;
 
