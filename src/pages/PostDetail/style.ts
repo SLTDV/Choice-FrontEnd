@@ -289,6 +289,11 @@ export const VoteButton = styled.button`
       font-size: 2.3rem;
     }
   }
+  & img {
+    @media screen and (max-width: 700px) {
+      height: 12vw;
+    }
+  }
   @media screen and (max-width: 720px) {
     width: 26vw;
     height: 16vw;
