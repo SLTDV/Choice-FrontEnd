@@ -16,7 +16,13 @@ export const Layout = styled.section`
   display: flex;
   flex-direction: column;
   text-align: center;
-  h1 {
+  & .signup {
+    width: 60rem;
+    @media screen and (max-width: 1475px) {
+      display: none;
+    }
+  }
+  & h1 {
     font-weight: 200;
     font-size: 5rem;
     font-family: AppleSDGothicNeoUL;
@@ -29,15 +35,28 @@ export const Layout = styled.section`
     margin: -1.2rem 0 5rem 0;
     transform: translateX(7.8rem);
   }
+  @media screen and (max-width: 1475px) {
+    margin: -20rem auto 0 auto;
+  }
 `;
 
 export const InputWrap = styled.form`
   display: flex;
   position: relative;
   margin-top: 2rem;
+  width: 100%;
   div {
     display: flex;
     padding-bottom: 22.5rem;
+    @media screen and (max-width: 680px) {
+      width: 70vw;
+    }
+    @media screen and (max-width: 430px) {
+      width: 30rem;
+    }
+  }
+  @media screen and (max-width: 1475px) {
+    margin: 1rem auto;
   }
 `;
 
@@ -63,6 +82,14 @@ export const Input = styled.input<{
     border: ${(props) =>
       props.isError ? '2px solid #ffffff' : '2px solid #000000'};
   }
+  &::placeholder {
+  }
+  @media screen and (max-width: 1475px) {
+    opacity: 1;
+  }
+  @media screen and (max-width: 680px) {
+    width: calc(${(props) => (props.width ? '80%' : '100%')} - 4vw);
+  }
 `;
 
 export const Label = styled.label<{ aniDuration: number }>`
@@ -74,6 +101,9 @@ export const Label = styled.label<{ aniDuration: number }>`
   font-size: 1.8rem;
   transform: translateY(2.8rem);
   animation: ${placeholdeFadeIn} ${(props) => props.aniDuration}s;
+  @media screen and (max-width: 1475px) {
+    display: none;
+  }
 `;
 
 export const Button = styled.button<{ isActivation: boolean }>`
@@ -94,10 +124,13 @@ export const TimerLayout = styled.div`
   width: 0;
   position: absolute;
   background: #000000;
-  right: 8.4rem;
+  right: 16.2rem;
   top: 2.8rem;
   & p {
     font-size: 2rem;
+  }
+  @media screen and (max-width: 1475px) {
+    right: 8.4rem;
   }
 `;
 export const NextButton = styled.button`
@@ -107,11 +140,18 @@ export const NextButton = styled.button`
   background: #000000;
   border-radius: 20px;
   color: #ffffff;
-  margin-top: 15rem;
+  margin-top: 16rem;
+  margin-left: 15rem;
   font-size: 24px;
   border: none;
   cursor: pointer;
-  transform: translate(15rem, 8rem);
+  @media screen and (max-width: 1475px) {
+    margin-top: 20rem;
+    margin-left: 0;
+  }
+  @media screen and (max-width: 680px) {
+    width: 100%;
+  }
 `;
 
 export const ErrorText = styled.p`
@@ -126,11 +166,15 @@ export const Retransmission = styled.p`
   font-size: 1.4rem;
   position: absolute;
   color: #939393;
-  right: 18.6rem;
-  top: 12rem;
+  right: 9.6rem;
+  top: 9rem;
   cursor: pointer;
   &:hover {
     transition: 0.4s;
     color: #000000;
+  }
+  @media screen and (max-width: 1475px) {
+    right: 2rem;
+    top: 9.6rem;
   }
 `;

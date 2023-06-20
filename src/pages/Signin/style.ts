@@ -38,8 +38,6 @@ export const LogoLayout = styled.section`
     align-items: center;
     margin-bottom: 7vw;
   }
-  @media screen and (max-width: 1380px) {
-  }
 `;
 
 export const LogoWrap = styled.div`

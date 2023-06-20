@@ -104,8 +104,17 @@ const PhoneNumber = ({ setPhoneNumber }: Props) => {
 
   return (
     <S.Layout>
-      <h1>{isChangePassword ? 'USER' : 'SIGN UP'}</h1>
-      <h3>{isChangePassword ? '비밀번호 변경' : 'Choice 회원가입'}</h3>
+      {isChangePassword ? (
+        <>
+          <h1>USER</h1>
+          <h3>비밀번호 변경</h3>
+        </>
+      ) : (
+        <div className='signup'>
+          <h1>SIGN UP</h1>
+          <h3>Choice 회원가입</h3>
+        </div>
+      )}
       <S.InputWrap onSubmit={handleSubmit}>
         {phoneNumError && <S.ErrorText>전화번호를 확인해주세요.</S.ErrorText>}
         <S.Label aniDuration={1}>전화번호</S.Label>
@@ -115,6 +124,7 @@ const PhoneNumber = ({ setPhoneNumber }: Props) => {
           ref={phoneNumber}
           isError={phoneNumError}
           Activation={buttonActivation}
+          placeholder='전화번호'
           disabled={isTimerRunning}
         />
         <S.Button
@@ -130,6 +140,7 @@ const PhoneNumber = ({ setPhoneNumber }: Props) => {
           <S.Label aniDuration={0.5}>인증번호</S.Label>
           <S.Input
             maxLength={4}
+            placeholder='인증번호'
             ref={authenticationNumber}
             isError={authNumError}
             Activation={true}

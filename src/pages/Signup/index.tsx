@@ -68,8 +68,10 @@ const Signup = () => {
         <S.SignupLayout>
           {isCertifiedPhoneNumber ? (
             <S.SignupForm onSubmit={handleSubmit(onValid, inValid)}>
-              <h1>SIGN UP</h1>
-              <h3>Choice 회원가입</h3>
+              <div className='title'>
+                <h1>SIGN UP</h1>
+                <h3>Choice 회원가입</h3>
+              </div>
               <div>
                 <S.ErrorText>{isError && errors.nickname?.message}</S.ErrorText>
                 <S.Label aniDuration={1}>닉네임</S.Label>
