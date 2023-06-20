@@ -73,6 +73,19 @@ class User {
       return error;
     }
   }
+  blockUser(idx: number) {
+    try {
+      return instance({
+        method: 'POST',
+        url: process.env.REACT_APP_BASE_URL + '/user/block/' + idx,
+        headers: {
+          Authorization: tokenService.getLocalAccessToken(),
+        },
+      });
+    } catch (error) {
+      return error;
+    }
+  }
 }
 
 export default new User();
