@@ -46,6 +46,11 @@ export const PostDetailSection = styled.section`
       margin-left: 2rem;
       text-align: left;
     }
+    @media screen and (max-width: 420px) {
+      margin-left: 2.4rem;
+      width: 30rem;
+      word-break: keep-all;
+    }
   }
   @media screen and (max-width: 950px) {
     width: 75rem;
@@ -215,7 +220,7 @@ export const Description = styled.p`
   }
   @media screen and (max-width: 500px) {
     text-align: left;
-    width: 97%;
+    width: 95%;
   }
 `;
 
