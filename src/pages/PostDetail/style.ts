@@ -144,7 +144,7 @@ const KebobModalTextCloseAni = keyframes`
     10%{ opacity: 0; }
 `;
 
-export const KebobModal = styled.div<{ isOpen: boolean }>`
+export const KebobModal = styled.div<{ isOpen: boolean | 'default' }>`
   position: absolute;
   z-index: 9000;
   right: 0;
@@ -155,12 +155,13 @@ export const KebobModal = styled.div<{ isOpen: boolean }>`
   border-radius: 4px;
   background: #ffffff;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.25);
+  display: ${(props) => (props.isOpen == 'default' ? 'none' : 'block')};
   animation: ${(props) => (props.isOpen ? KebobModalAni : KebobModalCloseAni)}
     0.7s;
   & p {
     animation: ${(props) =>
         props.isOpen ? KebobModalTextAni : KebobModalTextCloseAni}
-      1.3s ease-in;
+      1.2s ease-in;
     opacity: ${(props) => (props.isOpen ? '1' : '0')};
     color: #e10000;
     font-size: 1.5rem;

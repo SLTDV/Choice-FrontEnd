@@ -21,7 +21,9 @@ import ReportPostModal from '../../components/modal/ReportPostModal';
 
 const PostDetail = () => {
   const [postInfo, setPostInfo] = useState<PostDetailType>();
-  const [reportChoiceModal, setReportChoiceModal] = useState(false);
+  const [reportChoiceModal, setReportChoiceModal] = useState<
+    boolean | 'default'
+  >('default');
   const [blockUserModal, setblockUserModal] =
     useRecoilState(blockUserModalAtom);
   const [reportPostModal, setReportPostModal] =
@@ -48,6 +50,10 @@ const PostDetail = () => {
       page.current += 1;
     }
   }, []);
+
+  useEffect(() => {
+    console.log(reportChoiceModal);
+  }, [reportChoiceModal]);
 
   const getPostDetail = async () => {
     try {
@@ -94,6 +100,12 @@ const PostDetail = () => {
       await queryClient.invalidateQueries('post');
     },
   });
+
+  const kebobModalHandler = () => {
+    if (reportChoiceModal == 'default') {
+      setReportChoiceModal(true);
+    } else setReportChoiceModal(!reportChoiceModal);
+  };
 
   const setComments = async () => {
     const { data }: any = await Post.getPostInfo(postId.idx, 0, 10);
@@ -143,14 +155,16 @@ const PostDetail = () => {
             </S.ProfileBox>
             <h1 className='title'>{postInfo?.title}</h1>
             {!postInfo?.isMine && (
-              <S.Kebob onClick={() => setReportChoiceModal(!reportChoiceModal)}>
-                <img src='svg/Kebob.svg' alt='' />
-              </S.Kebob>
+              <>
+                <S.Kebob onClick={kebobModalHandler}>
+                  <img src='svg/Kebob.svg' alt='' />
+                </S.Kebob>
+                <S.KebobModal isOpen={reportChoiceModal}>
+                  <p onClick={() => setblockUserModal(true)}>차단</p>
+                  <p onClick={() => setReportPostModal(true)}>게시물 신고</p>
+                </S.KebobModal>
+              </>
             )}
-            <S.KebobModal isOpen={reportChoiceModal}>
-              <p onClick={() => setblockUserModal(true)}>차단</p>
-              <p onClick={() => setReportPostModal(true)}>게시물 신고</p>
-            </S.KebobModal>
 
             <S.Detail>
               <S.Description>{postInfo?.content}</S.Description>
