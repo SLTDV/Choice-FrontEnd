@@ -17,6 +17,7 @@ import {
 import { toast } from 'react-toastify';
 import { Spinner } from '../../components/common/Spinner/style';
 import ReportPostModal from '../../components/modal/ReportPostModal';
+import BlockUserModal from '../../components/modal/BlockUserModal';
 
 const PostDetail = () => {
   const [postInfo, setPostInfo] = useState<PostDetailType>();
@@ -131,6 +132,7 @@ const PostDetail = () => {
 
   return (
     <>
+      {blockUserModal && <BlockUserModal nickname={postInfo?.writer} />}
       {reportPostModal && <ReportPostModal />}
       <Header />
       <S.Layout>
