@@ -36,6 +36,8 @@ const PostDetail = () => {
   const page = useRef(1);
   const [hasMore, setHasMore] = useState(true);
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [firstOptionHoverd, setFirstOptionHoverd] = useState<boolean>(false);
+  const [secondOptionHoverd, setSecondOptionHoverd] = useState<boolean>(false);
   const observerTargetEl = useRef<HTMLDivElement>(null);
   const getComments = useCallback(async () => {
     setIsLoading(true);
@@ -167,16 +169,20 @@ const PostDetail = () => {
               <S.VoteBox>
                 <S.OptionBox votingState={Number(postInfo?.votingState)}>
                   <S.Option image={postInfo?.firstImageUrl} className='first'>
+                    <S.OptionTitle>{postInfo?.firstVotingOption}</S.OptionTitle>
                     <S.HoverBox>
-                      <S.OptionName>
+                      <S.OptionName isHoverd={firstOptionHoverd}>
                         <p>{postInfo?.firstVotingOption}</p>
                       </S.OptionName>
                     </S.HoverBox>
                   </S.Option>
                   <p className='vs'>VS</p>
                   <S.Option image={postInfo?.secondImageUrl} className='second'>
+                    <S.OptionTitle>
+                      {postInfo?.secondVotingOption}
+                    </S.OptionTitle>
                     <S.HoverBox>
-                      <S.OptionName>
+                      <S.OptionName isHoverd={secondOptionHoverd}>
                         <p>{postInfo?.secondVotingOption}</p>
                       </S.OptionName>
                     </S.HoverBox>
@@ -184,10 +190,18 @@ const PostDetail = () => {
                 </S.OptionBox>
                 {postInfo?.votingState === 0 ? (
                   <S.ButtonWrap>
-                    <S.VoteButton onClick={() => vote(1)}>
+                    <S.VoteButton
+                      onClick={() => vote(1)}
+                      onMouseOver={() => setFirstOptionHoverd(true)}
+                      onMouseOut={() => setFirstOptionHoverd(false)}
+                    >
                       <img src='svg/Check.svg' alt='' />
                     </S.VoteButton>
-                    <S.VoteButton onClick={() => vote(2)}>
+                    <S.VoteButton
+                      onClick={() => vote(2)}
+                      onMouseEnter={() => setSecondOptionHoverd(true)}
+                      onMouseLeave={() => setSecondOptionHoverd(false)}
+                    >
                       <img src='svg/Check.svg' alt='' />
                     </S.VoteButton>
                   </S.ButtonWrap>
@@ -196,6 +210,8 @@ const PostDetail = () => {
                     <S.VoteButton
                       onClick={() => postInfo?.votingState !== 1 && vote(1)}
                       className='firstBtn'
+                      onMouseOver={() => setFirstOptionHoverd(true)}
+                      onMouseOut={() => setFirstOptionHoverd(false)}
                     >
                       <h1>
                         {postInfo &&
@@ -208,6 +224,8 @@ const PostDetail = () => {
                     </S.VoteButton>
                     <S.VoteButton
                       onClick={() => postInfo?.votingState !== 2 && vote(2)}
+                      onMouseEnter={() => setSecondOptionHoverd(true)}
+                      onMouseLeave={() => setSecondOptionHoverd(false)}
                       className='secondBtn'
                     >
                       <h1>

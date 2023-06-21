@@ -273,12 +273,6 @@ export const Option = styled.div<{ image?: string }>`
   background-position: center;
   position: relative;
   z-index: 1;
-  &:hover {
-    & div {
-      opacity: 1;
-      bottom: 0;
-    }
-  }
   @media screen and (max-width: 720px) {
     width: 42vw;
     height: 42vw;
@@ -303,24 +297,46 @@ export const HoverBox = styled.span`
   }
 `;
 
-export const OptionName = styled.div`
+export const OptionTitle = styled.p`
+  display: none;
+  position: absolute;
+  font-size: 2.4rem;
+  font-weight: 600;
+  width: 100%;
+  top: -3.8rem;
+  @media screen and (max-width: 768px) {
+    display: block;
+  }
+  @media screen and (max-width: 580px) {
+    font-size: 2.2rem;
+    top: -3.4rem;
+  }
+  @media screen and (max-width: 450px) {
+    font-size: 2rem;
+    top: -3.2rem;
+  }
+`;
+
+export const OptionName = styled.div<{ isHoverd: boolean }>`
   border-radius: 0 0 1.8rem 1.8rem;
   width: 26rem;
   height: 6rem;
   background-color: #ffffff;
   position: absolute;
-  bottom: -8rem;
-  opacity: 0;
+  bottom: ${(props) => (props.isHoverd ? '0' : '-8rem')};
+  opacity: ${(props) => (props.isHoverd ? '1' : '0')};
   padding: 1rem 2rem;
   transition: 0.3s ease;
+  box-shadow: ${(props) =>
+    props.isHoverd ? '0 2px 3px rgba(0, 0, 0, 0.25)' : 'none'};
   & p {
     color: #000000 !important;
-    opacity: 0;
+    opacity: ${(props) => (props.isHoverd ? '1' : '0')};
     font-size: 2.2rem;
     line-height: 6rem;
     transition: 0.3s;
   }
-  @media screen and (max-width: 720px) {
+  @media screen and (max-width: 768px) {
     display: none;
   }
 `;
