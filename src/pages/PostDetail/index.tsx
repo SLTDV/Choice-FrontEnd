@@ -15,6 +15,7 @@ import { Spinner } from '../../components/common/Spinner/style';
 
 const PostDetail = () => {
   const [postInfo, setPostInfo] = useState<PostDetailType>();
+  const [reportChoiceModal, setReportChoiceModal] = useState(false);
   const queryClient = useQueryClient();
   const navigate = useNavigate();
   const postId = useParams() as unknown as { idx: number };
@@ -129,9 +130,14 @@ const PostDetail = () => {
               <p>{postInfo?.writer}</p>
             </S.ProfileBox>
             <h1 className='title'>{postInfo?.title}</h1>
-            <S.Kebob>
+            <S.Kebob onClick={() => setReportChoiceModal(!reportChoiceModal)}>
               <img src='svg/Kebob.svg' alt='' />
             </S.Kebob>
+            <S.KebobModal isOpen={reportChoiceModal}>
+              <p>차단</p>
+              <p className='report'>게시물 신고</p>
+            </S.KebobModal>
+
             <S.Detail>
               <S.Description>{postInfo?.content}</S.Description>
               <S.VoteBox>
