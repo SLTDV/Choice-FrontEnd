@@ -99,9 +99,13 @@ export const Kebob = styled.div`
   position: absolute;
   right: 0.2rem;
   top: 2rem;
+  z-index: 9100;
   cursor: pointer;
   @media screen and (max-width: 950px) {
-    right: 4rem;
+    right: 2rem;
+  }
+  @media screen and (max-width: 768px) {
+    right: 3rem;
   }
   @media screen and (max-width: 720px) {
     right: -0.4rem;
@@ -163,6 +167,16 @@ export const KebobModal = styled.div<{ isOpen: boolean }>`
     margin-top: 1.5rem;
     cursor: ${(props) => (props.isOpen ? 'pointer' : 'none')};
     pointer-events: ${(props) => (props.isOpen ? 'all' : 'none')};
+  }
+  @media screen and (max-width: 950px) {
+    right: 2rem;
+  }
+  @media screen and (max-width: 768px) {
+    right: 3rem;
+  }
+  @media screen and (max-width: 720px) {
+    right: -0.4rem;
+    top: 10.8rem;
   }
 `;
 
