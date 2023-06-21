@@ -7,6 +7,7 @@ import User from '../../../services/User';
 import { Spinner } from '../../common/Spinner/style';
 import Layout from '../Layout';
 import * as S from './style';
+
 const BlockUserModal = ({ nickname }: { nickname?: string }) => {
   const navigate = useNavigate();
   const [, setblockUserModal] = useRecoilState(blockUserModalAtom);
