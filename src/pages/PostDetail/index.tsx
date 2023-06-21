@@ -51,10 +51,6 @@ const PostDetail = () => {
     }
   }, []);
 
-  useEffect(() => {
-    console.log(reportChoiceModal);
-  }, [reportChoiceModal]);
-
   const getPostDetail = async () => {
     try {
       const { data }: any = await Post.getPostInfo(
