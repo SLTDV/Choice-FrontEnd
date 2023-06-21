@@ -9,10 +9,12 @@ import tokenService from '../../utils/tokenService';
 import { useRecoilState } from 'recoil';
 import { loggedAtom } from '../../atoms';
 import User from '../../services/User';
+import { Spinner } from '../../components/common/Spinner/style';
 
 const Signin = () => {
   const { register, handleSubmit } = useForm<SigninInterface>();
   const [isError, setIsError] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
   const [logged, setLogged] = useRecoilState(loggedAtom);
   useEffect(() => {
@@ -22,12 +24,14 @@ const Signin = () => {
   const onValid = async (data: SigninInterface) => {
     try {
       setIsError(false);
+      setIsLoading(true);
       const res: any = await Auth.signin(data);
       tokenService.setUser(res.data);
       const profile: any = await User.getMiniProfile();
       setLogged(true);
       navigate('/');
       toast.success(`${profile.data.nickname}님 환영합니다!`);
+      setIsLoading(false);
     } catch (error: any) {
       console.log(error);
       setIsError(true);
@@ -35,6 +39,7 @@ const Signin = () => {
         autoClose: 2000,
         theme: 'dark',
       });
+      setIsLoading(false);
     }
   };
 
@@ -77,7 +82,12 @@ const Signin = () => {
             <S.ForgetPassword>
               <Link to='/password'>비밀번호를 잊어버리셨나요?</Link>
             </S.ForgetPassword>
-            <S.Button>로그인</S.Button>
+            <S.Button isLoading={isLoading}>로그인</S.Button>
+            {isLoading && (
+              <S.SpinnerLayout>
+                <Spinner />
+              </S.SpinnerLayout>
+            )}
             <S.GoSignup>
               <Link to='/signup'>회원가입</Link>
             </S.GoSignup>

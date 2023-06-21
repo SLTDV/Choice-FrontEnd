@@ -9,6 +9,9 @@ export const Box = styled.div`
     }
     & div {
       transform: scale(1.1);
+      @media screen and (max-width: 420px) {
+        transform: scale(1);
+      }
     }
   }
 `;

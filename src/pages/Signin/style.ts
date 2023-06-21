@@ -171,17 +171,27 @@ export const ForgetPassword = styled.p`
   }
 `;
 
-export const Button = styled.button`
+export const Button = styled.button<{ isLoading: boolean }>`
   width: 59.6rem;
   height: 7.5rem;
-  background-color: #000000;
+  background-color: ${(props) => (props.isLoading ? '#333333' : '#000000')};
   border-radius: 2rem;
-  color: #ffffff;
+  border: none;
+  color: ${(props) => (props.isLoading ? '#333333' : '#ffffff')};
   font-size: 2.4rem;
   margin-top: 6rem;
-  cursor: pointer;
+  cursor: ${(props) => (props.isLoading ? 'none' : 'pointer')};
+  pointer-events: ${(props) => (props.isLoading ? 'none' : 'all')};
   @media screen and (max-width: 768px) {
     width: calc(74vw + 2.5rem);
+  }
+`;
+
+export const SpinnerLayout = styled.div`
+  position: absolute;
+  bottom: 7rem;
+  & div {
+    border-color: #ffffff;
   }
 `;
 

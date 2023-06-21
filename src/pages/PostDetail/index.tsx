@@ -9,12 +9,25 @@ import CommentList from './CommentList';
 import { useMutation, useQuery, useQueryClient } from 'react-query';
 import { CommentType } from '../../types/comment.types';
 import { useRecoilState } from 'recoil';
-import { commentListAtom } from '../../atoms';
+import {
+  blockUserModalAtom,
+  commentListAtom,
+  reportPostModalAtom,
+} from '../../atoms';
 import { toast } from 'react-toastify';
 import { Spinner } from '../../components/common/Spinner/style';
+import ReportPostModal from '../../components/modal/ReportPostModal';
+import BlockUserModal from '../../components/modal/BlockUserModal';
 
 const PostDetail = () => {
   const [postInfo, setPostInfo] = useState<PostDetailType>();
+  const [reportChoiceModal, setReportChoiceModal] = useState<
+    boolean | 'default'
+  >('default');
+  const [blockUserModal, setblockUserModal] =
+    useRecoilState(blockUserModalAtom);
+  const [reportPostModal, setReportPostModal] =
+    useRecoilState(reportPostModalAtom);
   const queryClient = useQueryClient();
   const navigate = useNavigate();
   const postId = useParams() as unknown as { idx: number };
@@ -84,6 +97,12 @@ const PostDetail = () => {
     },
   });
 
+  const kebobModalHandler = () => {
+    if (reportChoiceModal == 'default') {
+      setReportChoiceModal(true);
+    } else setReportChoiceModal(!reportChoiceModal);
+  };
+
   const setComments = async () => {
     const { data }: any = await Post.getPostInfo(postId.idx, 0, 10);
     setCommentList(data.commentList);
@@ -113,6 +132,8 @@ const PostDetail = () => {
 
   return (
     <>
+      {blockUserModal && <BlockUserModal nickname={postInfo?.writer} />}
+      {reportPostModal && <ReportPostModal />}
       <Header />
       <S.Layout>
         <span>
@@ -129,6 +150,18 @@ const PostDetail = () => {
               <p>{postInfo?.writer}</p>
             </S.ProfileBox>
             <h1 className='title'>{postInfo?.title}</h1>
+            {!postInfo?.isMine && (
+              <>
+                <S.Kebob onClick={kebobModalHandler}>
+                  <img src='svg/Kebob.svg' alt='' />
+                </S.Kebob>
+                <S.KebobModal isOpen={reportChoiceModal}>
+                  <p onClick={() => setblockUserModal(true)}>차단</p>
+                  <p onClick={() => setReportPostModal(true)}>게시물 신고</p>
+                </S.KebobModal>
+              </>
+            )}
+
             <S.Detail>
               <S.Description>{postInfo?.content}</S.Description>
               <S.VoteBox>

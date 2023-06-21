@@ -25,6 +25,8 @@ export const PostDetailSection = styled.section`
   width: 85rem;
   text-align: center;
   transition: 0.3s;
+  position: relative;
+  background: #ffffff;
   & .title {
     transition: 0.3s;
     @media screen and (max-width: 950px) {
@@ -43,6 +45,11 @@ export const PostDetailSection = styled.section`
     @media screen and (max-width: 500px) {
       margin-left: 2rem;
       text-align: left;
+    }
+    @media screen and (max-width: 420px) {
+      margin-left: 2.4rem;
+      width: 30rem;
+      word-break: keep-all;
     }
   }
   @media screen and (max-width: 950px) {
@@ -93,6 +100,92 @@ export const ProfileBox = styled.div`
   }
 `;
 
+export const Kebob = styled.div`
+  position: absolute;
+  right: 0.2rem;
+  top: 2rem;
+  z-index: 9100;
+  cursor: pointer;
+  @media screen and (max-width: 950px) {
+    right: 2rem;
+  }
+  @media screen and (max-width: 768px) {
+    right: 3rem;
+  }
+  @media screen and (max-width: 720px) {
+    right: -0.4rem;
+    top: 8.4rem;
+  }
+`;
+
+const KebobModalAni = keyframes`
+    0%{
+        width: 3rem;
+        height: 2rem;
+    }
+    50%{ width: 3rem; }
+`;
+
+const KebobModalTextAni = keyframes`
+    0%{ opacity: 0; }
+    50%{ opacity: 0; }
+`;
+
+const KebobModalCloseAni = keyframes`
+    0%{
+        opacity: 1;
+        width: 12rem;
+        height: 9rem;
+    }
+    50%{
+      height: 9rem;
+    }
+    90%{ opacity:1 }
+    100%{ opacity: 0 }
+`;
+
+const KebobModalTextCloseAni = keyframes`
+    0%{ opacity: 1; }
+    10%{ opacity: 0; }
+`;
+
+export const KebobModal = styled.div<{ isOpen: boolean | 'default' }>`
+  position: absolute;
+  z-index: 9000;
+  right: 0;
+  top: 4.4rem;
+  opacity: ${(props) => (props.isOpen ? '1' : '0')};
+  width: ${(props) => (props.isOpen ? '12rem' : '3rem')};
+  height: ${(props) => (props.isOpen ? '9rem' : '2rem')};
+  border-radius: 4px;
+  background: #ffffff;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.25);
+  display: ${(props) => (props.isOpen == 'default' ? 'none' : 'block')};
+  animation: ${(props) => (props.isOpen ? KebobModalAni : KebobModalCloseAni)}
+    0.7s;
+  & p {
+    animation: ${(props) =>
+        props.isOpen ? KebobModalTextAni : KebobModalTextCloseAni}
+      1.2s ease-in;
+    opacity: ${(props) => (props.isOpen ? '1' : '0')};
+    color: #e10000;
+    font-size: 1.5rem;
+    margin-top: 1.5rem;
+    cursor: ${(props) => (props.isOpen ? 'pointer' : 'none')};
+    pointer-events: ${(props) => (props.isOpen ? 'all' : 'none')};
+  }
+  @media screen and (max-width: 950px) {
+    right: 2rem;
+  }
+  @media screen and (max-width: 768px) {
+    right: 3rem;
+  }
+  @media screen and (max-width: 720px) {
+    right: -0.4rem;
+    top: 10.8rem;
+  }
+`;
+
 export const Detail = styled.section`
   width: 100%;
   border-top: 2px solid #f0f0f0;
@@ -127,7 +220,7 @@ export const Description = styled.p`
   }
   @media screen and (max-width: 500px) {
     text-align: left;
-    width: 97%;
+    width: 95%;
   }
 `;
 
