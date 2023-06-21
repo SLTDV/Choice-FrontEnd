@@ -9,16 +9,23 @@ import CommentList from './CommentList';
 import { useMutation, useQuery, useQueryClient } from 'react-query';
 import { CommentType } from '../../types/comment.types';
 import { useRecoilState } from 'recoil';
-import { blockUserModalAtom, commentListAtom } from '../../atoms';
+import {
+  blockUserModalAtom,
+  commentListAtom,
+  reportPostModalAtom,
+} from '../../atoms';
 import { toast } from 'react-toastify';
 import { Spinner } from '../../components/common/Spinner/style';
-import BlockUserModal from '../../components/modal/blockUserModal';
+import BlockUserModal from '../../components/modal/BlockUserModal';
+import ReportPostModal from '../../components/modal/ReportPostModal';
 
 const PostDetail = () => {
   const [postInfo, setPostInfo] = useState<PostDetailType>();
   const [reportChoiceModal, setReportChoiceModal] = useState(false);
   const [blockUserModal, setblockUserModal] =
     useRecoilState(blockUserModalAtom);
+  const [reportPostModal, setReportPostModal] =
+    useRecoilState(reportPostModalAtom);
   const queryClient = useQueryClient();
   const navigate = useNavigate();
   const postId = useParams() as unknown as { idx: number };
@@ -118,6 +125,7 @@ const PostDetail = () => {
   return (
     <>
       {blockUserModal && <BlockUserModal nickname={postInfo?.writer} />}
+      {reportPostModal && <ReportPostModal />}
       <Header />
       <S.Layout>
         <span>
@@ -141,7 +149,7 @@ const PostDetail = () => {
             )}
             <S.KebobModal isOpen={reportChoiceModal}>
               <p onClick={() => setblockUserModal(true)}>차단</p>
-              <p className='report'>게시물 신고</p>
+              <p onClick={() => setReportPostModal(true)}>게시물 신고</p>
             </S.KebobModal>
 
             <S.Detail>

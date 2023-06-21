@@ -32,5 +32,6 @@ export interface PostDetailType {
   secondVotingOption: string;
   votingState: number;
   participants: number;
+  isMine: boolean;
   commentList: CommentType[];
 }

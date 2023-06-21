@@ -10,7 +10,7 @@ export const ModalBg = styled.div`
 `;
 
 export const Modal = styled.div`
-  width: 26rem;
+  width: 26.6rem;
   height: 14.4rem;
   background-color: #ffffff;
   border-radius: 1.4rem;

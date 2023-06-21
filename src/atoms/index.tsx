@@ -9,3 +9,5 @@ export { certifiedPhoneNumberPasswordAtom } from './AtomContainer';
 export { RemoveChoiceModalAtom } from './AtomContainer';
 export { commentListAtom } from './AtomContainer';
 export { changePasswordAtom } from './AtomContainer';
+export { blockUserModalAtom } from './AtomContainer';
+export { reportPostModalAtom } from './AtomContainer';

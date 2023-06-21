@@ -61,3 +61,13 @@ export const changePasswordAtom = atom({
   key: 'isChangePassword',
   default: false,
 });
+
+export const blockUserModalAtom = atom({
+  key: 'blockUserModal',
+  default: false,
+});
+
+export const reportPostModalAtom = atom({
+  key: 'reportPostModal',
+  default: false,
+});
