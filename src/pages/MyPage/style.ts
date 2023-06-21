@@ -33,8 +33,8 @@ export const OptionModal = styled.div<{ modalState: boolean }>`
   transition: 0.5s;
   transform: translateX(${(props) => (props.modalState ? '0' : '2rem')});
   opacity: ${(props) => (props.modalState ? '1' : '0')};
+  pointer-events: ${(props) => (props.modalState ? '' : 'none')};
   & p {
-    pointer-events: ${(props) => (props.modalState ? '' : 'none')};
     color: #939393;
     font-size: 1.5rem;
     cursor: pointer;
