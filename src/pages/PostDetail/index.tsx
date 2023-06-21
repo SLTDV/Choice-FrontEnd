@@ -9,13 +9,16 @@ import CommentList from './CommentList';
 import { useMutation, useQuery, useQueryClient } from 'react-query';
 import { CommentType } from '../../types/comment.types';
 import { useRecoilState } from 'recoil';
-import { commentListAtom } from '../../atoms';
+import { blockUserModalAtom, commentListAtom } from '../../atoms';
 import { toast } from 'react-toastify';
 import { Spinner } from '../../components/common/Spinner/style';
+import BlockUserModal from '../../components/modal/blockUserModal';
 
 const PostDetail = () => {
   const [postInfo, setPostInfo] = useState<PostDetailType>();
   const [reportChoiceModal, setReportChoiceModal] = useState(false);
+  const [blockUserModal, setblockUserModal] =
+    useRecoilState(blockUserModalAtom);
   const queryClient = useQueryClient();
   const navigate = useNavigate();
   const postId = useParams() as unknown as { idx: number };
@@ -114,6 +117,7 @@ const PostDetail = () => {
 
   return (
     <>
+      {blockUserModal && <BlockUserModal nickname={postInfo?.writer} />}
       <Header />
       <S.Layout>
         <span>
@@ -130,11 +134,13 @@ const PostDetail = () => {
               <p>{postInfo?.writer}</p>
             </S.ProfileBox>
             <h1 className='title'>{postInfo?.title}</h1>
-            <S.Kebob onClick={() => setReportChoiceModal(!reportChoiceModal)}>
-              <img src='svg/Kebob.svg' alt='' />
-            </S.Kebob>
+            {!postInfo?.isMine && (
+              <S.Kebob onClick={() => setReportChoiceModal(!reportChoiceModal)}>
+                <img src='svg/Kebob.svg' alt='' />
+              </S.Kebob>
+            )}
             <S.KebobModal isOpen={reportChoiceModal}>
-              <p>차단</p>
+              <p onClick={() => setblockUserModal(true)}>차단</p>
               <p className='report'>게시물 신고</p>
             </S.KebobModal>
 
