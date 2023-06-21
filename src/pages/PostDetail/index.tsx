@@ -16,7 +16,6 @@ import {
 } from '../../atoms';
 import { toast } from 'react-toastify';
 import { Spinner } from '../../components/common/Spinner/style';
-import BlockUserModal from '../../components/modal/BlockUserModal';
 import ReportPostModal from '../../components/modal/ReportPostModal';
 
 const PostDetail = () => {
@@ -132,7 +131,6 @@ const PostDetail = () => {
 
   return (
     <>
-      {blockUserModal && <BlockUserModal nickname={postInfo?.writer} />}
       {reportPostModal && <ReportPostModal />}
       <Header />
       <S.Layout>
