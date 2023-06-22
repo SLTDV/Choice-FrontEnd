@@ -60,7 +60,7 @@ export const Info = styled.div`
   display: flex;
   position: absolute;
   bottom: 1rem;
-  right: 0rem;
+  right: 0.6rem;
   & p {
     margin-left: 3px;
   }
@@ -71,5 +71,5 @@ export const Count = styled.p`
   margin: auto 0;
   font-weight: bold;
   color: #000000 !important;
-  margin-right: 2rem;
+  margin-right: 1.4rem;
 `;

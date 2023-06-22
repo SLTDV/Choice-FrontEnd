@@ -12,10 +12,10 @@ const Choice = (data: ChoiceData) => {
             {data.firstVotingOption} vs {data.secondVotingOption}
           </p>
           <S.Info>
-            <img src='svg/Comment.svg' alt='comment' />
-            <S.Count>{data.commentCount}</S.Count>
             <img src='svg/Vote.svg' alt='vote' />
             <S.Count>{data.participants}</S.Count>
+            <img src='svg/Comment.svg' alt='comment' />
+            <S.Count>{data.commentCount}</S.Count>
           </S.Info>
         </S.InfoBox>
       </S.Post>
