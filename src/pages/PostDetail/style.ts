@@ -118,6 +118,13 @@ export const Kebob = styled.div`
   }
 `;
 
+export const KebobBackground = styled.div`
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  z-index: 9000;
+`;
+
 const KebobModalAni = keyframes`
     0%{
         width: 3rem;
