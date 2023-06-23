@@ -134,7 +134,7 @@ const PostDetail = () => {
 
   return (
     <>
-      {reportChoiceModal && (
+      {reportChoiceModal === true && (
         <S.KebobBackground onClick={() => setReportChoiceModal(false)} />
       )}
       {blockUserModal && <BlockUserModal nickname={postInfo?.writer} />}
