@@ -123,7 +123,6 @@ export const TimerLayout = styled.div`
   height: 0;
   width: 0;
   position: absolute;
-  background: #000000;
   right: 16.2rem;
   top: 2.8rem;
   & p {
