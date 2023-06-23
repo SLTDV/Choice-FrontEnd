@@ -36,7 +36,10 @@ export const Layout = styled.section`
     transform: translateX(7.8rem);
   }
   @media screen and (max-width: 1475px) {
-    margin: -20rem auto 0 auto;
+    margin: -18rem auto 0 auto;
+  }
+  @media screen and (max-width: 500px) {
+    margin-top: -12vh;
   }
 `;
 

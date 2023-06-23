@@ -47,6 +47,12 @@ export const LogoLayout = styled.section`
     text-align: center;
     margin: 8vh auto 5vw auto;
   }
+  @media screen and (max-width: 768px) {
+    height: 30vh;
+    align-items: center;
+    text-align: center;
+    margin: 8vh auto 5vw auto;
+  }
 `;
 
 export const LogoWrap = styled.div`
@@ -146,6 +152,9 @@ export const SignupForm = styled.form`
     align-items: center;
     margin-top: -20vh;
   }
+  @media screen and (max-width: 400px) {
+    margin-top: -4rem;
+  }
 `;
 
 export const Input = styled.input<{ isError?: boolean }>`
@@ -171,6 +180,7 @@ export const Input = styled.input<{ isError?: boolean }>`
   }
   @media screen and (max-width: 440px) {
     width: 100%;
+    height: 6.5rem;
   }
 `;
 
