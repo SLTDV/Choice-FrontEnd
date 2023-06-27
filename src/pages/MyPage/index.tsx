@@ -12,18 +12,20 @@ import EditProfileModal from '../../components/modal/EditProfileModal';
 import User from '../../services/User';
 import { MyInfoType } from '../../types/user.type';
 import { ChoiceData } from '../../types/choice.types';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useQuery } from 'react-query';
 import UserWithdrawalModal from '../../components/modal/UserWithdrawalModal/index';
 import ChoiceList from '../../components/common/ChoiceList';
 import LogoutModal from '../../components/modal/LogoutModal';
 import RemoveChoiceModal from '../../components/modal/RemoveChoiceModal';
 import PostSkeleton from '../../components/common/PostSkeleton';
+import { toast } from 'react-toastify';
 
 const MyPage = () => {
   const [myInfo, setMyInfo] = useState<MyInfoType>();
   const [myPostList, setMyPostList] = useState<ChoiceData[]>();
   const [optionModal, setOptionModal] = useState(false);
+  const navigate = useNavigate();
   const [userWithdrawalModal, setUserWithdrawalModal] = useRecoilState(
     userWithdrawalModalAtom
   );
@@ -41,7 +43,8 @@ const MyPage = () => {
       setMyPostList(res.data.postList);
       setIsLodaing(false);
     } catch (error: any) {
-      console.log(error);
+      navigate('/signin');
+      toast.error('로그인 후 이용해주세요!');
     }
   };
 
