@@ -66,7 +66,7 @@ const Signup = () => {
           </S.LogoWrap>
         </S.LogoLayout>
         <S.SignupLayout>
-          {!isCertifiedPhoneNumber ? (
+          {isCertifiedPhoneNumber ? (
             <S.SignupForm onSubmit={handleSubmit(onValid, inValid)}>
               <div className='title'>
                 <h1>SIGN UP</h1>
