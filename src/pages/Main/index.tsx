@@ -6,6 +6,8 @@ import Post from '../../services/Post';
 import { ChoiceData } from '../../types/choice.types';
 import PostSkeleton from '../../components/common/PostSkeleton';
 import ChoiceList from '../../components/common/ChoiceList';
+import { categoryAtom } from '../../atoms/AtomContainer';
+import { useRecoilState } from 'recoil';
 
 interface GetPostData {
   page: number;
@@ -15,7 +17,7 @@ interface GetPostData {
 const Main = () => {
   const [choiceList, setChoiceList] = useState<ChoiceData[]>([]);
   const [popularChoiceList, setPopularChoiceList] = useState<ChoiceData[]>([]);
-  const [category, setCategory] = useState<'latest' | 'popularity'>('latest');
+  const [category, setCategory] = useRecoilState(categoryAtom);
   const [hasMoreChoice, setHasMoreCoice] = useState(true);
   const [hasMorePopularChoice, setHasMorePopularChoice] = useState(true);
 
