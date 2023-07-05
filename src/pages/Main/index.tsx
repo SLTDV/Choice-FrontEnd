@@ -8,6 +8,7 @@ import PostSkeleton from '../../components/common/PostSkeleton';
 import ChoiceList from '../../components/common/ChoiceList';
 import { categoryAtom } from '../../atoms/AtomContainer';
 import { useRecoilState } from 'recoil';
+import ReactGA from 'react-ga';
 
 interface GetPostData {
   page: number;
@@ -68,6 +69,10 @@ const Main = () => {
     io.observe(observerTargetEl.current);
     return () => io.disconnect();
   }, [hasMoreChoice, getPost, isLoading, category]);
+
+  useEffect(() => {
+    ReactGA.pageview(window.location.pathname);
+  }, []);
 
   return (
     <S.Layout>
