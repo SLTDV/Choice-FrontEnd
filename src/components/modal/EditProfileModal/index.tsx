@@ -16,7 +16,6 @@ const EditProfileModal = (data: EditProfileType) => {
 
   const saveImage = async (e: any) => {
     try {
-      console.log(profileImage);
       const formData = new FormData();
       formData.append('profileImage', e.target.files[0]);
       const res: any = await Image.uploadImage(formData);
@@ -32,7 +31,8 @@ const EditProfileModal = (data: EditProfileType) => {
       const nickname = nicknameRef.current.value;
       if (nickname.length > 1 && nickname.length < 11) {
         setIsError(false);
-        data.image && (await User.editProfileImage(data.image));
+        profileImage !== 'svg/DefaultProfileImage.svg' &&
+          (await User.editProfileImage(profileImage));
         await User.editNickname(nickname);
         window.location.reload();
       } else {
