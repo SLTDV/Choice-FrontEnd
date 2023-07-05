@@ -74,5 +74,5 @@ export const reportPostModalAtom = atom({
 
 export const categoryAtom = atom<'latest' | 'popularity'>({
   key: 'category',
-  default: 'latest',
+  default: 'popularity',
 });

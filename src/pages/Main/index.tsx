@@ -85,15 +85,15 @@ const Main = () => {
               <p onClick={() => setCategory('latest')}>인기순</p>
             )}
             <S.CategoryModal>
-              <S.Latest mode={category} onClick={() => setCategory('latest')}>
-                최신순
-              </S.Latest>
               <S.popularity
                 mode={category}
                 onClick={() => setCategory('popularity')}
               >
                 인기순
               </S.popularity>
+              <S.Latest mode={category} onClick={() => setCategory('latest')}>
+                최신순
+              </S.Latest>
             </S.CategoryModal>
           </S.Category>
         </S.Nav>
