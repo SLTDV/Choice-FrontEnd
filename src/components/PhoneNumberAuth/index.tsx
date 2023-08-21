@@ -141,12 +141,15 @@ const PhoneNumber = ({ setPhoneNumber }: Props) => {
           />
         </div>
         {retransmissionActivation && (
-          <S.Retransmission onClick={retransmission}>
+          <S.Retransmission
+            onClick={retransmission}
+            isSignup={!isChangePassword}
+          >
             인증번호 재전송
           </S.Retransmission>
         )}
         {isTimerRunning && (
-          <S.TimerLayout>
+          <S.TimerLayout isSignup={!isChangePassword}>
             <Timer />
           </S.TimerLayout>
         )}

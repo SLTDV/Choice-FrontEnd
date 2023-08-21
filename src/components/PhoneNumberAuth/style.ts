@@ -122,11 +122,11 @@ export const Button = styled.button<{ isActivation: boolean }>`
   cursor: pointer;
   transition: 0.3s;
 `;
-export const TimerLayout = styled.div`
+export const TimerLayout = styled.div<{ isSignup: boolean }>`
   height: 0;
   width: 0;
   position: absolute;
-  right: 16.2rem;
+  right: ${(props) => (props.isSignup ? '16.2rem' : '8.5rem')};
   top: 2.8rem;
   & p {
     font-size: 2rem;
@@ -164,11 +164,11 @@ export const ErrorText = styled.p`
   transform: translateX(15rem);
 `;
 
-export const Retransmission = styled.p`
+export const Retransmission = styled.p<{ isSignup: boolean }>`
   font-size: 1.4rem;
   position: absolute;
   color: #939393;
-  right: 9.6rem;
+  right: ${(props) => (props.isSignup ? '26.6rem' : '19rem')};
   top: 9rem;
   cursor: pointer;
   &:hover {
