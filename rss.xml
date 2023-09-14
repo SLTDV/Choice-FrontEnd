@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0">
+  <channel>
+    <title>Choice</title>
+    <link>https://www.choice-time.com/</link>
+    <description>선택의 고민을 한 번에</description>
+    <language>en-us</language>
+    
+    <item>
+      <title>생일선물로 더 받고싶은 것은?</title>
+      <link>https://www.choice-time.com/170</link>
+      <description>돈 vs 기프티콘</description>
+    </item>
+
+    <item>
+      <title>글 제목 2</title>
+      <link>https://www.choice-time.com/143</link>
+      <description>국밥 vs 상추튀김</description>
+    </item>
+
+  </channel>
+</rss>
