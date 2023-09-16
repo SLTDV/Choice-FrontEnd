@@ -19,7 +19,6 @@ const LogoutModal = () => {
       window.localStorage.clear();
       setLogoutModal(false);
     } catch (error: any) {
-      console.log(error);
       setLogoutModal(false);
     }
   };

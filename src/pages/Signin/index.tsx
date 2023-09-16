@@ -32,8 +32,7 @@ const Signin = () => {
       navigate('/');
       toast.success(`${profile.data.nickname}님 환영합니다!`);
       setIsLoading(false);
-    } catch (error: any) {
-      console.log(error);
+    } catch {
       setIsError(true);
       toast.error('사용자 정보를 다시 확인해주세요.', {
         autoClose: 2000,

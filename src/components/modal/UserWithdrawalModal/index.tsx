@@ -21,7 +21,6 @@ const UserWithdrawalModal = () => {
       toast.success('회원탈퇴 되었습니다.');
       setUserWithdrawalModal(false);
     } catch (error: any) {
-      console.log(error);
       setUserWithdrawalModal(false);
     }
   };

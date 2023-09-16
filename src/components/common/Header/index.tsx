@@ -16,13 +16,9 @@ const Header = () => {
 
   const getMiniProfile = async () => {
     if (logged) {
-      try {
-        const res: any = await User.getMiniProfile();
-        setNickname(res.data.nickname);
-        res.data.image && setProfileImageUrl(res.data.image);
-      } catch (error: any) {
-        console.log(error);
-      }
+      const res: any = await User.getMiniProfile();
+      setNickname(res.data.nickname);
+      res.data.image && setProfileImageUrl(res.data.image);
     }
   };
 

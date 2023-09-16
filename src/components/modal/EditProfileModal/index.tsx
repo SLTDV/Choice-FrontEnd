@@ -15,31 +15,23 @@ const EditProfileModal = (data: EditProfileType) => {
   const [isError, setIsError] = useState(false);
 
   const saveImage = async (e: any) => {
-    try {
-      const formData = new FormData();
-      formData.append('profileImage', e.target.files[0]);
-      const res: any = await Image.uploadImage(formData);
-      console.log('success');
-      setProfileImage(res.data.profileImageUrl);
-    } catch (error: any) {
-      console.log(error);
-    }
+    const formData = new FormData();
+    formData.append('profileImage', e.target.files[0]);
+    const res: any = await Image.uploadImage(formData);
+    console.log('success');
+    setProfileImage(res.data.profileImageUrl);
   };
 
   const editPropfile = async () => {
-    try {
-      const nickname = nicknameRef.current.value;
-      if (nickname.length > 1 && nickname.length < 11) {
-        setIsError(false);
-        profileImage !== 'svg/DefaultProfileImage.svg' &&
-          (await User.editProfileImage(profileImage));
-        await User.editNickname(nickname);
-        window.location.reload();
-      } else {
-        setIsError(true);
-      }
-    } catch (error: any) {
-      console.log(error);
+    const nickname = nicknameRef.current.value;
+    if (nickname.length > 1 && nickname.length < 11) {
+      setIsError(false);
+      profileImage !== 'svg/DefaultProfileImage.svg' &&
+        (await User.editProfileImage(profileImage));
+      await User.editNickname(nickname);
+      window.location.reload();
+    } else {
+      setIsError(true);
     }
   };
 

@@ -19,7 +19,6 @@ const ReportPostModal = () => {
       toast.success('게시물을 신고했습니다.');
       setReportPostModal(false);
     } catch (error: any) {
-      console.log(error);
       if (error.response.status === 409)
         toast.error('이미 신고한 게시물입니다.');
       setReportPostModal(false);

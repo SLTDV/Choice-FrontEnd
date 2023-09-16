@@ -21,16 +21,12 @@ const RemoveCommentModal = () => {
   const postId = useParams() as unknown as { idx: number };
 
   const onRemoveComment = async () => {
-    try {
-      setIsLoading(true);
-      await CommentApi.removeComment(postId.idx, commentIdx);
-      setCommentList((prev) =>
-        prev.filter((element) => element.idx !== commentIdx)
-      );
-      setRemoveCommentModal(false);
-    } catch (error: any) {
-      console.log(error);
-    }
+    setIsLoading(true);
+    await CommentApi.removeComment(postId.idx, commentIdx);
+    setCommentList((prev) =>
+      prev.filter((element) => element.idx !== commentIdx)
+    );
+    setRemoveCommentModal(false);
   };
 
   const { mutate: removeComment } = useMutation(onRemoveComment, {

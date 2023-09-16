@@ -9,12 +9,8 @@ const TodaysChoice = () => {
   const [todaysPostList, setTodaysPostList] = useState<ChoiceData[]>();
 
   const getTodaysPost = async () => {
-    try {
-      const res: any = await Post.getTodaysPost();
-      setTodaysPostList(res.data.todayPostList);
-    } catch (error: any) {
-      console.log(error);
-    }
+    const res: any = await Post.getTodaysPost();
+    setTodaysPostList(res.data.todayPostList);
   };
 
   useQuery({

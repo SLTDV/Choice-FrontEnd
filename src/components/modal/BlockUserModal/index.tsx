@@ -22,7 +22,6 @@ const BlockUserModal = ({ nickname }: { nickname?: string }) => {
       toast.success(`${nickname}님을 차단했습니다.`);
       setblockUserModal(false);
     } catch (error: any) {
-      console.log(error);
       setblockUserModal(false);
     }
   };

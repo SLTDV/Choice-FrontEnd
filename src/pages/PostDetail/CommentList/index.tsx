@@ -24,22 +24,14 @@ const CommentList = () => {
   const [removeCommentModal] = useRecoilState(removeCommentModalAtom);
   const queryClient = useQueryClient();
   const getMyProfile = async () => {
-    try {
-      const { data }: any = await User.getMiniProfile();
-      setNickname(data.nickname);
-      data.image && setProfileImage(data.image);
-    } catch (error: any) {
-      console.log(error);
-    }
+    const { data }: any = await User.getMiniProfile();
+    setNickname(data.nickname);
+    data.image && setProfileImage(data.image);
   };
 
   const onAddComment = async (idx: number) => {
-    try {
-      setIsLoading(true);
-      await CommentApi.addComment(idx, commentContent.current.value);
-    } catch (error: any) {
-      console.log(error);
-    }
+    setIsLoading(true);
+    await CommentApi.addComment(idx, commentContent.current.value);
   };
 
   const { mutate: addComment } = useMutation(onAddComment, {

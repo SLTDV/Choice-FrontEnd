@@ -30,30 +30,26 @@ const Main = () => {
 
   const getPost = useCallback(async () => {
     setIsLoading(true);
-    try {
-      if (category == 'latest') {
-        const res: any = await Post.getPost(latestPage.current, 12);
-        const data: GetPostData = {
-          page: res.data.page,
-          postList: res.data.postList ? res.data.postList : [],
-        };
-        setChoiceList((prevChoice) => [...prevChoice, ...data.postList]);
-        setHasMoreCoice(data.postList.length == 12);
-        latestPage.current += 1;
-      } else if (category == 'popularity') {
-        const res: any = await Post.getPopularPost(popularPage.current, 12);
-        const data: GetPostData = {
-          page: res.data.page,
-          postList: res.data.postList ? res.data.postList : [],
-        };
-        setPopularChoiceList((prevChoice) => [...prevChoice, ...data.postList]);
-        setHasMorePopularChoice(data.postList.length == 12);
-        popularPage.current += 1;
-      }
-      setIsLoading(false);
-    } catch (error: any) {
-      console.log(error);
+    if (category == 'latest') {
+      const res: any = await Post.getPost(latestPage.current, 12);
+      const data: GetPostData = {
+        page: res.data.page,
+        postList: res.data.postList ? res.data.postList : [],
+      };
+      setChoiceList((prevChoice) => [...prevChoice, ...data.postList]);
+      setHasMoreCoice(data.postList.length == 12);
+      latestPage.current += 1;
+    } else if (category == 'popularity') {
+      const res: any = await Post.getPopularPost(popularPage.current, 12);
+      const data: GetPostData = {
+        page: res.data.page,
+        postList: res.data.postList ? res.data.postList : [],
+      };
+      setPopularChoiceList((prevChoice) => [...prevChoice, ...data.postList]);
+      setHasMorePopularChoice(data.postList.length == 12);
+      popularPage.current += 1;
     }
+    setIsLoading(false);
   }, [category]);
 
   useEffect(() => {
