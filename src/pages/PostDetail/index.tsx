@@ -36,8 +36,6 @@ const PostDetail = () => {
     isMine: false,
     commentList: [],
   });
-  const [firstVotingCount, setFirstVotingCount] = useState<number>(0);
-  const [secondVotingCount, setSecondVotingCount] = useState<number>(0);
   const [reportChoiceModal, setReportChoiceModal] = useState<
     boolean | 'default'
   >('default');
@@ -78,8 +76,6 @@ const PostDetail = () => {
         10
       );
       setPostInfo(data);
-      setFirstVotingCount(data.firstVotingCount);
-      setSecondVotingCount(data.secondVotingCount);
       setParticipants(data.firstVotingCount + data.secondVotingCount);
     } catch (error: any) {
       if (error.response.status === 400) {
@@ -91,26 +87,6 @@ const PostDetail = () => {
     }
   };
 
-  const updateDataLocally = (newData: number) => {
-    if (newData === 1) {
-      setPostInfo({
-        ...postInfo,
-        votingState: 1,
-        firstVotingCount: firstVotingCount + 1,
-      });
-      setFirstVotingCount(firstVotingCount + 1);
-      setSecondVotingCount(secondVotingCount - 1);
-    } else if (newData === 2) {
-      setPostInfo({
-        ...postInfo,
-        votingState: 2,
-        secondVotingCount: secondVotingCount + 1,
-      });
-      setFirstVotingCount(firstVotingCount - 1);
-      setSecondVotingCount(secondVotingCount + 1);
-    }
-  };
-
   const onVote = async (choice: number) => {
     return await Post.vote(postId.idx, choice);
   };
@@ -119,7 +95,26 @@ const PostDetail = () => {
     onMutate: async (newData: number) => {
       await queryClient.cancelQueries('post');
       const snapshotOfPreviousData = queryClient.getQueryData('post');
-      updateDataLocally(newData);
+      setPostInfo((prevData) => {
+        let updatedFirstVotingCount = prevData.firstVotingCount;
+        let updatedSecondVotingCount = prevData.secondVotingCount;
+
+        if (newData === 1) {
+          updatedFirstVotingCount++;
+          updatedSecondVotingCount--;
+        } else if (newData === 2) {
+          updatedFirstVotingCount--;
+          updatedSecondVotingCount++;
+        }
+
+        return {
+          ...prevData,
+          votingState: newData,
+          firstVotingCount: updatedFirstVotingCount,
+          secondVotingCount: updatedSecondVotingCount,
+        };
+      });
+
       return {
         snapshotOfPreviousData,
       };
@@ -147,7 +142,7 @@ const PostDetail = () => {
     page.current = 1;
   };
 
-  useQuery(['post', postId.idx], () => getPostDetail(), {
+  useQuery('post', () => getPostDetail(), {
     refetchOnWindowFocus: false,
   });
 
@@ -172,7 +167,7 @@ const PostDetail = () => {
       {reportChoiceModal === true && (
         <S.KebobBackground onClick={() => setReportChoiceModal(false)} />
       )}
-      {blockUserModal && <BlockUserModal nickname={postInfo?.writer} />}
+      {blockUserModal && <BlockUserModal nickname={postInfo.writer} />}
       {reportPostModal && <ReportPostModal />}
       <Header />
       <S.Layout>
@@ -181,16 +176,16 @@ const PostDetail = () => {
             <S.ProfileBox>
               <img
                 src={
-                  postInfo?.profileImageUrl
+                  postInfo.profileImageUrl
                     ? postInfo.profileImageUrl
                     : 'svg/DefaultProfileImage.svg'
                 }
                 alt='프로필 이미지'
               />
-              <p>{postInfo?.writer}</p>
+              <p>{postInfo.writer}</p>
             </S.ProfileBox>
-            <h1 className='title'>{postInfo?.title}</h1>
-            {!postInfo?.isMine && (
+            <h1 className='title'>{postInfo.title}</h1>
+            {!postInfo.isMine && (
               <>
                 <S.Kebob onClick={kebobModalHandler}>
                   <img src='svg/Kebob.svg' alt='' />
@@ -203,30 +198,28 @@ const PostDetail = () => {
             )}
 
             <S.Detail>
-              <S.Description>{postInfo?.content}</S.Description>
+              <S.Description>{postInfo.content}</S.Description>
               <S.VoteBox>
-                <S.OptionBox votingState={Number(postInfo?.votingState)}>
-                  <S.Option image={postInfo?.firstImageUrl} className='first'>
-                    <S.OptionTitle>{postInfo?.firstVotingOption}</S.OptionTitle>
+                <S.OptionBox votingState={Number(postInfo.votingState)}>
+                  <S.Option image={postInfo.firstImageUrl} className='first'>
+                    <S.OptionTitle>{postInfo.firstVotingOption}</S.OptionTitle>
                     <S.HoverBox>
                       <S.OptionName isHoverd={firstOptionHoverd}>
-                        <p>{postInfo?.firstVotingOption}</p>
+                        <p>{postInfo.firstVotingOption}</p>
                       </S.OptionName>
                     </S.HoverBox>
                   </S.Option>
                   <p className='vs'>VS</p>
-                  <S.Option image={postInfo?.secondImageUrl} className='second'>
-                    <S.OptionTitle>
-                      {postInfo?.secondVotingOption}
-                    </S.OptionTitle>
+                  <S.Option image={postInfo.secondImageUrl} className='second'>
+                    <S.OptionTitle>{postInfo.secondVotingOption}</S.OptionTitle>
                     <S.HoverBox>
                       <S.OptionName isHoverd={secondOptionHoverd}>
-                        <p>{postInfo?.secondVotingOption}</p>
+                        <p>{postInfo.secondVotingOption}</p>
                       </S.OptionName>
                     </S.HoverBox>
                   </S.Option>
                 </S.OptionBox>
-                {postInfo?.votingState === 0 ? (
+                {postInfo.votingState === 0 ? (
                   <S.ButtonWrap>
                     <S.VoteButton
                       onClick={() => vote(1)}
@@ -244,32 +237,36 @@ const PostDetail = () => {
                     </S.VoteButton>
                   </S.ButtonWrap>
                 ) : (
-                  <S.ButtonWrap votingState={postInfo?.votingState}>
+                  <S.ButtonWrap votingState={postInfo.votingState}>
                     <S.VoteButton
-                      onClick={() => postInfo?.votingState !== 1 && vote(1)}
+                      onClick={() => postInfo.votingState !== 1 && vote(1)}
                       className='firstBtn'
                       onMouseOver={() => setFirstOptionHoverd(true)}
                       onMouseOut={() => setFirstOptionHoverd(false)}
                     >
                       <h1>
                         {postInfo &&
-                          Math.round((firstVotingCount / participants) * 100)}
+                          Math.round(
+                            (postInfo.firstVotingCount / participants) * 100
+                          )}
                         %
                       </h1>
-                      <p>{firstVotingCount}명</p>
+                      <p>{postInfo.firstVotingCount}명</p>
                     </S.VoteButton>
                     <S.VoteButton
-                      onClick={() => postInfo?.votingState !== 2 && vote(2)}
+                      onClick={() => postInfo.votingState !== 2 && vote(2)}
                       onMouseEnter={() => setSecondOptionHoverd(true)}
                       onMouseLeave={() => setSecondOptionHoverd(false)}
                       className='secondBtn'
                     >
                       <h1>
                         {postInfo &&
-                          Math.round((secondVotingCount / participants) * 100)}
+                          Math.round(
+                            (postInfo.secondVotingCount / participants) * 100
+                          )}
                         %
                       </h1>
-                      <p>{secondVotingCount}명</p>
+                      <p>{postInfo.secondVotingCount}명</p>
                     </S.VoteButton>
                   </S.ButtonWrap>
                 )}
