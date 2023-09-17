@@ -20,7 +20,24 @@ import ReportPostModal from '../../components/modal/ReportPostModal';
 import BlockUserModal from '../../components/modal/BlockUserModal';
 
 const PostDetail = () => {
-  const [postInfo, setPostInfo] = useState<PostDetailType>();
+  const [postInfo, setPostInfo] = useState<PostDetailType>({
+    title: '',
+    content: '',
+    firstImageUrl: '',
+    secondImageUrl: '',
+    firstVotingCount: 0,
+    secondVotingCount: 0,
+    writer: '',
+    profileImageUrl: '',
+    firstVotingOption: '',
+    secondVotingOption: '',
+    votingState: 0,
+    participants: 0,
+    isMine: false,
+    commentList: [],
+  });
+  const [firstVotingCount, setFirstVotingCount] = useState<number>(0);
+  const [secondVotingCount, setSecondVotingCount] = useState<number>(0);
   const [reportChoiceModal, setReportChoiceModal] = useState<
     boolean | 'default'
   >('default');
@@ -61,6 +78,8 @@ const PostDetail = () => {
         10
       );
       setPostInfo(data);
+      setFirstVotingCount(data.firstVotingCount);
+      setSecondVotingCount(data.secondVotingCount);
       setParticipants(data.firstVotingCount + data.secondVotingCount);
     } catch (error: any) {
       if (error.response.status === 400) {
@@ -72,19 +91,35 @@ const PostDetail = () => {
     }
   };
 
+  const updateDataLocally = (newData: number) => {
+    if (newData === 1) {
+      setPostInfo({
+        ...postInfo,
+        votingState: 1,
+        firstVotingCount: firstVotingCount + 1,
+      });
+      setFirstVotingCount(firstVotingCount + 1);
+      setSecondVotingCount(secondVotingCount - 1);
+    } else if (newData === 2) {
+      setPostInfo({
+        ...postInfo,
+        votingState: 2,
+        secondVotingCount: secondVotingCount + 1,
+      });
+      setFirstVotingCount(firstVotingCount - 1);
+      setSecondVotingCount(secondVotingCount + 1);
+    }
+  };
+
   const onVote = async (choice: number) => {
     return await Post.vote(postId.idx, choice);
   };
 
   const { mutate: vote } = useMutation(onVote, {
-    onMutate: async (newData) => {
+    onMutate: async (newData: number) => {
       await queryClient.cancelQueries('post');
       const snapshotOfPreviousData = queryClient.getQueryData('post');
-      queryClient.setQueryData('post', (oldData: any) => ({
-        newData,
-        ...oldData,
-      }));
-
+      updateDataLocally(newData);
       return {
         snapshotOfPreviousData,
       };
@@ -93,7 +128,7 @@ const PostDetail = () => {
     onError: ({ snapshotOfPreviousData }) => {
       queryClient.setQueryData('post', snapshotOfPreviousData);
     },
-    onSuccess: async () => {
+    onSettled: async () => {
       await queryClient.invalidateQueries('todaysChoice');
       await queryClient.invalidateQueries('post');
     },
@@ -218,12 +253,10 @@ const PostDetail = () => {
                     >
                       <h1>
                         {postInfo &&
-                          Math.round(
-                            (postInfo.firstVotingCount / participants) * 100
-                          )}
+                          Math.round((firstVotingCount / participants) * 100)}
                         %
                       </h1>
-                      <p>{postInfo?.firstVotingCount}명</p>
+                      <p>{firstVotingCount}명</p>
                     </S.VoteButton>
                     <S.VoteButton
                       onClick={() => postInfo?.votingState !== 2 && vote(2)}
@@ -233,12 +266,10 @@ const PostDetail = () => {
                     >
                       <h1>
                         {postInfo &&
-                          Math.round(
-                            (postInfo.secondVotingCount / participants) * 100
-                          )}
+                          Math.round((secondVotingCount / participants) * 100)}
                         %
                       </h1>
-                      <p>{postInfo?.secondVotingCount}명</p>
+                      <p>{secondVotingCount}명</p>
                     </S.VoteButton>
                   </S.ButtonWrap>
                 )}
