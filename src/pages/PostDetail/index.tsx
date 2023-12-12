@@ -77,6 +77,7 @@ const PostDetail = () => {
       );
       setPostInfo(data);
       setParticipants(data.firstVotingCount + data.secondVotingCount);
+      console.log(data);
     } catch (error: any) {
       if (error.response.status === 400) {
         navigate('/');
@@ -95,25 +96,22 @@ const PostDetail = () => {
     onMutate: async (newData: number) => {
       await queryClient.cancelQueries('post');
       const snapshotOfPreviousData = queryClient.getQueryData('post');
-      setPostInfo((prevData) => {
-        let updatedFirstVotingCount = prevData.firstVotingCount;
-        let updatedSecondVotingCount = prevData.secondVotingCount;
 
-        if (newData === 1) {
-          updatedFirstVotingCount++;
-          updatedSecondVotingCount--;
-        } else if (newData === 2) {
-          updatedFirstVotingCount--;
-          updatedSecondVotingCount++;
-        }
+      postInfo.votingState !== 0 &&
+        setPostInfo((prevData) => {
+          if (newData === 1) {
+            prevData.firstVotingCount++;
+            prevData.secondVotingCount--;
+          } else if (newData === 2) {
+            prevData.firstVotingCount--;
+            prevData.secondVotingCount++;
+          }
 
-        return {
-          ...prevData,
-          votingState: newData,
-          firstVotingCount: updatedFirstVotingCount,
-          secondVotingCount: updatedSecondVotingCount,
-        };
-      });
+          return {
+            ...prevData,
+            votingState: newData,
+          };
+        });
 
       return {
         snapshotOfPreviousData,
