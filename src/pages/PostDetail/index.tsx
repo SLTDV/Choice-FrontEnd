@@ -77,7 +77,6 @@ const PostDetail = () => {
       );
       setPostInfo(data);
       setParticipants(data.firstVotingCount + data.secondVotingCount);
-      console.log(data);
     } catch (error: any) {
       if (error.response.status === 400) {
         navigate('/');
